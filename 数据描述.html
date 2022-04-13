@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 3 数据描述 | 数据科学导论（Introductory of Data Science）</title>
+<meta name="author" content="潘蓄林">
+<meta name="description" content="3.0.1 数据的意义及获取 数据的类型：使用不同的标准，可将数据分成不同的类型，如数量型和质量型； 质量型(Categorical)：定类变量(Nominal)、定序变量(Ordinal)； 数量型(Numerical)：定距数据(interval data)、等比变量(ratio); 数据的获取：实验数据、观察数据、网络抓取及公用数据库(UCI,kaggle)等；...">
+<meta name="generator" content="bookdown 0.25 with bs4_book()">
+<meta property="og:title" content="Chapter 3 数据描述 | 数据科学导论（Introductory of Data Science）">
+<meta property="og:type" content="book">
+<meta property="og:description" content="3.0.1 数据的意义及获取 数据的类型：使用不同的标准，可将数据分成不同的类型，如数量型和质量型； 质量型(Categorical)：定类变量(Nominal)、定序变量(Ordinal)； 数量型(Numerical)：定距数据(interval data)、等比变量(ratio); 数据的获取：实验数据、观察数据、网络抓取及公用数据库(UCI,kaggle)等；...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 3 数据描述 | 数据科学导论（Introductory of Data Science）">
+<meta name="twitter:description" content="3.0.1 数据的意义及获取 数据的类型：使用不同的标准，可将数据分成不同的类型，如数量型和质量型； 质量型(Categorical)：定类变量(Nominal)、定序变量(Ordinal)； 数量型(Numerical)：定距数据(interval data)、等比变量(ratio); 数据的获取：实验数据、观察数据、网络抓取及公用数据库(UCI,kaggle)等；...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">数据科学导论（Introductory of Data Science）</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> 前言（Prerequisites）</a></li>
+<li><a class="" href="r%E5%8F%8Apython%E8%AF%AD%E8%A8%80%E7%AE%80%E4%BB%8B.html"><span class="header-section-number">2</span> R及Python语言简介</a></li>
+<li><a class="active" href="%E6%95%B0%E6%8D%AE%E6%8F%8F%E8%BF%B0.html"><span class="header-section-number">3</span> 数据描述</a></li>
+<li><a class="" href="%E6%95%B0%E6%8D%AE%E6%95%B4%E7%90%86%E5%92%8C%E6%B8%85%E7%90%86.html"><span class="header-section-number">4</span> 数据整理和清理</a></li>
+<li><a class="" href="%E6%9C%89%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%AE%BA.html"><span class="header-section-number">5</span> 有监督学习概论</a></li>
+<li><a class="" href="final-words.html"><span class="header-section-number">6</span> Final Words</a></li>
+<li><a class="" href="references.html">References</a></li>
+<li><a class="" href="logistic%E5%9B%9E%E5%BD%92.html"><span class="header-section-number">7</span> Logistic回归</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="数据描述" class="section level1" number="3">
+<h1>
+<span class="header-section-number">3</span> 数据描述<a class="anchor" aria-label="anchor" href="#%E6%95%B0%E6%8D%AE%E6%8F%8F%E8%BF%B0"><i class="fas fa-link"></i></a>
+</h1>
+<div id="数据的意义及获取" class="section level3" number="3.0.1">
+<h3>
+<span class="header-section-number">3.0.1</span> 数据的意义及获取<a class="anchor" aria-label="anchor" href="#%E6%95%B0%E6%8D%AE%E7%9A%84%E6%84%8F%E4%B9%89%E5%8F%8A%E8%8E%B7%E5%8F%96"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>数据的类型：使用不同的标准，可将数据分成不同的类型，如数量型和质量型；
+<ul>
+<li>质量型(Categorical)：定类变量(Nominal)、定序变量(Ordinal)；</li>
+<li>数量型(Numerical)：定距数据(interval data)、等比变量(ratio);</li>
+</ul>
+</li>
+<li>数据的获取：实验数据、观察数据、网络抓取及公用数据库(UCI,kaggle)等；
+<ul>
+<li>datalist(<a href="https://www.datasetlist.com/">datalist</a>)汇集了多 个网站上的数据集;</li>
+<li>UCI数据库(<a href="http://archive.ics.uci.edu/ml/datasets.php">uci dataset</a>):创建于1987年，是一个比较有历史的数据集数据库，是一个含有数据库、领域知识及数据产生器的网站；</li>
+<li>Fastai(<a href="https://course.fast.ai/datasets">Fastai</a>):进行图像分类、NLP及图像定位(image localization)的数据集；</li>
+<li>Kaggle(<a href="https://www.kaggle.com/datasets">kaggle</a>)：数据科学竞赛的主要网站；</li>
+<li>Sklearn(<a href="https://scikit-learn.org/stable/">Skearn</a>)：数据科学非常重要的包；</li>
+</ul>
+</li>
+<li>数据的产生过程：总体(有限、无限，未知）和样本（总体的子集，随机性，已知）；
+<img src="pics/population-sample.png" alt="population and sample">
+</li>
+<li>表格型数据（结构化数据）：行(样本数量,rows), 列(变量名,columns)</li>
+</ol>
+<div class="sourceCode" id="cb401"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.statlearning.com">ISLR</a></span><span class="op">)</span>
+<span class="co">#View(Auto)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">Auto</span><span class="op">)</span> <span class="co"># 查看数据的前5行</span></code></pre></div>
+<pre><code>##   mpg cylinders displacement horsepower weight acceleration year origin
+## 1  18         8          307        130   3504         12.0   70      1
+## 2  15         8          350        165   3693         11.5   70      1
+## 3  18         8          318        150   3436         11.0   70      1
+## 4  16         8          304        150   3433         12.0   70      1
+## 5  17         8          302        140   3449         10.5   70      1
+## 6  15         8          429        198   4341         10.0   70      1
+##                        name
+## 1 chevrolet chevelle malibu
+## 2         buick skylark 320
+## 3        plymouth satellite
+## 4             amc rebel sst
+## 5               ford torino
+## 6          ford galaxie 500</code></pre>
+<div class="sourceCode" id="cb403"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">Auto</span><span class="op">)</span> <span class="co"># 查看变量名</span></code></pre></div>
+<pre><code>## [1] "mpg"          "cylinders"    "displacement" "horsepower"   "weight"      
+## [6] "acceleration" "year"         "origin"       "name"</code></pre>
+</div>
+<div id="简单的数据汇总" class="section level3" number="3.0.2">
+<h3>
+<span class="header-section-number">3.0.2</span> 简单的数据汇总<a class="anchor" aria-label="anchor" href="#%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E6%B1%87%E6%80%BB"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb405"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.statlearning.com">ISLR</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">Auto</span><span class="op">)</span></code></pre></div>
+<pre><code>##       mpg          cylinders      displacement     horsepower        weight    
+##  Min.   : 9.00   Min.   :3.000   Min.   : 68.0   Min.   : 46.0   Min.   :1613  
+##  1st Qu.:17.00   1st Qu.:4.000   1st Qu.:105.0   1st Qu.: 75.0   1st Qu.:2225  
+##  Median :22.75   Median :4.000   Median :151.0   Median : 93.5   Median :2804  
+##  Mean   :23.45   Mean   :5.472   Mean   :194.4   Mean   :104.5   Mean   :2978  
+##  3rd Qu.:29.00   3rd Qu.:8.000   3rd Qu.:275.8   3rd Qu.:126.0   3rd Qu.:3615  
+##  Max.   :46.60   Max.   :8.000   Max.   :455.0   Max.   :230.0   Max.   :5140  
+##                                                                                
+##   acceleration        year           origin                      name    
+##  Min.   : 8.00   Min.   :70.00   Min.   :1.000   amc matador       :  5  
+##  1st Qu.:13.78   1st Qu.:73.00   1st Qu.:1.000   ford pinto        :  5  
+##  Median :15.50   Median :76.00   Median :1.000   toyota corolla    :  5  
+##  Mean   :15.54   Mean   :75.98   Mean   :1.577   amc gremlin       :  4  
+##  3rd Qu.:17.02   3rd Qu.:79.00   3rd Qu.:2.000   amc hornet        :  4  
+##  Max.   :24.80   Max.   :82.00   Max.   :3.000   chevrolet chevette:  4  
+##                                                  (Other)           :365</code></pre>
+<div class="sourceCode" id="cb407"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Auto</span><span class="op">$</span><span class="va">mpg</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 23.44592</code></pre>
+<ul>
+<li><p>样本平均值的计算：<span class="math display">\[\bar{Y}=\frac{1}{n}\sum\limits_{i=1}^ny_i\]</span></p></li>
+<li><p>样本的方差：<span class="math display">\[s^2=\frac{1}{n-1}\sum\limits_{i=1}^n(x_i-\bar{x})^2\]</span></p></li>
+<li><p>线性相关系数：<span class="math display">\[r=\frac{\sum\limits_{i=1}^n(x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum\limits_{i=1}^n(x_i-\bar{x})^2}\sqrt{\sum\limits_{i=1}^n(y_i-\bar{y})^2}}\]</span></p></li>
+<li>
+<p>课堂练习：
+统计7位同学周未的学习时间，数据为：8，11，7，13，9，5，9，计算同学学习时间的均值，中位数、四分位数、标准差和极差（使用手算）。</p>
+<ul>
+<li><span class="math inline">\(\bar{x}=\frac{8+11+7+13+9+5+9}{7}=8.85\)</span></li>
+<li><span class="math inline">\(s^2=\frac{(8-8.85)^2+\cdots+(9-8.85)^2}{7-1}=6.81\)</span></li>
+<li><span class="math inline">\(s=\sqrt{s^2}=\sqrt{6.81}=2.6\)</span></li>
+<li>Median = 9; Mode = 9; Range = Max - min = 13-5=8</li>
+</ul>
+</li>
+</ul>
+<div class="sourceCode" id="cb409"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">8</span>,<span class="fl">11</span>,<span class="fl">7</span>,<span class="fl">13</span>,<span class="fl">9</span>,<span class="fl">5</span>,<span class="fl">9</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 8.857143</code></pre>
+<div class="sourceCode" id="cb411"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 9</code></pre>
+<div class="sourceCode" id="cb413"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/mode.html">mode</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "numeric"</code></pre>
+<div class="sourceCode" id="cb415"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></code></pre></div>
+<pre><code>##   0%  25%  50%  75% 100% 
+##  5.0  7.5  9.0 10.0 13.0</code></pre>
+<div class="sourceCode" id="cb417"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 2.609506</code></pre>
+</div>
+<div id="数据的可视化" class="section level3" number="3.0.3">
+<h3>
+<span class="header-section-number">3.0.3</span> 数据的可视化<a class="anchor" aria-label="anchor" href="#%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8F%AF%E8%A7%86%E5%8C%96"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>两个变量之间的关系：散点图(scatter)</li>
+</ol>
+<div class="sourceCode" id="cb419"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.statlearning.com">ISLR</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">Auto</span><span class="op">$</span><span class="va">mpg</span>,<span class="va">Auto</span><span class="op">$</span><span class="va">horsepower</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure">
+<img src="02-literature_files/figure-html/scatter-1.png" width="672">
+2. 描述数量变量数据分布情况的图形：直方图(histogram)</div>
+<div class="sourceCode" id="cb420"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">Auto</span><span class="op">$</span><span class="va">horsepower</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">Auto</span><span class="op">$</span><span class="va">mpg</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure">
+<img src="02-literature_files/figure-html/histogram-1.png" width="672">
+3. 描述数量变量数据分布情况的图形：盒形图或箱线图(boxplot)</div>
+<div class="sourceCode" id="cb421"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">Auto</span><span class="op">$</span><span class="va">horsepower</span><span class="op">)</span></code></pre></div>
+<p><img src="02-literature_files/figure-html/boxplot-1.png" width="672"><img src="pics/boxplot.png" alt="boxplot">
+4. 把一些数目以矩形形式显示, 表面上类似于直方图, 但直方图是描述连续数量变量的, 而条形图描述离散变量或分类变量各个水平计数(频数):条形图(barplot)。</p>
+<div class="sourceCode" id="cb422"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Simple Bar Plot</span>
+<span class="va">counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">gear</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html">barplot</a></span><span class="op">(</span><span class="va">counts</span>, main<span class="op">=</span><span class="st">"Car Distribution"</span>,
+   xlab<span class="op">=</span><span class="st">"Number of Gears"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="02-literature_files/figure-html/barplot-1.png" width="672"></div>
+<ol start="5" style="list-style-type: decimal">
+<li>ggplot2(<a href="https://ggplot2.tidyverse.org/index.html">ggplot2</a>):ggplot2是一个用于声明性地创建图形的系统，基于图形语法。你提供数据，告诉ggplot2如何将变量映射到美学上，使用什么图形基元，它就会处理好这些细节。</li>
+</ol>
+<ul>
+<li>一个简单的ggplot2例子</li>
+</ul>
+<div class="sourceCode" id="cb423"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span>, colour <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="02-literature_files/figure-html/ggplot01-1.png" width="672"></div>
+<div class="sourceCode" id="cb424"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Generate some sample data, then compute mean and standard deviation</span>
+<span class="co"># in each group</span>
+<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
+  gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, each <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span>,
+  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">30</span><span class="op">)</span>
+<span class="op">)</span>
+<span class="va">ds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/split.html">split</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">df</span><span class="op">$</span><span class="va">gp</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">d</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>, sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>, gp <span class="op">=</span> <span class="va">d</span><span class="op">$</span><span class="va">gp</span><span class="op">)</span>
+<span class="op">}</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co"># The summary data frame ds is used to plot larger red points on top</span>
+<span class="co"># of the raw data. Note that we don't need to supply `data` or `mapping`</span>
+<span class="co"># in each layer because the defaults from ggplot() are used.</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">gp</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ds</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">mean</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">'red'</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="02-literature_files/figure-html/ggplot02-1.png" width="672"></div>
+<ol start="6" style="list-style-type: decimal">
+<li>漂亮图形的几大要素：
+<ul>
+<li>数据类型（Data Component）: 不同的数据类型使用合适的图形来表示，条形图（离散型数据）、直方图（连续型数据）等。</li>
+<li>几何要素（Geometric Component）: 根据数据选择合适的的图形scatter plot, line graphs, barplots, histograms, qqplots, smooth densities, boxplots, pairplots, heatmaps, etc.</li>
+<li>坐标要素（Mapping Component）: 选择合适的横坐标和纵坐标.</li>
+<li>刻度要素（Scale Component）:选择合适的刻度. linear scale, log scale, etc.</li>
+<li>标识要素（Labels Component）: This include things like axes labels, titles, legends, font size to use, etc.</li>
+<li>Ethical Component: Here, you want to make sure your visualization tells the true story. You need to be aware of your actions when cleaning, summarizing, manipulating and producing a data visualization and ensure you aren’t using your visualization to mislead or manipulate your audience.</li>
+</ul>
+</li>
+</ol>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="r%E5%8F%8Apython%E8%AF%AD%E8%A8%80%E7%AE%80%E4%BB%8B.html"><span class="header-section-number">2</span> R及Python语言简介</a></div>
+<div class="next"><a href="%E6%95%B0%E6%8D%AE%E6%95%B4%E7%90%86%E5%92%8C%E6%B8%85%E7%90%86.html"><span class="header-section-number">4</span> 数据整理和清理</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav"><li>
+<a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%8F%8F%E8%BF%B0"><span class="header-section-number">3</span> 数据描述</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%9A%84%E6%84%8F%E4%B9%89%E5%8F%8A%E8%8E%B7%E5%8F%96"><span class="header-section-number">3.0.1</span> 数据的意义及获取</a></li>
+<li><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E6%B1%87%E6%80%BB"><span class="header-section-number">3.0.2</span> 简单的数据汇总</a></li>
+<li><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="header-section-number">3.0.3</span> 数据的可视化</a></li>
+</ul>
+</li></ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>数据科学导论（Introductory of Data Science）</strong>" was written by 潘蓄林. It was last built on 2022-04-12.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
