@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 5 有监督学习概论 | 数据科学导论（Introductory of Data Science）</title>
+<meta name="author" content="潘蓄林">
+<meta name="description" content="5.0.1 机器学习 机器学习1959年由Arthur Samuel首次提出； 机器学习是研究计算机算法，这个算法可通过数据产生的经验自动地改善（Machine learning (ML) is the study of computer algorithms that can improve automatically through experience and by the use...">
+<meta name="generator" content="bookdown 0.25 with bs4_book()">
+<meta property="og:title" content="Chapter 5 有监督学习概论 | 数据科学导论（Introductory of Data Science）">
+<meta property="og:type" content="book">
+<meta property="og:description" content="5.0.1 机器学习 机器学习1959年由Arthur Samuel首次提出； 机器学习是研究计算机算法，这个算法可通过数据产生的经验自动地改善（Machine learning (ML) is the study of computer algorithms that can improve automatically through experience and by the use...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 5 有监督学习概论 | 数据科学导论（Introductory of Data Science）">
+<meta name="twitter:description" content="5.0.1 机器学习 机器学习1959年由Arthur Samuel首次提出； 机器学习是研究计算机算法，这个算法可通过数据产生的经验自动地改善（Machine learning (ML) is the study of computer algorithms that can improve automatically through experience and by the use...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">数据科学导论（Introductory of Data Science）</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> 前言（Prerequisites）</a></li>
+<li><a class="" href="r%E5%8F%8Apython%E8%AF%AD%E8%A8%80%E7%AE%80%E4%BB%8B.html"><span class="header-section-number">2</span> R及Python语言简介</a></li>
+<li><a class="" href="%E6%95%B0%E6%8D%AE%E6%8F%8F%E8%BF%B0.html"><span class="header-section-number">3</span> 数据描述</a></li>
+<li><a class="" href="%E6%95%B0%E6%8D%AE%E6%95%B4%E7%90%86%E5%92%8C%E6%B8%85%E7%90%86.html"><span class="header-section-number">4</span> 数据整理和清理</a></li>
+<li><a class="active" href="%E6%9C%89%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%AE%BA.html"><span class="header-section-number">5</span> 有监督学习概论</a></li>
+<li><a class="" href="final-words.html"><span class="header-section-number">6</span> Final Words</a></li>
+<li><a class="" href="references.html">References</a></li>
+<li><a class="" href="github%E4%BD%BF%E7%94%A8.html"><span class="header-section-number">7</span> github使用</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="有监督学习概论" class="section level1" number="5">
+<h1>
+<span class="header-section-number">5</span> 有监督学习概论<a class="anchor" aria-label="anchor" href="#%E6%9C%89%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%AE%BA"><i class="fas fa-link"></i></a>
+</h1>
+<div id="机器学习" class="section level3" number="5.0.1">
+<h3>
+<span class="header-section-number">5.0.1</span> 机器学习<a class="anchor" aria-label="anchor" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>机器学习1959年由Arthur Samuel首次提出；</li>
+<li>机器学习是研究计算机算法，这个算法可通过数据产生的经验自动地改善（Machine learning (ML) is the study of computer algorithms that can improve automatically through experience and by the use of data）（Mitchell,Tom，1959）</li>
+<li>机器学习是计算机程序，如果该程序在T类任务中的表现，如P所衡量的，随着经验E的增加而提高，那么就可以说它从经验E中学习到了一些任务T和性能指标P。（A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P if its performance at tasks in T, as measured by P, improves with experience E.）（Tom M. Mitchell ）</li>
+<li>一系列的数据驱动的算法和工具，它的主要目的是根据观测到的数据来预测没有观测到的数据，它的最大特点就是数据驱动。</li>
+<li>机器学习的种类:</li>
+</ul>
+<div class="figure">
+<img src="pics/machine%20learning.jpg" alt=""><p class="caption">machine learning</p>
+</div>
+</div>
+<div id="机器学习实例" class="section level3" number="5.0.2">
+<h3>
+<span class="header-section-number">5.0.2</span> 机器学习实例<a class="anchor" aria-label="anchor" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E4%BE%8B"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li><p>房价预测：如何对房子的价格进行预测？采集与房子有关的变量：区域、房子朝向、楼层、周围是否有地铁、面积、房屋的价格等数据，构建一个回归模型来进行预测。<span class="math display">\[y=f(X)+\epsilon\]</span></p></li>
+<li><p>垃圾邮件分类：根据邮件内容提取出一些特征关键词作为X，而响应变量y为两个是值：1垃圾邮件，0好邮件，构建一个分类器进行邮件分类。<span class="math display">\[C(x)=P(y=1|X)\]</span></p></li>
+<li><p>我们做过的舆情分析案例（聚类分析）：使用评论数据，通过词向量技术解析得到词向量，然后进行主题分析，得到网络谣言、疫情趋势、地点（国外）、处罚、疫苗等主题，从而根据这些主题词来识别谣言。</p></li>
+<li><p>强化学习:玩Super Mario Bros游戏</p></li>
+</ul>
+<div class="figure">
+<img src="pics/reinforcementLearning.png" alt=""><p class="caption">ReinforcementLearning</p>
+</div>
+</div>
+<div id="模型及拟合" class="section level2" number="5.1">
+<h2>
+<span class="header-section-number">5.1</span> 模型及拟合<a class="anchor" aria-label="anchor" href="#%E6%A8%A1%E5%9E%8B%E5%8F%8A%E6%8B%9F%E5%90%88"><i class="fas fa-link"></i></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li>模型：人们对所关心的真实世界问题的一个近似描述。</li>
+</ol>
+<div class="figure">
+<img src="pics/model.jpg" alt=""><p class="caption">Model</p>
+</div>
+<ol start="2" style="list-style-type: decimal">
+<li>
+<div class="inline-figure">决策树模型：是一种有监督学习的算法，使用一系列的是和否规则（if-then rules)来进行决策，和人进行决策的过程类似。
+<img src="pics/decisiontree.jpg" alt="Model">
+</div>
+<ul>
+<li>数据：</li>
+</ul>
+</li>
+</ol>
+<div class="sourceCode" id="cb497"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># install.packages{"rpart"}</span>
+<span class="co"># install.packages{"rattle"}</span>
+<span class="co"># install.packages{"partykit"}</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bethatkinson/rpart">rpart</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.milbo.org/rpart-plot/index.html">rpart.plot</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rattle.togaware.com/">rattle</a></span><span class="op">)</span></code></pre></div>
+<pre><code>## Loading required package: tibble</code></pre>
+<pre><code>## Loading required package: bitops</code></pre>
+<pre><code>## Rattle: A free graphical interface for data science with R.
+## Version 5.5.1 Copyright (c) 2006-2021 Togaware Pty Ltd.
+## Type 'rattle()' to shake, rattle, and roll your data.</code></pre>
+<div class="sourceCode" id="cb501"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://partykit.r-forge.r-project.org/partykit/">partykit</a></span><span class="op">)</span></code></pre></div>
+<pre><code>## Loading required package: grid</code></pre>
+<pre><code>## Loading required package: libcoin</code></pre>
+<pre><code>## Loading required package: mvtnorm</code></pre>
+<div class="sourceCode" id="cb505"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># inpput the file</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">trees</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">trees</span><span class="op">)</span></code></pre></div>
+<pre><code>##   Girth Height Volume
+## 1   8.3     70   10.3
+## 2   8.6     65   10.3
+## 3   8.8     63   10.2
+## 4  10.5     72   16.4
+## 5  10.7     81   18.8
+## 6  10.8     83   19.7</code></pre>
+<div class="sourceCode" id="cb507"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">volume</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rpart/man/rpart.html">rpart</a></span><span class="op">(</span><span class="va">Volume</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">trees</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/rpart.plot/man/rpart.plot.html">rpart.plot</a></span><span class="op">(</span><span class="va">volume</span>, type <span class="op">=</span> <span class="fl">3</span>, clip.right.labs <span class="op">=</span> <span class="cn">FALSE</span>, branch <span class="op">=</span> <span class="fl">.3</span>, under <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="04-application_files/figure-html/decisiontree-1.png" width="672"></div>
+<div class="sourceCode" id="cb508"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"./data/simple4.csv"</span><span class="op">)</span>
+<span class="va">df</span></code></pre></div>
+<pre><code>##    sex haircol skirt style
+## 1    F  yellow     y     n
+## 2    F   black     y     n
+## 3    F  yellow     n     y
+## 4    F   black     n     y
+## 5    M  yellow     n     n
+## 6    M   black     n     n
+## 7    M  yellow     y     n
+## 8    F   black     n     y
+## 9    M  yellow     n     n
+## 10   F   black     y     n
+## 11   M   black     y     y
+## 12   F  yellow     n     y</code></pre>
+<div class="sourceCode" id="cb510"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#sex &lt;- factor(df$sex, levels = 0:1, labels = c("M", "F"))</span>
+<span class="co">#haircol &lt;- factor(df$haircol,levels = 0:1, labels = c("yellow", "black"))</span>
+<span class="co">#skirt &lt;- factor(df$skirt,levels = 0:1, labels = c("y", "n"))</span>
+<span class="co">#style &lt;- factor(df$style,levels = 0:1, labels = c("y", "n"))</span>
+<span class="co">#df[] &lt;- lapply(df,factor)</span>
+<span class="co">#str(df)</span>
+<span class="co">#output.tree&lt;- rpart(sex~.,data=df,cp=0.02)</span>
+<span class="co">#print(output.tree)</span>
+<span class="co">#rpart.plot(output.tree)</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>节点纯度的度量：Gini系数和熵
+<span class="math display">\[GiniIndex=1-\sum\limits_{i=1}^kp_i^2\]</span>
+<span class="math display">\[Entropy=-\sum\limits_{i=1}^kp_i\times log(p_i)\]</span>
+</li>
+</ol>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="%E6%95%B0%E6%8D%AE%E6%95%B4%E7%90%86%E5%92%8C%E6%B8%85%E7%90%86.html"><span class="header-section-number">4</span> 数据整理和清理</a></div>
+<div class="next"><a href="final-words.html"><span class="header-section-number">6</span> Final Words</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li>
+<a class="nav-link" href="#%E6%9C%89%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%AE%BA"><span class="header-section-number">5</span> 有监督学习概论</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"><span class="header-section-number">5.0.1</span> 机器学习</a></li>
+<li><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E4%BE%8B"><span class="header-section-number">5.0.2</span> 机器学习实例</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E5%8F%8A%E6%8B%9F%E5%90%88"><span class="header-section-number">5.1</span> 模型及拟合</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>数据科学导论（Introductory of Data Science）</strong>" was written by 潘蓄林. It was last built on 2022-04-27.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
