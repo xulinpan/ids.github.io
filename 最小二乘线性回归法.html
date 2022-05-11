@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | 数据科学导论（Introductory of Data Science）</title>
+  <title>Chapter 6 最小二乘线性回归法 | 数据科学导论（Introductory of Data Science）</title>
   <meta name="description" content="2022年数据科学导论" />
   <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | 数据科学导论（Introductory of Data Science）" />
+  <meta property="og:title" content="Chapter 6 最小二乘线性回归法 | 数据科学导论（Introductory of Data Science）" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="2022年数据科学导论" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | 数据科学导论（Introductory of Data Science）" />
+  <meta name="twitter:title" content="Chapter 6 最小二乘线性回归法 | 数据科学导论（Introductory of Data Science）" />
   
   <meta name="twitter:description" content="2022年数据科学导论" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-
+<link rel="prev" href="有监督学习概论.html"/>
+<link rel="next" href="logistic回归.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -206,19 +206,133 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="最小二乘线性回归法" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> 最小二乘线性回归法<a href="最小二乘线性回归法.html#最小二乘线性回归法" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="相关概念" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> 相关概念<a href="最小二乘线性回归法.html#相关概念" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>因变量(Dependent variable,Y)：依赖于其它变量的变化而变化，响应变量；</li>
+<li>自变量(Independent variable,X)：可以直接控制的变量，协变量；</li>
+<li>有监督学习的数据表示：<span class="math inline">\(D=\{(x_1,y_1),\cdots,x_n,y_n)\},x\in R^p,y \in R\)</span>;</li>
+<li>模型（model)：函数；</li>
+<li>参数(Parameters)：参数是添加到模型中用于估计输出的成分;</li>
+</ol>
+</div>
+<div id="线性模型" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> 线性模型<a href="最小二乘线性回归法.html#线性模型" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>因变量的值由独立自变量之间的线性数学模型决定。<span class="math display">\[y=\beta_0+\beta_1\times x_1+,\cdots,+\beta_p\times x_p\]</span>,模型表示：</p>
+<span class="math display">\[\begin{bmatrix}
+    y_{1} \\
+    y_{2} \\
+    \cdots\\
+    y_{n}
+\end{bmatrix}\]</span>
+=
+<span class="math display">\[\begin{bmatrix}
+    \beta_0 \\
+    \beta_0 \\
+    \cdots \\
+    \beta_0
+\end{bmatrix}\]</span>
++
+<span class="math display">\[\begin{bmatrix}
+    x_{11}       &amp; x_{12}  &amp; \dots &amp; x_{1p} \\
+    x_{21}       &amp; x_{22}  &amp; \dots &amp; x_{2p} \\
+    \cdots       &amp; \cdots  &amp; \cdots &amp; \cdots\\
+    x_{n1}       &amp; x_{n2}  &amp; \dots &amp; x_{np}
+\end{bmatrix}
+\times
+\begin{bmatrix}
+    \beta_1 \\
+    \beta_2 \\
+    \cdots \\
+    \beta_p
+\end{bmatrix}\]</span>
+<p>模型的矩阵表示：
+<span class="math display">\[Y=X\beta\]</span></p>
+<div id="模型的估计" class="section level3 hasAnchor" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> 模型的估计<a href="最小二乘线性回归法.html#模型的估计" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>损失函数（平方和损失）：<span class="math display">\[RSS=(y-X\beta)^T(Y-X\beta)\]</span></li>
+<li>数值解：<span class="math display">\[\hat{\beta}=(X^TX)^{-1}X^Ty\]</span></li>
+</ul>
+</div>
+<div id="回归实例" class="section level3 hasAnchor" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> 回归实例<a href="最小二乘线性回归法.html#回归实例" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>使用MASS库中所带的波士顿房价数据，其中的因变量为房价的中位数，自变量为房龄、房间数等，想预测房价。</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="最小二乘线性回归法.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb1-2"><a href="最小二乘线性回归法.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR)</span>
+<span id="cb1-3"><a href="最小二乘线性回归法.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#fix(Boston)</span></span>
+<span id="cb1-4"><a href="最小二乘线性回归法.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple linear regression model</span></span>
+<span id="cb1-5"><a href="最小二乘线性回归法.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(Boston)</span></code></pre></div>
+<pre><code>##  [1] &quot;crim&quot;    &quot;zn&quot;      &quot;indus&quot;   &quot;chas&quot;    &quot;nox&quot;     &quot;rm&quot;      &quot;age&quot;    
+##  [8] &quot;dis&quot;     &quot;rad&quot;     &quot;tax&quot;     &quot;ptratio&quot; &quot;black&quot;   &quot;lstat&quot;   &quot;medv&quot;</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="最小二乘线性回归法.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Boston<span class="sc">$</span>medv,Boston<span class="sc">$</span>lstat)</span></code></pre></div>
+<p><img src="05-summary_files/figure-html/boslin-1.png" width="672" /></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="最小二乘线性回归法.html#cb4-1" aria-hidden="true" tabindex="-1"></a>slm.fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Boston<span class="sc">$</span>medv<span class="sc">~</span>Boston<span class="sc">$</span>lstat,<span class="at">data=</span>Boston)</span>
+<span id="cb4-2"><a href="最小二乘线性回归法.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(slm.fit)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Boston$medv ~ Boston$lstat, data = Boston)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -15.168  -3.990  -1.318   2.034  24.500 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  34.55384    0.56263   61.41   &lt;2e-16 ***
+## Boston$lstat -0.95005    0.03873  -24.53   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.216 on 504 degrees of freedom
+## Multiple R-squared:  0.5441, Adjusted R-squared:  0.5432 
+## F-statistic: 601.6 on 1 and 504 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="最小二乘线性回归法.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># multiple variance regression</span></span>
+<span id="cb6-2"><a href="最小二乘线性回归法.html#cb6-2" aria-hidden="true" tabindex="-1"></a>mlm.fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Boston<span class="sc">$</span>medv<span class="sc">~</span>Boston<span class="sc">$</span>lstat<span class="sc">+</span>Boston<span class="sc">$</span>age,<span class="at">data=</span>Boston)</span>
+<span id="cb6-3"><a href="最小二乘线性回归法.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mlm.fit)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Boston$medv ~ Boston$lstat + Boston$age, data = Boston)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -15.981  -3.978  -1.283   1.968  23.158 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  33.22276    0.73085  45.458  &lt; 2e-16 ***
+## Boston$lstat -1.03207    0.04819 -21.416  &lt; 2e-16 ***
+## Boston$age    0.03454    0.01223   2.826  0.00491 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.173 on 503 degrees of freedom
+## Multiple R-squared:  0.5513, Adjusted R-squared:  0.5495 
+## F-statistic:   309 on 2 and 503 DF,  p-value: &lt; 2.2e-16</code></pre>
+<ul>
+<li>结果解释：变量之间独立的情况下，系数就为影响程度，若存在多重共线性，则系数的解释比较复杂。</li>
+</ul>
+</div>
+<div id="练习" class="section level3 hasAnchor" number="6.2.3">
+<h3><span class="header-section-number">6.2.3</span> 练习<a href="最小二乘线性回归法.html#练习" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>例6.1</li>
+</ul>
+
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-
+<a href="有监督学习概论.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="logistic回归.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -249,7 +363,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/%s",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/05-summary.Rmd",
 "text": "Edit"
 },
 "history": {
