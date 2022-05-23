@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 7 Logistic回归 | 数据科学导论（Introductory of Data Science）</title>
 <meta name="author" content="潘蓄林">
-<meta name="description" content="2022年数据科学导论">
+<meta name="description" content="7.1 相关概念 因变量(Dependent variable,Y)：类别变量； 自变量(Independent variable,X)：连续型变量或离散型变量； 二分类分类模型:邮件分类（好邮件，垃圾邮件）；疾病诊断（是否得Covid-19)等。  7.2 Logistic模型 odds: \(odds=\frac{p(x)}{1-p(x)}\)...">
 <meta name="generator" content="bookdown 0.25 with bs4_book()">
 <meta property="og:title" content="Chapter 7 Logistic回归 | 数据科学导论（Introductory of Data Science）">
 <meta property="og:type" content="book">
-<meta property="og:description" content="2022年数据科学导论">
+<meta property="og:description" content="7.1 相关概念 因变量(Dependent variable,Y)：类别变量； 自变量(Independent variable,X)：连续型变量或离散型变量； 二分类分类模型:邮件分类（好邮件，垃圾邮件）；疾病诊断（是否得Covid-19)等。  7.2 Logistic模型 odds: \(odds=\frac{p(x)}{1-p(x)}\)...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 7 Logistic回归 | 数据科学导论（Introductory of Data Science）">
-<meta name="twitter:description" content="2022年数据科学导论">
+<meta name="twitter:description" content="7.1 相关概念 因变量(Dependent variable,Y)：类别变量； 自变量(Independent variable,X)：连续型变量或离散型变量； 二分类分类模型:邮件分类（好邮件，垃圾邮件）；疾病诊断（是否得Covid-19)等。  7.2 Logistic模型 odds: \(odds=\frac{p(x)}{1-p(x)}\)...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -49,8 +49,9 @@
 <li><a class="" href="%E6%9C%89%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%AE%BA.html"><span class="header-section-number">5</span> 有监督学习概论</a></li>
 <li><a class="" href="%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%B3%95.html"><span class="header-section-number">6</span> 最小二乘线性回归法</a></li>
 <li><a class="active" href="logistic%E5%9B%9E%E5%BD%92.html"><span class="header-section-number">7</span> Logistic回归</a></li>
+<li><a class="" href="%E5%86%B3%E7%AD%96%E6%A0%91%E5%8F%8A%E5%85%B6%E7%BB%84%E5%90%88%E6%96%B9%E6%B3%95.html"><span class="header-section-number">8</span> 决策树及其组合方法</a></li>
+<li><a class="" href="github%E4%BD%BF%E7%94%A8.html"><span class="header-section-number">9</span> github使用</a></li>
 <li><a class="" href="references.html">References</a></li>
-<li><a class="" href="github%E4%BD%BF%E7%94%A8.html"><span class="header-section-number">8</span> github使用</a></li>
 </ul>
 
         <div class="book-extra">
@@ -62,14 +63,211 @@
 <h1>
 <span class="header-section-number">7</span> Logistic回归<a class="anchor" aria-label="anchor" href="#logistic%E5%9B%9E%E5%BD%92"><i class="fas fa-link"></i></a>
 </h1>
+<div id="相关概念-1" class="section level2" number="7.1">
+<h2>
+<span class="header-section-number">7.1</span> 相关概念<a class="anchor" aria-label="anchor" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5-1"><i class="fas fa-link"></i></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li>因变量(Dependent variable,Y)：类别变量；</li>
+<li>自变量(Independent variable,X)：连续型变量或离散型变量；</li>
+<li>二分类分类模型:邮件分类（好邮件，垃圾邮件）；疾病诊断（是否得Covid-19)等。</li>
+</ol>
+</div>
+<div id="logistic模型" class="section level2" number="7.2">
+<h2>
+<span class="header-section-number">7.2</span> Logistic模型<a class="anchor" aria-label="anchor" href="#logistic%E6%A8%A1%E5%9E%8B"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li><p>odds: <span class="math inline">\(odds=\frac{p(x)}{1-p(x)}\)</span></p></li>
+<li><p>sigmoid函数：<span class="math inline">\(y=\frac{1}{1+e^{-z}}\)</span></p></li>
+</ul>
+<div class="sourceCode" id="cb594"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>,<span class="fl">10</span>,<span class="fl">0.01</span><span class="op">)</span>
+<span class="va">sigmoid</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
+  <span class="fl">1</span><span class="op">/</span><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">sigmoid</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="va">df_sig</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span>,y<span class="op">=</span><span class="va">y</span><span class="op">)</span>
+<span class="co">#plot(x,sigmoid(x),col="blue")</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">df_sig</span>,<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span>,y<span class="op">=</span><span class="va">y</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"blue"</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"text"</span>,x<span class="op">=</span><span class="fl">2</span>,y<span class="op">=</span><span class="fl">0.3</span>,parse<span class="op">=</span><span class="cn">TRUE</span>,
+           label<span class="op">=</span><span class="st">"frac(1,1+e^{-z})"</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"sigmoid funtion  "</span>,<span class="fu"><a href="https://rdrr.io/r/stats/sigma.html">sigma</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">==</span><span class="fu"><a href="https://rdrr.io/r/grDevices/plotmath.html">frac</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">+</span><span class="va">e</span><span class="op">^</span><span class="op">{</span><span class="op">-</span><span class="va">z</span><span class="op">}</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>yintercept<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span>,color<span class="op">=</span><span class="st">"red"</span>,linetype<span class="op">=</span><span class="st">"dashed"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="06-logreg_files/figure-html/sigmoid-1.png" width="672"></div>
+<ul>
+<li>logistic回归模型：是解决分类的机器学习算法，主要解决二分类的问题。因变量的估计值由条件概率和决策边界决定。<span class="math display">\[p(y)=p(y=k|X=x)=\frac{1}{1+e^{-X\beta}}\]</span>
+</li>
+</ul>
+</div>
+<div id="模型估计" class="section level2" number="7.3">
+<h2>
+<span class="header-section-number">7.3</span> 模型估计<a class="anchor" aria-label="anchor" href="#%E6%A8%A1%E5%9E%8B%E4%BC%B0%E8%AE%A1"><i class="fas fa-link"></i></a>
+</h2>
+<div id="损失函数loss-function" class="section level3" number="7.3.1">
+<h3>
+<span class="header-section-number">7.3.1</span> 损失函数(Loss function)<a class="anchor" aria-label="anchor" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0loss-function"><i class="fas fa-link"></i></a>
+</h3>
+<p><span class="math display">\[L(\hat{y},y)=-(y*log(\hat{y})+(1-y)*log(1-\hat{y}))\]</span>
+### 代价函数(Cost funtion)</p>
+<p><span class="math display">\[J(\theta)=-\frac{1}{m}\sum\limits_{i=1}^mL(\hat{y}^{(i)}-y^{(i)})\]</span></p>
+</div>
+<div id="模型估计estimation" class="section level3" number="7.3.2">
+<h3>
+<span class="header-section-number">7.3.2</span> 模型估计(estimation)<a class="anchor" aria-label="anchor" href="#%E6%A8%A1%E5%9E%8B%E4%BC%B0%E8%AE%A1estimation"><i class="fas fa-link"></i></a>
+</h3>
+<p>梯度下降（Gradient Descent）的方法。</p>
+<p><span class="math display">\[\theta_j:=\theta_j-\alpha\frac{\partial}{\partial \theta_j}J(\theta)\]</span></p>
+</div>
+<div id="模拟数据模型" class="section level3" number="7.3.3">
+<h3>
+<span class="header-section-number">7.3.3</span> 模拟数据模型<a class="anchor" aria-label="anchor" href="#%E6%A8%A1%E6%8B%9F%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb595"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 
+<span class="co"># faked data produce</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">520</span><span class="op">)</span>
+<span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>
+<span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>
+<span class="va">z</span> <span class="op">&lt;-</span> <span class="fl">3</span><span class="op">+</span><span class="fl">2</span><span class="op">*</span><span class="va">x1</span><span class="op">+</span><span class="fl">5</span><span class="op">*</span><span class="va">x2</span>
+<span class="va">pr</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="va">z</span><span class="op">)</span><span class="op">)</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="fl">1000</span>,<span class="fl">1</span>,<span class="va">pr</span><span class="op">)</span>
+
+<span class="va">data_logreg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">y</span>,x1<span class="op">=</span><span class="va">x1</span>,x2<span class="op">=</span><span class="va">x2</span><span class="op">)</span>
+<span class="va">data_logreg</span><span class="op">$</span><span class="va">y_factor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">data_logreg</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">data_logreg</span><span class="op">)</span></code></pre></div>
+<pre><code>##   y          x1         x2 y_factor
+## 1 0 -1.07545511 -0.7586247        0
+## 2 1 -1.28608682  0.7911798        1
+## 3 1 -1.21028388  0.7932912        1
+## 4 1  0.08780203 -0.1222843        1
+## 5 1 -0.48698853  0.6076338        1
+## 6 1  2.39494281 -0.9934082        1</code></pre>
+<div class="sourceCode" id="cb597"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># visualize data</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">data_logreg</span>,<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">x1</span>,y<span class="op">=</span><span class="va">y</span>,color<span class="op">=</span><span class="va">y_factor</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">stat_smooth</a></span><span class="op">(</span>method<span class="op">=</span><span class="st">"glm"</span>,color<span class="op">=</span><span class="st">"blue"</span>,se<span class="op">=</span><span class="cn">FALSE</span>,method.args<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>family<span class="op">=</span><span class="va">binomial</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula 'y ~ x'</code></pre>
+<div class="inline-figure"><img src="06-logreg_files/figure-html/logreg-1.png" width="672"></div>
+<div class="sourceCode" id="cb599"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># model estimate</span>
+<span class="va">log_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">y_factor</span><span class="op">~</span><span class="va">x1</span><span class="op">+</span><span class="va">x2</span>,family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">binomial</a></span><span class="op">(</span>link<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span>,data<span class="op">=</span><span class="va">data_logreg</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">log_fit</span><span class="op">)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = y_factor ~ x1 + x2, family = binomial(link = "logit"), 
+##     data = data_logreg)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -3.5699  -0.0877   0.0247   0.1788   3.1761  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)   3.3905     0.2848   11.90   &lt;2e-16 ***
+## x1            2.1482     0.1878   11.44   &lt;2e-16 ***
+## x2            5.7433     0.4348   13.21   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1276.69  on 999  degrees of freedom
+## Residual deviance:  377.26  on 997  degrees of freedom
+## AIC: 383.26
+## 
+## Number of Fisher Scoring iterations: 7</code></pre>
+<div class="sourceCode" id="cb601"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Result analysis</span>
+<span class="co">#install.packages("caret")</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span></code></pre></div>
+<pre><code>## Loading required package: lattice</code></pre>
+<div class="sourceCode" id="cb603"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">log_fit</span>,newdata<span class="op">=</span><span class="va">data_logreg</span>,type<span class="op">=</span><span class="st">"response"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">pdata</span><span class="op">)</span></code></pre></div>
+<pre><code>##          1          2          3          4          5          6 
+## 0.03637469 0.99435703 0.99525852 0.94668772 0.99708267 0.94427164</code></pre>
+<div class="sourceCode" id="cb605"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># use caret to calculate the confusion matrix</span>
+<span class="va">data_logreg</span><span class="op">$</span><span class="va">pre_glm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fifelse.html">ifelse</a></span><span class="op">(</span><span class="va">pdata</span><span class="op">&gt;</span><span class="fl">0.5</span>,<span class="st">"1"</span>,<span class="st">"0"</span><span class="op">)</span>
+<span class="va">data_logreg</span><span class="op">$</span><span class="va">pre_glm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">data_logreg</span><span class="op">$</span><span class="va">pre_glm</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">data_logreg</span><span class="op">)</span></code></pre></div>
+<pre><code>##   y          x1         x2 y_factor pre_glm
+## 1 0 -1.07545511 -0.7586247        0       0
+## 2 1 -1.28608682  0.7911798        1       1
+## 3 1 -1.21028388  0.7932912        1       1
+## 4 1  0.08780203 -0.1222843        1       1
+## 5 1 -0.48698853  0.6076338        1       1
+## 6 1  2.39494281 -0.9934082        1       1</code></pre>
+<div class="sourceCode" id="cb607"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/caret/man/confusionMatrix.html">confusionMatrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">data_logreg</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">data_logreg</span><span class="op">$</span><span class="va">pre_glm</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction   0   1
+##          0 295  41
+##          1  35 629
+##                                           
+##                Accuracy : 0.924           
+##                  95% CI : (0.9058, 0.9397)
+##     No Information Rate : 0.67            
+##     P-Value [Acc &gt; NIR] : &lt;2e-16          
+##                                           
+##                   Kappa : 0.8289          
+##                                           
+##  Mcnemar's Test P-Value : 0.5663          
+##                                           
+##             Sensitivity : 0.8939          
+##             Specificity : 0.9388          
+##          Pos Pred Value : 0.8780          
+##          Neg Pred Value : 0.9473          
+##              Prevalence : 0.3300          
+##          Detection Rate : 0.2950          
+##    Detection Prevalence : 0.3360          
+##       Balanced Accuracy : 0.9164          
+##                                           
+##        'Positive' Class : 0               
+## </code></pre>
+<div class="sourceCode" id="cb609"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># plot ROC</span>
+<span class="co">#install("ROCR")</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ipa-tys.github.io/ROCR/">ROCR</a></span><span class="op">)</span>
+<span class="va">pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://ipa-tys.github.io/ROCR/reference/prediction.html">prediction</a></span><span class="op">(</span><span class="va">pdata</span>,<span class="va">data_logreg</span><span class="op">$</span><span class="va">y_factor</span><span class="op">)</span>
+<span class="va">perf</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://ipa-tys.github.io/ROCR/reference/performance.html">performance</a></span><span class="op">(</span><span class="va">pred</span>,measure<span class="op">=</span><span class="st">"tpr"</span>,x.measure<span class="op">=</span><span class="st">"fpr"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">perf</span>,col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html">rainbow</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>,main<span class="op">=</span><span class="st">"ROC curve admissions"</span>,xlab<span class="op">=</span><span class="st">"Specificity"</span>,ylab<span class="op">=</span><span class="st">"Sensitivity"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span> <span class="co"># add a 45 degree line</span></code></pre></div>
+<div class="inline-figure"><img src="06-logreg_files/figure-html/logreg-2.png" width="672"></div>
+</div>
+<div id="logistic回归实例模型" class="section level3" number="7.3.4">
+<h3>
+<span class="header-section-number">7.3.4</span> Logistic回归实例模型<a class="anchor" aria-label="anchor" href="#logistic%E5%9B%9E%E5%BD%92%E5%AE%9E%E4%BE%8B%E6%A8%A1%E5%9E%8B"><i class="fas fa-link"></i></a>
+</h3>
+
+</div>
+</div>
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%B3%95.html"><span class="header-section-number">6</span> 最小二乘线性回归法</a></div>
-<div class="next"><a href="references.html">References</a></div>
+<div class="next"><a href="%E5%86%B3%E7%AD%96%E6%A0%91%E5%8F%8A%E5%85%B6%E7%BB%84%E5%90%88%E6%96%B9%E6%B3%95.html"><span class="header-section-number">8</span> 决策树及其组合方法</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#logistic%E5%9B%9E%E5%BD%92"><span class="header-section-number">7</span> Logistic回归</a></li></ul>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#logistic%E5%9B%9E%E5%BD%92"><span class="header-section-number">7</span> Logistic回归</a></li>
+<li><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5-1"><span class="header-section-number">7.1</span> 相关概念</a></li>
+<li><a class="nav-link" href="#logistic%E6%A8%A1%E5%9E%8B"><span class="header-section-number">7.2</span> Logistic模型</a></li>
+<li>
+<a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E4%BC%B0%E8%AE%A1"><span class="header-section-number">7.3</span> 模型估计</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0loss-function"><span class="header-section-number">7.3.1</span> 损失函数(Loss function)</a></li>
+<li><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E4%BC%B0%E8%AE%A1estimation"><span class="header-section-number">7.3.2</span> 模型估计(estimation)</a></li>
+<li><a class="nav-link" href="#%E6%A8%A1%E6%8B%9F%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B"><span class="header-section-number">7.3.3</span> 模拟数据模型</a></li>
+<li><a class="nav-link" href="#logistic%E5%9B%9E%E5%BD%92%E5%AE%9E%E4%BE%8B%E6%A8%A1%E5%9E%8B"><span class="header-section-number">7.3.4</span> Logistic回归实例模型</a></li>
+</ul>
+</li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
@@ -85,7 +283,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>数据科学导论（Introductory of Data Science）</strong>" was written by 潘蓄林. It was last built on 2022-05-11.</p>
+    <p>"<strong>数据科学导论（Introductory of Data Science）</strong>" was written by 潘蓄林. It was last built on 2022-05-23.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

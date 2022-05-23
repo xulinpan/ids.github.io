@@ -48,6 +48,141 @@ $$Y=X\beta$$
 + 损失函数（平方和损失）：$$RSS=(y-X\beta)^T(Y-X\beta)$$
 + 数值解：$$\hat{\beta}=(X^TX)^{-1}X^Ty$$
 
+### 简单线性模型(Simple Linear Model,SLM) 
+
++ y响应变量为连续型变量；
++ x是自变量，只包含一个变量；
++ $y_i=\beta_0 + \beta_1*x_i+\epsilon_i$
+
+
+```r
+library(ggplot2)
+# Simulated data produced
+x <- runif(100,1,10)
+y <- 3+2*x+rnorm(100,0,1)
+
+data_slm <- data.frame(x=x,y=y)
+head(data_slm)
+```
+
+```
+##          x         y
+## 1 2.887331  5.908156
+## 2 1.015339  4.605947
+## 3 3.051336  7.968414
+## 4 4.741316 13.114120
+## 5 5.363838 13.587961
+## 6 7.890755 19.000237
+```
+
+```r
+# parameters estimated using ols
+fit_slm <- lm(y ~.,data=data_slm)
+summary(fit_slm)
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ ., data = data_slm)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.8266 -0.5484 -0.1005  0.4653  2.8146 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  3.05315    0.22658   13.47   <2e-16 ***
+## x            1.96778    0.03762   52.30   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9521 on 98 degrees of freedom
+## Multiple R-squared:  0.9654,	Adjusted R-squared:  0.9651 
+## F-statistic:  2736 on 1 and 98 DF,  p-value: < 2.2e-16
+```
+
+```r
+# visual the model
+ggplot(data_slm,aes(x,y))+geom_point()+
+  geom_abline(slope=fit_slm$coefficients[2],
+              intercept=fit_slm$coefficients[1],
+              color="red")+
+  labs(x="independent variable",y="respond variable",title="simple linear model")
+```
+
+<img src="05-summary_files/figure-html/slm-1.png" width="672" />
+
+### 多元线性回归(Multiple Linear Model,mlm)
+
++ y响应变量为连续型变量；
++ x是自变量，包含多个变量（至少是2个及以上）；
++ $y_i=\beta_0 + \beta_{11}*x_{i1}+\cdots+\beta_{ip}*x_{ip}+\epsilon_i$
+
+
+```r
+# Simulated data produced
+x1 <- runif(100,1,10)
+x2 <- runif(100,1,10)
+y <- 2*x1+5*x2+rnorm(100,0,2)
+data_mlm <- data.frame(x1=x1,x2=x2,y=y)
+head(data_mlm)
+```
+
+```
+##         x1       x2        y
+## 1 6.241952 3.606435 29.99643
+## 2 2.885087 7.412431 40.83235
+## 3 6.540537 8.467863 54.09935
+## 4 7.481641 3.382723 30.27384
+## 5 1.780589 9.476414 51.06193
+## 6 5.672808 5.312551 38.91272
+```
+
+```r
+# Parameters estimated using ols
+fit_mlm <- lm(y~x1+x2,data=data_mlm)
+summary(fit_mlm)
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ x1 + x2, data = data_mlm)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.7345 -1.1832 -0.0344  1.0249  7.0554 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -0.08563    0.66319  -0.129    0.898    
+## x1           2.02970    0.08120  24.997   <2e-16 ***
+## x2           5.05981    0.08093  62.522   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.058 on 97 degrees of freedom
+## Multiple R-squared:  0.9798,	Adjusted R-squared:  0.9794 
+## F-statistic:  2350 on 2 and 97 DF,  p-value: < 2.2e-16
+```
+
+```r
+# install.packages("plot3D")
+library(plot3D)
+```
+
+```
+## Warning in fun(libname, pkgname): couldn't connect to display ":0"
+```
+
+```r
+scatter3D(x=data_mlm$x1,y=data_mlm$x2,z=data_mlm$y,phi = 30, bty = "g")
+```
+
+<img src="05-summary_files/figure-html/mlm-1.png" width="672" />
+
+
 ### 回归实例
 + 使用MASS库中所带的波士顿房价数据，其中的因变量为房价的中位数，自变量为房龄、房间数等，想预测房价。
 
