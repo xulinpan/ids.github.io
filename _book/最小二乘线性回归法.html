@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 6 最小二乘线性回归法 | 数据科学导论（Introductory of Data Science）</title>
+<meta name="author" content="潘蓄林">
+<meta name="description" content="6.1 相关概念 因变量(Dependent variable,Y)：依赖于其它变量的变化而变化，响应变量； 自变量(Independent variable,X)：可以直接控制的变量，协变量； 有监督学习的数据表示：\(D=\{(x_1,y_1),\cdots,x_n,y_n)\},x\in R^p,y \in R\); 模型（model)：函数；...">
+<meta name="generator" content="bookdown 0.25 with bs4_book()">
+<meta property="og:title" content="Chapter 6 最小二乘线性回归法 | 数据科学导论（Introductory of Data Science）">
+<meta property="og:type" content="book">
+<meta property="og:description" content="6.1 相关概念 因变量(Dependent variable,Y)：依赖于其它变量的变化而变化，响应变量； 自变量(Independent variable,X)：可以直接控制的变量，协变量； 有监督学习的数据表示：\(D=\{(x_1,y_1),\cdots,x_n,y_n)\},x\in R^p,y \in R\); 模型（model)：函数；...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 6 最小二乘线性回归法 | 数据科学导论（Introductory of Data Science）">
+<meta name="twitter:description" content="6.1 相关概念 因变量(Dependent variable,Y)：依赖于其它变量的变化而变化，响应变量； 自变量(Independent variable,X)：可以直接控制的变量，协变量； 有监督学习的数据表示：\(D=\{(x_1,y_1),\cdots,x_n,y_n)\},x\in R^p,y \in R\); 模型（model)：函数；...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">数据科学导论（Introductory of Data Science）</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> 前言（Prerequisites）</a></li>
+<li><a class="" href="r%E5%8F%8Apython%E8%AF%AD%E8%A8%80%E7%AE%80%E4%BB%8B.html"><span class="header-section-number">2</span> R及Python语言简介</a></li>
+<li><a class="" href="%E6%95%B0%E6%8D%AE%E6%8F%8F%E8%BF%B0.html"><span class="header-section-number">3</span> 数据描述</a></li>
+<li><a class="" href="%E6%95%B0%E6%8D%AE%E6%95%B4%E7%90%86%E5%92%8C%E6%B8%85%E7%90%86.html"><span class="header-section-number">4</span> 数据整理和清理</a></li>
+<li><a class="" href="%E6%9C%89%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%AE%BA.html"><span class="header-section-number">5</span> 有监督学习概论</a></li>
+<li><a class="active" href="%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%B3%95.html"><span class="header-section-number">6</span> 最小二乘线性回归法</a></li>
+<li><a class="" href="logistic%E5%9B%9E%E5%BD%92.html"><span class="header-section-number">7</span> Logistic回归</a></li>
+<li><a class="" href="%E5%86%B3%E7%AD%96%E6%A0%91%E5%8F%8A%E5%85%B6%E7%BB%84%E5%90%88%E6%96%B9%E6%B3%95.html"><span class="header-section-number">8</span> 决策树及其组合方法</a></li>
+<li><a class="" href="github%E4%BD%BF%E7%94%A8.html"><span class="header-section-number">9</span> github使用</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="最小二乘线性回归法" class="section level1" number="6">
+<h1>
+<span class="header-section-number">6</span> 最小二乘线性回归法<a class="anchor" aria-label="anchor" href="#%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%B3%95"><i class="fas fa-link"></i></a>
+</h1>
+<div id="相关概念" class="section level2" number="6.1">
+<h2>
+<span class="header-section-number">6.1</span> 相关概念<a class="anchor" aria-label="anchor" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><i class="fas fa-link"></i></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li>因变量(Dependent variable,Y)：依赖于其它变量的变化而变化，响应变量；</li>
+<li>自变量(Independent variable,X)：可以直接控制的变量，协变量；</li>
+<li>有监督学习的数据表示：<span class="math inline">\(D=\{(x_1,y_1),\cdots,x_n,y_n)\},x\in R^p,y \in R\)</span>;</li>
+<li>模型（model)：函数；</li>
+<li>参数(Parameters)：参数是添加到模型中用于估计输出的成分;</li>
+</ol>
+</div>
+<div id="线性模型" class="section level2" number="6.2">
+<h2>
+<span class="header-section-number">6.2</span> 线性模型<a class="anchor" aria-label="anchor" href="#%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B"><i class="fas fa-link"></i></a>
+</h2>
+<p>因变量的值由独立自变量之间的线性数学模型决定。<span class="math display">\[y=\beta_0+\beta_1\times x_1+,\cdots,+\beta_p\times x_p\]</span>,模型表示：</p>
+<span class="math display">\[\begin{bmatrix}
+    y_{1} \\
+    y_{2} \\
+    \cdots\\
+    y_{n}
+\end{bmatrix}\]</span>
+=
+<span class="math display">\[\begin{bmatrix}
+    \beta_0 \\
+    \beta_0 \\
+    \cdots \\
+    \beta_0
+\end{bmatrix}\]</span>
++
+<span class="math display">\[\begin{bmatrix}
+    x_{11}       &amp; x_{12}  &amp; \dots &amp; x_{1p} \\
+    x_{21}       &amp; x_{22}  &amp; \dots &amp; x_{2p} \\
+    \cdots       &amp; \cdots  &amp; \cdots &amp; \cdots\\
+    x_{n1}       &amp; x_{n2}  &amp; \dots &amp; x_{np}
+\end{bmatrix}
+\times
+\begin{bmatrix}
+    \beta_1 \\
+    \beta_2 \\
+    \cdots \\
+    \beta_p
+\end{bmatrix}\]</span>
+<p>模型的矩阵表示：
+<span class="math display">\[Y=X\beta\]</span></p>
+<div id="模型的估计" class="section level3" number="6.2.1">
+<h3>
+<span class="header-section-number">6.2.1</span> 模型的估计<a class="anchor" aria-label="anchor" href="#%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BC%B0%E8%AE%A1"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>损失函数（平方和损失）：<span class="math display">\[RSS=(y-X\beta)^T(Y-X\beta)\]</span>
+</li>
+<li>数值解：<span class="math display">\[\hat{\beta}=(X^TX)^{-1}X^Ty\]</span>
+</li>
+</ul>
+</div>
+<div id="简单线性模型simple-linear-modelslm" class="section level3" number="6.2.2">
+<h3>
+<span class="header-section-number">6.2.2</span> 简单线性模型(Simple Linear Model,SLM)<a class="anchor" aria-label="anchor" href="#%E7%AE%80%E5%8D%95%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8Bsimple-linear-modelslm"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>y响应变量为连续型变量；</li>
+<li>x是自变量，只包含一个变量；</li>
+<li><span class="math inline">\(y_i=\beta_0 + \beta_1*x_i+\epsilon_i\)</span></li>
+</ul>
+<div class="sourceCode" id="cb575"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<span class="co"># Simulated data produced</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">100</span>,<span class="fl">1</span>,<span class="fl">10</span><span class="op">)</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">3</span><span class="op">+</span><span class="fl">2</span><span class="op">*</span><span class="va">x</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>
+
+<span class="va">data_slm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span>,y<span class="op">=</span><span class="va">y</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">data_slm</span><span class="op">)</span></code></pre></div>
+<pre><code>##          x         y
+## 1 2.887331  5.908156
+## 2 1.015339  4.605947
+## 3 3.051336  7.968414
+## 4 4.741316 13.114120
+## 5 5.363838 13.587961
+## 6 7.890755 19.000237</code></pre>
+<div class="sourceCode" id="cb577"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># parameters estimated using ols</span>
+<span class="va">fit_slm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span><span class="va">.</span>,data<span class="op">=</span><span class="va">data_slm</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit_slm</span><span class="op">)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ ., data = data_slm)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.8266 -0.5484 -0.1005  0.4653  2.8146 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  3.05315    0.22658   13.47   &lt;2e-16 ***
+## x            1.96778    0.03762   52.30   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9521 on 98 degrees of freedom
+## Multiple R-squared:  0.9654, Adjusted R-squared:  0.9651 
+## F-statistic:  2736 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb579"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># visual the model</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">data_slm</span>,<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span><span class="op">)</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>slope<span class="op">=</span><span class="va">fit_slm</span><span class="op">$</span><span class="va">coefficients</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,
+              intercept<span class="op">=</span><span class="va">fit_slm</span><span class="op">$</span><span class="va">coefficients</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,
+              color<span class="op">=</span><span class="st">"red"</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x<span class="op">=</span><span class="st">"independent variable"</span>,y<span class="op">=</span><span class="st">"respond variable"</span>,title<span class="op">=</span><span class="st">"simple linear model"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="05-summary_files/figure-html/slm-1.png" width="672"></div>
+</div>
+<div id="多元线性回归multiple-linear-modelmlm" class="section level3" number="6.2.3">
+<h3>
+<span class="header-section-number">6.2.3</span> 多元线性回归(Multiple Linear Model,mlm)<a class="anchor" aria-label="anchor" href="#%E5%A4%9A%E5%85%83%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92multiple-linear-modelmlm"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>y响应变量为连续型变量；</li>
+<li>x是自变量，包含多个变量（至少是2个及以上）；</li>
+<li><span class="math inline">\(y_i=\beta_0 + \beta_{11}*x_{i1}+\cdots+\beta_{ip}*x_{ip}+\epsilon_i\)</span></li>
+</ul>
+<div class="sourceCode" id="cb580"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Simulated data produced</span>
+<span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">100</span>,<span class="fl">1</span>,<span class="fl">10</span><span class="op">)</span>
+<span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">100</span>,<span class="fl">1</span>,<span class="fl">10</span><span class="op">)</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">2</span><span class="op">*</span><span class="va">x1</span><span class="op">+</span><span class="fl">5</span><span class="op">*</span><span class="va">x2</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span>,<span class="fl">0</span>,<span class="fl">2</span><span class="op">)</span>
+<span class="va">data_mlm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x1<span class="op">=</span><span class="va">x1</span>,x2<span class="op">=</span><span class="va">x2</span>,y<span class="op">=</span><span class="va">y</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">data_mlm</span><span class="op">)</span></code></pre></div>
+<pre><code>##         x1       x2        y
+## 1 6.241952 3.606435 29.99643
+## 2 2.885087 7.412431 40.83235
+## 3 6.540537 8.467863 54.09935
+## 4 7.481641 3.382723 30.27384
+## 5 1.780589 9.476414 51.06193
+## 6 5.672808 5.312551 38.91272</code></pre>
+<div class="sourceCode" id="cb582"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Parameters estimated using ols</span>
+<span class="va">fit_mlm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">x1</span><span class="op">+</span><span class="va">x2</span>,data<span class="op">=</span><span class="va">data_mlm</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit_mlm</span><span class="op">)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x1 + x2, data = data_mlm)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.7345 -1.1832 -0.0344  1.0249  7.0554 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -0.08563    0.66319  -0.129    0.898    
+## x1           2.02970    0.08120  24.997   &lt;2e-16 ***
+## x2           5.05981    0.08093  62.522   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.058 on 97 degrees of freedom
+## Multiple R-squared:  0.9798, Adjusted R-squared:  0.9794 
+## F-statistic:  2350 on 2 and 97 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb584"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># install.packages("plot3D")</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">plot3D</span><span class="op">)</span></code></pre></div>
+<pre><code>## Warning in fun(libname, pkgname): couldn't connect to display ":0"</code></pre>
+<div class="sourceCode" id="cb586"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/plot3D/man/scatter.html">scatter3D</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">data_mlm</span><span class="op">$</span><span class="va">x1</span>,y<span class="op">=</span><span class="va">data_mlm</span><span class="op">$</span><span class="va">x2</span>,z<span class="op">=</span><span class="va">data_mlm</span><span class="op">$</span><span class="va">y</span>,phi <span class="op">=</span> <span class="fl">30</span>, bty <span class="op">=</span> <span class="st">"g"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="05-summary_files/figure-html/mlm-1.png" width="672"></div>
+</div>
+<div id="回归实例" class="section level3" number="6.2.4">
+<h3>
+<span class="header-section-number">6.2.4</span> 回归实例<a class="anchor" aria-label="anchor" href="#%E5%9B%9E%E5%BD%92%E5%AE%9E%E4%BE%8B"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>使用MASS库中所带的波士顿房价数据，其中的因变量为房价的中位数，自变量为房龄、房间数等，想预测房价。</li>
+</ul>
+<div class="sourceCode" id="cb587"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/">MASS</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.statlearning.com">ISLR</a></span><span class="op">)</span>
+<span class="co">#fix(Boston)</span>
+<span class="co"># Simple linear regression model</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">Boston</span><span class="op">)</span></code></pre></div>
+<pre><code>##  [1] "crim"    "zn"      "indus"   "chas"    "nox"     "rm"      "age"    
+##  [8] "dis"     "rad"     "tax"     "ptratio" "black"   "lstat"   "medv"</code></pre>
+<div class="sourceCode" id="cb589"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">Boston</span><span class="op">$</span><span class="va">medv</span>,<span class="va">Boston</span><span class="op">$</span><span class="va">lstat</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="05-summary_files/figure-html/boslin-1.png" width="672"></div>
+<div class="sourceCode" id="cb590"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">slm.fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Boston</span><span class="op">$</span><span class="va">medv</span><span class="op">~</span><span class="va">Boston</span><span class="op">$</span><span class="va">lstat</span>,data<span class="op">=</span><span class="va">Boston</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">slm.fit</span><span class="op">)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Boston$medv ~ Boston$lstat, data = Boston)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -15.168  -3.990  -1.318   2.034  24.500 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  34.55384    0.56263   61.41   &lt;2e-16 ***
+## Boston$lstat -0.95005    0.03873  -24.53   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 6.216 on 504 degrees of freedom
+## Multiple R-squared:  0.5441, Adjusted R-squared:  0.5432 
+## F-statistic: 601.6 on 1 and 504 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb592"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># multiple variance regression</span>
+<span class="va">mlm.fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Boston</span><span class="op">$</span><span class="va">medv</span><span class="op">~</span><span class="va">Boston</span><span class="op">$</span><span class="va">lstat</span><span class="op">+</span><span class="va">Boston</span><span class="op">$</span><span class="va">age</span>,data<span class="op">=</span><span class="va">Boston</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mlm.fit</span><span class="op">)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Boston$medv ~ Boston$lstat + Boston$age, data = Boston)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -15.981  -3.978  -1.283   1.968  23.158 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  33.22276    0.73085  45.458  &lt; 2e-16 ***
+## Boston$lstat -1.03207    0.04819 -21.416  &lt; 2e-16 ***
+## Boston$age    0.03454    0.01223   2.826  0.00491 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 6.173 on 503 degrees of freedom
+## Multiple R-squared:  0.5513, Adjusted R-squared:  0.5495 
+## F-statistic:   309 on 2 and 503 DF,  p-value: &lt; 2.2e-16</code></pre>
+<ul>
+<li>结果解释：变量之间独立的情况下，系数就为影响程度，若存在多重共线性，则系数的解释比较复杂。</li>
+</ul>
+</div>
+<div id="练习" class="section level3" number="6.2.5">
+<h3>
+<span class="header-section-number">6.2.5</span> 练习<a class="anchor" aria-label="anchor" href="#%E7%BB%83%E4%B9%A0"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>例6.1</li>
+</ul>
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="%E6%9C%89%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%AE%BA.html"><span class="header-section-number">5</span> 有监督学习概论</a></div>
+<div class="next"><a href="logistic%E5%9B%9E%E5%BD%92.html"><span class="header-section-number">7</span> Logistic回归</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%B3%95"><span class="header-section-number">6</span> 最小二乘线性回归法</a></li>
+<li><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="header-section-number">6.1</span> 相关概念</a></li>
+<li>
+<a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B"><span class="header-section-number">6.2</span> 线性模型</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BC%B0%E8%AE%A1"><span class="header-section-number">6.2.1</span> 模型的估计</a></li>
+<li><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8Bsimple-linear-modelslm"><span class="header-section-number">6.2.2</span> 简单线性模型(Simple Linear Model,SLM)</a></li>
+<li><a class="nav-link" href="#%E5%A4%9A%E5%85%83%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92multiple-linear-modelmlm"><span class="header-section-number">6.2.3</span> 多元线性回归(Multiple Linear Model,mlm)</a></li>
+<li><a class="nav-link" href="#%E5%9B%9E%E5%BD%92%E5%AE%9E%E4%BE%8B"><span class="header-section-number">6.2.4</span> 回归实例</a></li>
+<li><a class="nav-link" href="#%E7%BB%83%E4%B9%A0"><span class="header-section-number">6.2.5</span> 练习</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>数据科学导论（Introductory of Data Science）</strong>" was written by 潘蓄林. It was last built on 2022-05-23.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

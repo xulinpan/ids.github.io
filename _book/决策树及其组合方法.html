@@ -4,16 +4,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>References | 数据科学导论（Introductory of Data Science）</title>
+<title>Chapter 8 决策树及其组合方法 | 数据科学导论（Introductory of Data Science）</title>
 <meta name="author" content="潘蓄林">
-<meta name="description" content="2022年数据科学导论">
+<meta name="description" content="8.1 决策树">
 <meta name="generator" content="bookdown 0.25 with bs4_book()">
-<meta property="og:title" content="References | 数据科学导论（Introductory of Data Science）">
+<meta property="og:title" content="Chapter 8 决策树及其组合方法 | 数据科学导论（Introductory of Data Science）">
 <meta property="og:type" content="book">
-<meta property="og:description" content="2022年数据科学导论">
+<meta property="og:description" content="8.1 决策树">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="References | 数据科学导论（Introductory of Data Science）">
-<meta name="twitter:description" content="2022年数据科学导论">
+<meta name="twitter:title" content="Chapter 8 决策树及其组合方法 | 数据科学导论（Introductory of Data Science）">
+<meta name="twitter:description" content="8.1 决策树">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -49,9 +49,9 @@
 <li><a class="" href="%E6%9C%89%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%AE%BA.html"><span class="header-section-number">5</span> 有监督学习概论</a></li>
 <li><a class="" href="%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%B3%95.html"><span class="header-section-number">6</span> 最小二乘线性回归法</a></li>
 <li><a class="" href="logistic%E5%9B%9E%E5%BD%92.html"><span class="header-section-number">7</span> Logistic回归</a></li>
-<li><a class="" href="%E5%86%B3%E7%AD%96%E6%A0%91%E5%8F%8A%E5%85%B6%E7%BB%84%E5%90%88%E6%96%B9%E6%B3%95.html"><span class="header-section-number">8</span> 决策树及其组合方法</a></li>
+<li><a class="active" href="%E5%86%B3%E7%AD%96%E6%A0%91%E5%8F%8A%E5%85%B6%E7%BB%84%E5%90%88%E6%96%B9%E6%B3%95.html"><span class="header-section-number">8</span> 决策树及其组合方法</a></li>
 <li><a class="" href="github%E4%BD%BF%E7%94%A8.html"><span class="header-section-number">9</span> github使用</a></li>
-<li><a class="active" href="references.html">References</a></li>
+<li><a class="" href="references.html">References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -59,17 +59,26 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="references" class="section level1 unnumbered">
-<h1>References<a class="anchor" aria-label="anchor" href="#references"><i class="fas fa-link"></i></a>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="决策树及其组合方法" class="section level1" number="8">
+<h1>
+<span class="header-section-number">8</span> 决策树及其组合方法<a class="anchor" aria-label="anchor" href="#%E5%86%B3%E7%AD%96%E6%A0%91%E5%8F%8A%E5%85%B6%E7%BB%84%E5%90%88%E6%96%B9%E6%B3%95"><i class="fas fa-link"></i></a>
 </h1>
+<div id="决策树" class="section level2" number="8.1">
+<h2>
+<span class="header-section-number">8.1</span> 决策树<a class="anchor" aria-label="anchor" href="#%E5%86%B3%E7%AD%96%E6%A0%91"><i class="fas fa-link"></i></a>
+</h2>
 
 </div>
+</div>
   <div class="chapter-nav">
-<div class="prev"><a href="github%E4%BD%BF%E7%94%A8.html"><span class="header-section-number">9</span> github使用</a></div>
-<div class="empty"></div>
+<div class="prev"><a href="logistic%E5%9B%9E%E5%BD%92.html"><span class="header-section-number">7</span> Logistic回归</a></div>
+<div class="next"><a href="github%E4%BD%BF%E7%94%A8.html"><span class="header-section-number">9</span> github使用</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#references">References</a></li></ul>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%E5%86%B3%E7%AD%96%E6%A0%91%E5%8F%8A%E5%85%B6%E7%BB%84%E5%90%88%E6%96%B9%E6%B3%95"><span class="header-section-number">8</span> 决策树及其组合方法</a></li>
+<li><a class="nav-link" href="#%E5%86%B3%E7%AD%96%E6%A0%91"><span class="header-section-number">8.1</span> 决策树</a></li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">

@@ -8,6 +8,9 @@
 
 ## Logistic模型
 
++ odds: $odds=\frac{p(x)}{1-p(x)}$
+
+
 + sigmoid函数：$y=\frac{1}{1+e^{-z}}$
 
 ```r
@@ -27,7 +30,7 @@ ggplot(data=df_sig,aes(x=x,y=y))+
   geom_hline(aes(yintercept=0.5),color="red",linetype="dashed")
 ```
 
-<img src="06-references_files/figure-html/sigmoid-1.png" width="672" />
+<img src="06-logreg_files/figure-html/sigmoid-1.png" width="672" />
 
 
 + logistic回归模型：是解决分类的机器学习算法，主要解决二分类的问题。因变量的估计值由条件概率和决策边界决定。$$p(y)=p(y=k|X=x)=\frac{1}{1+e^{-X\beta}}$$
@@ -35,9 +38,12 @@ ggplot(data=df_sig,aes(x=x,y=y))+
 
 ## 模型估计
 
-### 损失函数(Cost function)
+### 损失函数(Loss function)
 
-$$J(\theta)=-\frac{1}{N}(\sum\limits_{i=1}^Ny_i\cdot log(p(y_i))+(1-y_i)\cdot log(1-p(y_i)))$$
+$$L(\hat{y},y)=-(y*log(\hat{y})+(1-y)*log(1-\hat{y}))$$
+### 代价函数(Cost funtion)
+
+$$J(\theta)=-\frac{1}{m}\sum\limits_{i=1}^mL(\hat{y}^{(i)}-y^{(i)})$$
 
 ### 模型估计(estimation)
 
@@ -85,7 +91,7 @@ ggplot(data_logreg,aes(x=x1,y=y,color=y_factor))+
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="06-references_files/figure-html/logreg-1.png" width="672" />
+<img src="06-logreg_files/figure-html/logreg-1.png" width="672" />
 
 ```r
 # model estimate
@@ -201,5 +207,6 @@ plot(perf,col=rainbow(2),main="ROC curve admissions",xlab="Specificity",ylab="Se
 abline(0,1) # add a 45 degree line
 ```
 
-<img src="06-references_files/figure-html/logreg-2.png" width="672" />
+<img src="06-logreg_files/figure-html/logreg-2.png" width="672" />
 
+### Logistic回归实例模型
