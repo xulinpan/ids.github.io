@@ -1,7 +1,7 @@
 --- 
 title: "数据科学导论（Introductory of Data Science）"
 author: "潘蓄林"
-date: "2022-05-23"
+date: "2022-06-01"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book

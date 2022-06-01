@@ -210,3 +210,31 @@ abline(0,1) # add a 45 degree line
 <img src="06-logreg_files/figure-html/logreg-2.png" width="672" />
 
 ### Logistic回归实例模型
+
++ Produce a simple data
+
+
+```r
+# Create a hand-out data
+df_logsim <- data.frame(x1=c(8,3,4,5,9),x2=c(6,5,9,8,9),y=factor(c(1,0,0,1,1)))
+head(df_logsim)
+```
+
+```
+##   x1 x2 y
+## 1  8  6 1
+## 2  3  5 0
+## 3  4  9 0
+## 4  5  8 1
+## 5  9  9 1
+```
+
+```r
+# visual the data
+library(ggplot2)
+ggplot(data=df_logsim,aes(x=x1,y=x2,color=y,shape=y,size=3))+
+  geom_point()
+```
+
+<img src="06-logreg_files/figure-html/logsim-1.png" width="672" />
+
