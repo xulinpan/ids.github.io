@@ -2250,17 +2250,17 @@ summary(iris.mis)
 ```
 ##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
 ##  Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
-##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.550   1st Qu.:0.300  
-##  Median :5.800   Median :3.000   Median :4.400   Median :1.300  
-##  Mean   :5.884   Mean   :3.078   Mean   :3.782   Mean   :1.214  
-##  3rd Qu.:6.400   3rd Qu.:3.400   3rd Qu.:5.100   3rd Qu.:1.800  
-##  Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
-##  NA's   :15      NA's   :14      NA's   :11      NA's   :17     
+##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.500   1st Qu.:0.300  
+##  Median :5.700   Median :3.000   Median :4.300   Median :1.300  
+##  Mean   :5.848   Mean   :3.039   Mean   :3.717   Mean   :1.193  
+##  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+##  Max.   :7.900   Max.   :4.200   Max.   :6.700   Max.   :2.500  
+##  NA's   :15      NA's   :16      NA's   :17      NA's   :14     
 ##        Species  
-##  setosa    :45  
-##  versicolor:44  
-##  virginica :43  
-##  NA's      :18  
+##  setosa    :47  
+##  versicolor:43  
+##  virginica :47  
+##  NA's      :13  
 ##                 
 ##                 
 ## 
@@ -2275,12 +2275,12 @@ summary(iris.mis)
 ```
 ##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
 ##  Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
-##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.550   1st Qu.:0.300  
-##  Median :5.800   Median :3.000   Median :4.400   Median :1.300  
-##  Mean   :5.884   Mean   :3.078   Mean   :3.782   Mean   :1.214  
-##  3rd Qu.:6.400   3rd Qu.:3.400   3rd Qu.:5.100   3rd Qu.:1.800  
-##  Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
-##  NA's   :15      NA's   :14      NA's   :11      NA's   :17
+##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.500   1st Qu.:0.300  
+##  Median :5.700   Median :3.000   Median :4.300   Median :1.300  
+##  Mean   :5.848   Mean   :3.039   Mean   :3.717   Mean   :1.193  
+##  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+##  Max.   :7.900   Max.   :4.200   Max.   :6.700   Max.   :2.500  
+##  NA's   :15      NA's   :16      NA's   :17      NA's   :14
 ```
 
 ```r
@@ -2290,20 +2290,17 @@ md.pattern(iris.mis)
 <img src="03-method_files/figure-html/mdcase-1.png" width="672" />
 
 ```
-##     Petal.Length Sepal.Width Sepal.Length Petal.Width   
-## 103            1           1            1           1  0
-## 14             1           1            1           0  1
-## 10             1           1            0           1  1
-## 1              1           1            0           0  2
-## 8              1           0            1           1  1
-## 1              1           0            1           0  2
-## 2              1           0            0           1  2
-## 6              0           1            1           1  1
-## 1              0           1            1           0  2
-## 1              0           1            0           1  2
-## 2              0           0            1           1  2
-## 1              0           0            0           1  3
-##               11          14           15          17 57
+##    Petal.Width Sepal.Length Sepal.Width Petal.Length   
+## 97           1            1           1            1  0
+## 11           1            1           1            0  1
+## 10           1            1           0            1  1
+## 5            1            1           0            0  2
+## 12           1            0           1            1  1
+## 1            1            0           0            1  2
+## 11           0            1           1            1  1
+## 1            0            1           1            0  2
+## 2            0            0           1            1  2
+##             14           15          16           17 62
 ```
 
 ```r
@@ -2358,10 +2355,10 @@ gap=3, ylab=c("Missing data","Pattern"))
 ## 
 ##  Variables sorted by number of missings: 
 ##      Variable      Count
-##   Petal.Width 0.11333333
+##  Petal.Length 0.11333333
+##   Sepal.Width 0.10666667
 ##  Sepal.Length 0.10000000
-##   Sepal.Width 0.09333333
-##  Petal.Length 0.07333333
+##   Petal.Width 0.09333333
 ```
 
 ```r
@@ -2650,20 +2647,22 @@ imputed_Data$imp$Sepal.Width
 
 ```
 ##       1   2   3   4   5
-## 9   3.4 3.0 3.0 3.6 2.8
-## 24  3.9 3.0 3.7 3.9 4.1
-## 53  2.8 2.8 3.2 3.4 3.0
-## 54  2.7 2.8 2.5 2.5 2.4
-## 58  2.7 2.7 2.8 3.0 3.0
-## 64  2.3 2.5 2.2 3.4 3.4
-## 78  3.2 3.2 3.4 3.7 3.2
-## 81  2.7 2.8 3.0 2.6 3.0
-## 86  2.5 3.4 3.4 2.8 3.0
-## 107 2.6 3.0 2.7 2.6 2.0
-## 108 2.5 2.5 3.2 2.7 3.0
-## 122 2.7 3.2 2.8 2.5 3.2
-## 138 2.7 3.4 3.0 3.1 2.8
-## 139 2.6 2.8 3.0 3.1 3.0
+## 11  3.5 3.9 3.5 3.5 3.5
+## 16  3.5 4.2 3.9 4.2 4.2
+## 19  3.4 3.5 3.3 4.2 3.5
+## 22  3.5 3.5 3.8 3.5 3.5
+## 26  4.1 2.6 3.8 3.3 3.4
+## 27  3.4 3.0 3.0 3.5 3.5
+## 29  3.5 3.5 3.1 3.5 3.5
+## 36  3.5 3.7 4.1 3.5 3.5
+## 58  2.8 2.8 2.8 3.0 2.9
+## 63  3.4 2.5 2.5 3.1 3.0
+## 71  3.0 3.0 2.5 2.9 3.3
+## 85  3.2 2.8 2.7 2.3 2.9
+## 87  3.0 3.1 3.2 3.0 2.9
+## 102 2.9 2.8 2.5 3.0 3.0
+## 116 2.6 2.5 2.7 2.5 2.8
+## 130 3.4 3.0 3.2 3.2 2.7
 ```
 
 ```r
@@ -2684,19 +2683,19 @@ summary(fit)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -0.98372 -0.23642 -0.00891  0.21625  1.02678 
+## -0.89595 -0.27124  0.00167  0.21778  0.80506 
 ## 
 ## Coefficients:
 ##              Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)   2.33094    0.39185   5.949 3.53e-08 ***
-## Sepal.Length  0.21248    0.08056   2.638  0.00961 ** 
-## Petal.Width  -0.42208    0.08760  -4.818 4.86e-06 ***
+## (Intercept)   1.94205    0.38086   5.099 1.52e-06 ***
+## Sepal.Length  0.28710    0.07974   3.600 0.000487 ***
+## Petal.Width  -0.48160    0.09270  -5.195 1.01e-06 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 0.3864 on 106 degrees of freedom
-##   (41 observations deleted due to missingness)
-## Multiple R-squared:  0.2181,	Adjusted R-squared:  0.2033 
-## F-statistic: 14.78 on 2 and 106 DF,  p-value: 2.173e-06
+## Residual standard error: 0.3838 on 105 degrees of freedom
+##   (42 observations deleted due to missingness)
+## Multiple R-squared:  0.2178,	Adjusted R-squared:  0.2029 
+## F-statistic: 14.62 on 2 and 105 DF,  p-value: 2.513e-06
 ```
 

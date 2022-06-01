@@ -45,3 +45,4 @@ logistic回归实例模型
 决策树
 实例-1
 github使用
+代价函数cost-funtion
