@@ -67,12 +67,12 @@ head(data_slm)
 
 ```
 ##          x         y
-## 1 2.887331  5.908156
-## 2 1.015339  4.605947
-## 3 3.051336  7.968414
-## 4 4.741316 13.114120
-## 5 5.363838 13.587961
-## 6 7.890755 19.000237
+## 1 3.820282 11.410064
+## 2 2.031977  7.768217
+## 3 6.686440 15.786684
+## 4 3.825949 11.517779
+## 5 8.219747 19.563085
+## 6 3.305819  9.139702
 ```
 
 ```r
@@ -87,19 +87,19 @@ summary(fit_slm)
 ## lm(formula = y ~ ., data = data_slm)
 ## 
 ## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -2.8266 -0.5484 -0.1005  0.4653  2.8146 
+##      Min       1Q   Median       3Q      Max 
+## -2.67746 -0.73960 -0.02542  0.70193  2.04759 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)  3.05315    0.22658   13.47   <2e-16 ***
-## x            1.96778    0.03762   52.30   <2e-16 ***
+## (Intercept)  3.26171    0.21803   14.96   <2e-16 ***
+## x            1.95611    0.03615   54.12   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 0.9521 on 98 degrees of freedom
-## Multiple R-squared:  0.9654,	Adjusted R-squared:  0.9651 
-## F-statistic:  2736 on 1 and 98 DF,  p-value: < 2.2e-16
+## Residual standard error: 0.9605 on 98 degrees of freedom
+## Multiple R-squared:  0.9676,	Adjusted R-squared:  0.9673 
+## F-statistic:  2928 on 1 and 98 DF,  p-value: < 2.2e-16
 ```
 
 ```r
@@ -131,12 +131,12 @@ head(data_mlm)
 
 ```
 ##         x1       x2        y
-## 1 6.241952 3.606435 29.99643
-## 2 2.885087 7.412431 40.83235
-## 3 6.540537 8.467863 54.09935
-## 4 7.481641 3.382723 30.27384
-## 5 1.780589 9.476414 51.06193
-## 6 5.672808 5.312551 38.91272
+## 1 9.853459 4.560755 40.79412
+## 2 7.513059 1.981255 23.88531
+## 3 2.939099 2.653477 16.51904
+## 4 4.763115 1.569623 19.18558
+## 5 9.060682 4.849449 42.43664
+## 6 6.809352 5.105696 38.95931
 ```
 
 ```r
@@ -152,19 +152,19 @@ summary(fit_mlm)
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -4.7345 -1.1832 -0.0344  1.0249  7.0554 
+## -4.2790 -1.3993 -0.1574  1.1783  5.5516 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) -0.08563    0.66319  -0.129    0.898    
-## x1           2.02970    0.08120  24.997   <2e-16 ***
-## x2           5.05981    0.08093  62.522   <2e-16 ***
+## (Intercept)  0.27466    0.63596   0.432    0.667    
+## x1           2.00130    0.07774  25.744   <2e-16 ***
+## x2           4.95841    0.07444  66.605   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 2.058 on 97 degrees of freedom
-## Multiple R-squared:  0.9798,	Adjusted R-squared:  0.9794 
-## F-statistic:  2350 on 2 and 97 DF,  p-value: < 2.2e-16
+## Residual standard error: 2.017 on 97 degrees of freedom
+## Multiple R-squared:  0.9806,	Adjusted R-squared:  0.9802 
+## F-statistic:  2454 on 2 and 97 DF,  p-value: < 2.2e-16
 ```
 
 ```r
