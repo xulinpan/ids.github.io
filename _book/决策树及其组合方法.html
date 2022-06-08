@@ -1,56 +1,32 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <title>Chapter 8 决策树及其组合方法 | 数据科学导论（Introductory of Data Science）</title>
-
-    <meta name="author" content="潘蓄林" />
-  
-   <meta name="description" content="2022年数据科学导论" />
-   <meta name="generator" content="placeholder" />
-  <meta property="og:title" content="Chapter 8 决策树及其组合方法 | 数据科学导论（Introductory of Data Science）" />
-  <meta property="og:type" content="book" />
-  
-  
-  <meta property="og:description" content="2022年数据科学导论" />
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 8 决策树及其组合方法 | 数据科学导论（Introductory of Data Science）" />
-  
-  <meta name="twitter:description" content="2022年数据科学导论" />
-  
-  <!-- JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script>
-  <script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script>
-    <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet" />
-    <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script>
-    <script src="libs/bs3compat-0.3.1/transition.js"></script>
-    <script src="libs/bs3compat-0.3.1/tabs.js"></script>
-    <script src="libs/bs3compat-0.3.1/bs3compat.js"></script>
-    <link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet" />
-    <script src="libs/bs4_book-1.0.0/bs4_book.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script>
-
-  <!-- CSS -->
-  <style type="text/css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 8 决策树及其组合方法 | 数据科学导论（Introductory of Data Science）</title>
+<meta name="author" content="潘蓄林">
+<meta name="description" content="Decision Tree: A decision tree is a decision support tool that uses a tree-like graph or model of decisions and their possible consequences, including chance event outcomes, resource costs, and...">
+<meta name="generator" content="bookdown 0.25 with bs4_book()">
+<meta property="og:title" content="Chapter 8 决策树及其组合方法 | 数据科学导论（Introductory of Data Science）">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Decision Tree: A decision tree is a decision support tool that uses a tree-like graph or model of decisions and their possible consequences, including chance event outcomes, resource costs, and...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 8 决策树及其组合方法 | 数据科学导论（Introductory of Data Science）">
+<meta name="twitter:description" content="Decision Tree: A decision tree is a decision support tool that uses a tree-like graph or model of decisions and their possible consequences, including chance event outcomes, resource costs, and...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-    
 </head>
-
 <body data-spy="scroll" data-target="#toc">
 
 <div class="container-fluid">
 <div class="row">
-  <header class="col-sm-12 col-lg-3 sidebar sidebar-book">
-    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
@@ -62,57 +38,75 @@
     <div id="main-nav" class="collapse-lg">
       <form role="search">
         <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
-      </form>
+</form>
 
-      <nav aria-label="Table of contents">
-        <h2>Table of contents</h2>
-        <div id="book-toc"></div>
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> 前言（Prerequisites）</a></li>
+<li><a class="" href="r%E5%8F%8Apython%E8%AF%AD%E8%A8%80%E7%AE%80%E4%BB%8B.html"><span class="header-section-number">2</span> R及Python语言简介</a></li>
+<li><a class="" href="%E6%95%B0%E6%8D%AE%E6%8F%8F%E8%BF%B0.html"><span class="header-section-number">3</span> 数据描述</a></li>
+<li><a class="" href="%E6%95%B0%E6%8D%AE%E6%95%B4%E7%90%86%E5%92%8C%E6%B8%85%E7%90%86.html"><span class="header-section-number">4</span> 数据整理和清理</a></li>
+<li><a class="" href="%E6%9C%89%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%AE%BA.html"><span class="header-section-number">5</span> 有监督学习概论</a></li>
+<li><a class="" href="%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%B3%95.html"><span class="header-section-number">6</span> 最小二乘线性回归法</a></li>
+<li><a class="" href="logistic%E5%9B%9E%E5%BD%92.html"><span class="header-section-number">7</span> Logistic回归</a></li>
+<li><a class="active" href="%E5%86%B3%E7%AD%96%E6%A0%91%E5%8F%8A%E5%85%B6%E7%BB%84%E5%90%88%E6%96%B9%E6%B3%95.html"><span class="header-section-number">8</span> 决策树及其组合方法</a></li>
+<li><a class="" href="%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%E5%92%8C%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html"><span class="header-section-number">9</span> 支持向量机和神经网络</a></li>
+<li><a class="" href="github%E4%BD%BF%E7%94%A8.html"><span class="header-section-number">10</span> github使用</a></li>
+<li><a class="" href="references.html">References</a></li>
+<li><a class="" href="references-1.html">References</a></li>
+</ul>
 
         <div class="book-extra">
-          <p><a id="book-repo" href="#">View book source <i class="fab fa-github"></i></a></li></p>
+          
         </div>
       </nav>
-    </div>
-  </header>
-
-  <main class="col-sm-12 col-md-9 col-lg-7" id="content">
-<div id="决策树及其组合方法" class="section level1" number="8">
-<h1><span class="header-section-number">Chapter 8</span> 决策树及其组合方法</h1>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="决策树及其组合方法" class="section level1" number="8">
+<h1>
+<span class="header-section-number">8</span> 决策树及其组合方法<a class="anchor" aria-label="anchor" href="#%E5%86%B3%E7%AD%96%E6%A0%91%E5%8F%8A%E5%85%B6%E7%BB%84%E5%90%88%E6%96%B9%E6%B3%95"><i class="fas fa-link"></i></a>
+</h1>
 <ul>
 <li><p>Decision Tree: A decision tree is a decision support tool that uses a tree-like graph or model of decisions and their possible consequences, including chance event outcomes, resource costs, and utility.</p></li>
 <li><p>Decision trees are produced by algorithms that identify various ways of splitting a data set into branch-like segments. These segments form an inverted decision tree that originates with a root node at the top of the tree.</p></li>
 </ul>
 <div id="决策树" class="section level2" number="8.1">
-<h2><span class="header-section-number">8.1</span> 决策树</h2>
+<h2>
+<span class="header-section-number">8.1</span> 决策树<a class="anchor" aria-label="anchor" href="#%E5%86%B3%E7%AD%96%E6%A0%91"><i class="fas fa-link"></i></a>
+</h2>
 </div>
 <div id="实例-1" class="section level2" number="8.2">
-<h2><span class="header-section-number">8.2</span> 实例</h2>
-<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb613-1"><a href="决策树及其组合方法.html#cb613-1" aria-hidden="true" tabindex="-1"></a><span class="do">#####</span></span>
-<span id="cb613-2"><a href="决策树及其组合方法.html#cb613-2" aria-hidden="true" tabindex="-1"></a><span class="co"># importing churn data set from .csv file</span></span>
-<span id="cb613-3"><a href="决策树及其组合方法.html#cb613-3" aria-hidden="true" tabindex="-1"></a>data1 <span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;./data/chun_data.csv&quot;</span>,<span class="at">header=</span> <span class="cn">TRUE</span>,<span class="at">sep=</span><span class="st">&quot;,&quot;</span>)</span>
-<span id="cb613-4"><a href="决策树及其组合方法.html#cb613-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb613-5"><a href="决策树及其组合方法.html#cb613-5" aria-hidden="true" tabindex="-1"></a><span class="co">#as the first three columns of the data arent important for the prediction we drop those columns from the data frame </span></span>
-<span id="cb613-6"><a href="决策树及其组合方法.html#cb613-6" aria-hidden="true" tabindex="-1"></a><span class="co"># drop the variables from the data set</span></span>
-<span id="cb613-7"><a href="决策树及其组合方法.html#cb613-7" aria-hidden="true" tabindex="-1"></a>data1<span class="ot">&lt;-</span>data1[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)]</span>
-<span id="cb613-8"><a href="决策树及其组合方法.html#cb613-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb613-9"><a href="决策树及其组合方法.html#cb613-9" aria-hidden="true" tabindex="-1"></a><span class="co">#data exploration</span></span>
-<span id="cb613-10"><a href="决策树及其组合方法.html#cb613-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb613-11"><a href="决策树及其组合方法.html#cb613-11" aria-hidden="true" tabindex="-1"></a><span class="co">#gives the dimensions of the data set</span></span>
-<span id="cb613-12"><a href="决策树及其组合方法.html#cb613-12" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(data1)</span></code></pre></div>
+<h2>
+<span class="header-section-number">8.2</span> 实例<a class="anchor" aria-label="anchor" href="#%E5%AE%9E%E4%BE%8B-1"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb613"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#####</span>
+<span class="co"># importing churn data set from .csv file</span>
+<span class="va">data1</span> <span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"./data/chun_data.csv"</span>,header<span class="op">=</span> <span class="cn">TRUE</span>,sep<span class="op">=</span><span class="st">","</span><span class="op">)</span>
+
+<span class="co">#as the first three columns of the data arent important for the prediction we drop those columns from the data frame </span>
+<span class="co"># drop the variables from the data set</span>
+<span class="va">data1</span><span class="op">&lt;-</span><span class="va">data1</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span><span class="op">]</span>
+
+<span class="co">#data exploration</span>
+
+<span class="co">#gives the dimensions of the data set</span>
+<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">data1</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 5000   17</code></pre>
-<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb615-1"><a href="决策树及其组合方法.html#cb615-1" aria-hidden="true" tabindex="-1"></a><span class="co">#gives the names of the variables in the data set</span></span>
-<span id="cb615-2"><a href="决策树及其组合方法.html#cb615-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data1)</span></code></pre></div>
-<pre><code>##  [1] &quot;international_plan&quot;            &quot;voice_mail_plan&quot;              
-##  [3] &quot;number_vmail_messages&quot;         &quot;total_day_minutes&quot;            
-##  [5] &quot;total_day_calls&quot;               &quot;total_day_charge&quot;             
-##  [7] &quot;total_eve_minutes&quot;             &quot;total_eve_calls&quot;              
-##  [9] &quot;total_eve_charge&quot;              &quot;total_night_minutes&quot;          
-## [11] &quot;total_night_calls&quot;             &quot;total_night_charge&quot;           
-## [13] &quot;total_intl_minutes&quot;            &quot;total_intl_calls&quot;             
-## [15] &quot;total_intl_charge&quot;             &quot;number_customer_service_calls&quot;
-## [17] &quot;churn&quot;</code></pre>
-<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="决策树及其组合方法.html#cb617-1" aria-hidden="true" tabindex="-1"></a><span class="co">#displays top 10 observations of the data set</span></span>
-<span id="cb617-2"><a href="决策树及其组合方法.html#cb617-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data1)</span></code></pre></div>
+<div class="sourceCode" id="cb615"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#gives the names of the variables in the data set</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">data1</span><span class="op">)</span></code></pre></div>
+<pre><code>##  [1] "international_plan"            "voice_mail_plan"              
+##  [3] "number_vmail_messages"         "total_day_minutes"            
+##  [5] "total_day_calls"               "total_day_charge"             
+##  [7] "total_eve_minutes"             "total_eve_calls"              
+##  [9] "total_eve_charge"              "total_night_minutes"          
+## [11] "total_night_calls"             "total_night_charge"           
+## [13] "total_intl_minutes"            "total_intl_calls"             
+## [15] "total_intl_charge"             "number_customer_service_calls"
+## [17] "churn"</code></pre>
+<div class="sourceCode" id="cb617"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#displays top 10 observations of the data set</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">data1</span><span class="op">)</span></code></pre></div>
 <pre><code>##   international_plan voice_mail_plan number_vmail_messages total_day_minutes
 ## 1                 no             yes                    25             265.1
 ## 2                 no             yes                    26             161.6
@@ -148,8 +142,9 @@
 ## 4                             2    no
 ## 5                             3    no
 ## 6                             0    no</code></pre>
-<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="决策树及其组合方法.html#cb619-1" aria-hidden="true" tabindex="-1"></a><span class="co">#displays bottom top 10 observations of the data set</span></span>
-<span id="cb619-2"><a href="决策树及其组合方法.html#cb619-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(data1)</span></code></pre></div>
+<div class="sourceCode" id="cb619"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#displays bottom top 10 observations of the data set</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">data1</span><span class="op">)</span></code></pre></div>
 <pre><code>##      international_plan voice_mail_plan number_vmail_messages total_day_minutes
 ## 4995                 no              no                     0             170.7
 ## 4996                 no             yes                    40             235.7
@@ -185,11 +180,12 @@
 ## 4998                             1    no
 ## 4999                             0    no
 ## 5000                             0    no</code></pre>
-<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="决策树及其组合方法.html#cb621-1" aria-hidden="true" tabindex="-1"></a><span class="co">#displays structure of the variables in the data set</span></span>
-<span id="cb621-2"><a href="决策树及其组合方法.html#cb621-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data1)</span></code></pre></div>
-<pre><code>## &#39;data.frame&#39;:    5000 obs. of  17 variables:
-##  $ international_plan           : chr  &quot;no&quot; &quot;no&quot; &quot;no&quot; &quot;yes&quot; ...
-##  $ voice_mail_plan              : chr  &quot;yes&quot; &quot;yes&quot; &quot;no&quot; &quot;no&quot; ...
+<div class="sourceCode" id="cb621"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#displays structure of the variables in the data set</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">data1</span><span class="op">)</span></code></pre></div>
+<pre><code>## 'data.frame':    5000 obs. of  17 variables:
+##  $ international_plan           : chr  "no" "no" "no" "yes" ...
+##  $ voice_mail_plan              : chr  "yes" "yes" "no" "no" ...
 ##  $ number_vmail_messages        : int  25 26 0 0 0 0 24 0 0 37 ...
 ##  $ total_day_minutes            : num  265 162 243 299 167 ...
 ##  $ total_day_calls              : int  110 123 114 71 113 98 88 79 97 84 ...
@@ -204,9 +200,10 @@
 ##  $ total_intl_calls             : int  3 3 5 7 3 6 7 6 4 5 ...
 ##  $ total_intl_charge            : num  2.7 3.7 3.29 1.78 2.73 1.7 2.03 1.92 2.35 3.02 ...
 ##  $ number_customer_service_calls: int  1 1 0 2 3 0 3 0 1 0 ...
-##  $ churn                        : chr  &quot;no&quot; &quot;no&quot; &quot;no&quot; &quot;no&quot; ...</code></pre>
-<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="决策树及其组合方法.html#cb623-1" aria-hidden="true" tabindex="-1"></a><span class="co">#gives the summary of the variables of the data set </span></span>
-<span id="cb623-2"><a href="决策树及其组合方法.html#cb623-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data1)</span></code></pre></div>
+##  $ churn                        : chr  "no" "no" "no" "no" ...</code></pre>
+<div class="sourceCode" id="cb623"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#gives the summary of the variables of the data set </span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">data1</span><span class="op">)</span></code></pre></div>
 <pre><code>##  international_plan voice_mail_plan    number_vmail_messages total_day_minutes
 ##  Length:5000        Length:5000        Min.   : 0.000        Min.   :  0.0    
 ##  Class :character   Class :character   1st Qu.: 0.000        1st Qu.:143.7    
@@ -242,24 +239,25 @@
 ##  Mean   :1.57                                    
 ##  3rd Qu.:2.00                                    
 ##  Max.   :9.00</code></pre>
-<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="决策树及其组合方法.html#cb625-1" aria-hidden="true" tabindex="-1"></a><span class="co">#library for the sample.split function</span></span>
-<span id="cb625-2"><a href="决策树及其组合方法.html#cb625-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caTools)</span>
-<span id="cb625-3"><a href="决策树及其组合方法.html#cb625-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb625-4"><a href="决策树及其组合方法.html#cb625-4" aria-hidden="true" tabindex="-1"></a><span class="co">#splitting the data into training and testing data </span></span>
-<span id="cb625-5"><a href="决策树及其组合方法.html#cb625-5" aria-hidden="true" tabindex="-1"></a><span class="co"># sample the input data with 70% for training and 30% for testing</span></span>
-<span id="cb625-6"><a href="决策树及其组合方法.html#cb625-6" aria-hidden="true" tabindex="-1"></a>data1<span class="sc">$</span>churn <span class="ot">&lt;-</span> <span class="fu">factor</span>(data1<span class="sc">$</span>churn)</span>
-<span id="cb625-7"><a href="决策树及其组合方法.html#cb625-7" aria-hidden="true" tabindex="-1"></a>sample <span class="ot">&lt;-</span> <span class="fu">sample.split</span>(data1<span class="sc">$</span>churn,<span class="at">SplitRatio=</span><span class="fl">0.70</span>)</span>
-<span id="cb625-8"><a href="决策树及其组合方法.html#cb625-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb625-9"><a href="决策树及其组合方法.html#cb625-9" aria-hidden="true" tabindex="-1"></a>trainData <span class="ot">&lt;-</span> <span class="fu">subset</span>(data1,sample<span class="sc">==</span><span class="cn">TRUE</span>)</span>
-<span id="cb625-10"><a href="决策树及其组合方法.html#cb625-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb625-11"><a href="决策树及其组合方法.html#cb625-11" aria-hidden="true" tabindex="-1"></a>testData <span class="ot">&lt;-</span> <span class="fu">subset</span>(data1,sample<span class="sc">==</span><span class="cn">FALSE</span>)</span>
-<span id="cb625-12"><a href="决策树及其组合方法.html#cb625-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb625-13"><a href="决策树及其组合方法.html#cb625-13" aria-hidden="true" tabindex="-1"></a><span class="co">#rpart --- recursive partitioning decision tree</span></span>
-<span id="cb625-14"><a href="决策树及其组合方法.html#cb625-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>
-<span id="cb625-15"><a href="决策树及其组合方法.html#cb625-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb625-16"><a href="决策树及其组合方法.html#cb625-16" aria-hidden="true" tabindex="-1"></a><span class="co">#TO BUILD DECISON TREE BY USING RPART PACKAGE(recursive partitioning decision tree)</span></span>
-<span id="cb625-17"><a href="决策树及其组合方法.html#cb625-17" aria-hidden="true" tabindex="-1"></a>churn_model<span class="ot">&lt;-</span> <span class="fu">rpart</span>(churn <span class="sc">~</span> .,<span class="at">data=</span>trainData)</span>
-<span id="cb625-18"><a href="决策树及其组合方法.html#cb625-18" aria-hidden="true" tabindex="-1"></a>churn_model</span></code></pre></div>
+<div class="sourceCode" id="cb625"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#library for the sample.split function</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">caTools</span><span class="op">)</span>
+
+<span class="co">#splitting the data into training and testing data </span>
+<span class="co"># sample the input data with 70% for training and 30% for testing</span>
+<span class="va">data1</span><span class="op">$</span><span class="va">churn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">churn</span><span class="op">)</span>
+<span class="va">sample</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caTools/man/sample.split.html">sample.split</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">churn</span>,SplitRatio<span class="op">=</span><span class="fl">0.70</span><span class="op">)</span>
+
+<span class="va">trainData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/subset.data.table.html">subset</a></span><span class="op">(</span><span class="va">data1</span>,<span class="va">sample</span><span class="op">==</span><span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="va">testData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/subset.data.table.html">subset</a></span><span class="op">(</span><span class="va">data1</span>,<span class="va">sample</span><span class="op">==</span><span class="cn">FALSE</span><span class="op">)</span>
+
+<span class="co">#rpart --- recursive partitioning decision tree</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bethatkinson/rpart">rpart</a></span><span class="op">)</span>
+
+<span class="co">#TO BUILD DECISON TREE BY USING RPART PACKAGE(recursive partitioning decision tree)</span>
+<span class="va">churn_model</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rpart/man/rpart.html">rpart</a></span><span class="op">(</span><span class="va">churn</span> <span class="op">~</span> <span class="va">.</span>,data<span class="op">=</span><span class="va">trainData</span><span class="op">)</span>
+<span class="va">churn_model</span></code></pre></div>
 <pre><code>## n= 3500 
 ## 
 ## node), split, n, loss, yval, (yprob)
@@ -294,21 +292,24 @@
 ##          28) total_day_minutes&lt; 289.2 48  12 no (0.75000000 0.25000000) *
 ##          29) total_day_minutes&gt;=289.2 21   4 yes (0.19047619 0.80952381) *
 ##        15) total_eve_minutes&gt;=185.15 105   6 yes (0.05714286 0.94285714) *</code></pre>
-<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="决策树及其组合方法.html#cb627-1" aria-hidden="true" tabindex="-1"></a><span class="co">#to display it in diagram</span></span>
-<span id="cb627-2"><a href="决策树及其组合方法.html#cb627-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb627-3"><a href="决策树及其组合方法.html#cb627-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rattle)</span></code></pre></div>
+<div class="sourceCode" id="cb627"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#to display it in diagram</span>
+
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rattle.togaware.com/">rattle</a></span><span class="op">)</span></code></pre></div>
 <pre><code>## Loading required package: tibble</code></pre>
 <pre><code>## Loading required package: bitops</code></pre>
 <pre><code>## Rattle: A free graphical interface for data science with R.
 ## Version 5.5.1 Copyright (c) 2006-2021 Togaware Pty Ltd.
-## Type &#39;rattle()&#39; to shake, rattle, and roll your data.</code></pre>
-<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb631-1"><a href="决策树及其组合方法.html#cb631-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart.plot)</span>
-<span id="cb631-2"><a href="决策树及其组合方法.html#cb631-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb631-3"><a href="决策树及其组合方法.html#cb631-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fancyRpartPlot</span>(churn_model)</span></code></pre></div>
-<p><img src="07-decisiontree_files/figure-html/project-1.png" width="672" /></p>
-<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="决策树及其组合方法.html#cb632-1" aria-hidden="true" tabindex="-1"></a><span class="co">#predicting the model data based on the model built from training data set</span></span>
-<span id="cb632-2"><a href="决策树及其组合方法.html#cb632-2" aria-hidden="true" tabindex="-1"></a>pred<span class="ot">&lt;-</span> <span class="fu">predict</span>(churn_model,testData,<span class="at">type =</span> <span class="st">&quot;class&quot;</span> )</span>
-<span id="cb632-3"><a href="决策树及其组合方法.html#cb632-3" aria-hidden="true" tabindex="-1"></a>pred</span></code></pre></div>
+## Type 'rattle()' to shake, rattle, and roll your data.</code></pre>
+<div class="sourceCode" id="cb631"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.milbo.org/rpart-plot/index.html">rpart.plot</a></span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/pkg/rattle/man/fancyRpartPlot.html">fancyRpartPlot</a></span><span class="op">(</span><span class="va">churn_model</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="07-decisiontree_files/figure-html/project-1.png" width="672"></div>
+<div class="sourceCode" id="cb632"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#predicting the model data based on the model built from training data set</span>
+<span class="va">pred</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">churn_model</span>,<span class="va">testData</span>,type <span class="op">=</span> <span class="st">"class"</span> <span class="op">)</span>
+<span class="va">pred</span></code></pre></div>
 <pre><code>##    2    4    9   12   13   16   19   25   26   29   33   36   37   38   43   46 
 ##   no  yes   no   no   no  yes   no   no   no   no   no   no   no   no   no   no 
 ##   50   53   56   58   62   68   69   70   71   77   78   80   81   84   88   91 
@@ -498,32 +499,35 @@
 ## 4954 4956 4960 4968 4969 4971 4973 4975 4982 4992 4995 5000 
 ##  yes   no  yes   no   no   no   no   no   no  yes   no   no 
 ## Levels: no yes</code></pre>
-<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="决策树及其组合方法.html#cb634-1" aria-hidden="true" tabindex="-1"></a>pred1<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(pred)</span>
-<span id="cb634-2"><a href="决策树及其组合方法.html#cb634-2" aria-hidden="true" tabindex="-1"></a><span class="co">#View(pred1)</span></span>
-<span id="cb634-3"><a href="决策树及其组合方法.html#cb634-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb634-4"><a href="决策树及其组合方法.html#cb634-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Confusion matrix is a technique for summarizing the performance of a classification algorithm </span></span>
-<span id="cb634-5"><a href="决策树及其组合方法.html#cb634-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(testData<span class="sc">$</span>churn ,pred)<span class="co">#create confusion matrix to see how mnay cus are correctly predicted and incorrectly predicted</span></span></code></pre></div>
+<div class="sourceCode" id="cb634"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pred1</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">pred</span><span class="op">)</span>
+<span class="co">#View(pred1)</span>
+
+<span class="co">#Confusion matrix is a technique for summarizing the performance of a classification algorithm </span>
+<span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">testData</span><span class="op">$</span><span class="va">churn</span> ,<span class="va">pred</span><span class="op">)</span><span class="co">#create confusion matrix to see how mnay cus are correctly predicted and incorrectly predicted</span></code></pre></div>
 <pre><code>##      pred
 ##         no  yes
 ##   no  1272   16
 ##   yes   64  148</code></pre>
-<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="决策树及其组合方法.html#cb636-1" aria-hidden="true" tabindex="-1"></a><span class="do">#####</span></span>
-<span id="cb636-2"><a href="决策树及其组合方法.html#cb636-2" aria-hidden="true" tabindex="-1"></a><span class="do">#####RANDOM FOREST MODEL</span></span>
-<span id="cb636-3"><a href="决策树及其组合方法.html#cb636-3" aria-hidden="true" tabindex="-1"></a><span class="do">#####</span></span>
-<span id="cb636-4"><a href="决策树及其组合方法.html#cb636-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb636-5"><a href="决策树及其组合方法.html#cb636-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb636-6"><a href="决策树及其组合方法.html#cb636-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span></code></pre></div>
+<div class="sourceCode" id="cb636"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#####</span>
+<span class="co">#####RANDOM FOREST MODEL</span>
+<span class="co">#####</span>
+
+
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.stat.berkeley.edu/~breiman/RandomForests/">randomForest</a></span><span class="op">)</span></code></pre></div>
 <pre><code>## randomForest 4.7-1.1</code></pre>
 <pre><code>## Type rfNews() to see new features/changes/bug fixes.</code></pre>
 <pre><code>## 
-## Attaching package: &#39;randomForest&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:rattle&#39;:
+## Attaching package: 'randomForest'</code></pre>
+<pre><code>## The following object is masked from 'package:rattle':
 ## 
 ##     importance</code></pre>
-<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="决策树及其组合方法.html#cb641-1" aria-hidden="true" tabindex="-1"></a><span class="co">#to build the random forest model </span></span>
-<span id="cb641-2"><a href="决策树及其组合方法.html#cb641-2" aria-hidden="true" tabindex="-1"></a><span class="co">#trainData$churn = as.character(trainData$churn)</span></span>
-<span id="cb641-3"><a href="决策树及其组合方法.html#cb641-3" aria-hidden="true" tabindex="-1"></a>random_model <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(churn<span class="sc">~</span>.,<span class="at">data=</span>trainData, <span class="at">importance =</span> T)</span>
-<span id="cb641-4"><a href="决策树及其组合方法.html#cb641-4" aria-hidden="true" tabindex="-1"></a>random_model</span></code></pre></div>
+<div class="sourceCode" id="cb641"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#to build the random forest model </span>
+<span class="co">#trainData$churn = as.character(trainData$churn)</span>
+<span class="va">random_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/randomForest.html">randomForest</a></span><span class="op">(</span><span class="va">churn</span><span class="op">~</span><span class="va">.</span>,data<span class="op">=</span><span class="va">trainData</span>, importance <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
+<span class="va">random_model</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ##  randomForest(formula = churn ~ ., data = trainData, importance = T) 
@@ -536,9 +540,10 @@
 ##       no yes class.error
 ## no  2977  28 0.009317804
 ## yes  130 365 0.262626263</code></pre>
-<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="决策树及其组合方法.html#cb643-1" aria-hidden="true" tabindex="-1"></a><span class="co">#predicting the data based on the model developed</span></span>
-<span id="cb643-2"><a href="决策树及其组合方法.html#cb643-2" aria-hidden="true" tabindex="-1"></a>ran_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(random_model,testData)</span>
-<span id="cb643-3"><a href="决策树及其组合方法.html#cb643-3" aria-hidden="true" tabindex="-1"></a>ran_pred</span></code></pre></div>
+<div class="sourceCode" id="cb643"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#predicting the data based on the model developed</span>
+<span class="va">ran_pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">random_model</span>,<span class="va">testData</span><span class="op">)</span>
+<span class="va">ran_pred</span></code></pre></div>
 <pre><code>##    2    4    9   12   13   16   19   25   26   29   33   36   37   38   43   46 
 ##   no   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no 
 ##   50   53   56   58   62   68   69   70   71   77   78   80   81   84   88   91 
@@ -728,18 +733,21 @@
 ## 4954 4956 4960 4968 4969 4971 4973 4975 4982 4992 4995 5000 
 ##  yes   no  yes   no   no   no   no   no   no  yes   no   no 
 ## Levels: no yes</code></pre>
-<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb645-1"><a href="决策树及其组合方法.html#cb645-1" aria-hidden="true" tabindex="-1"></a>ran_pred1 <span class="ot">&lt;-</span><span class="fu">data.frame</span>(ran_pred)</span>
-<span id="cb645-2"><a href="决策树及其组合方法.html#cb645-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb645-3"><a href="决策树及其组合方法.html#cb645-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(testData<span class="sc">$</span>churn ,ran_pred) <span class="co"># confusion matrix</span></span></code></pre></div>
+<div class="sourceCode" id="cb645"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ran_pred1</span> <span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">ran_pred</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">testData</span><span class="op">$</span><span class="va">churn</span> ,<span class="va">ran_pred</span><span class="op">)</span> <span class="co"># confusion matrix</span></code></pre></div>
 <pre><code>##      ran_pred
 ##         no  yes
 ##   no  1282    6
 ##   yes   50  162</code></pre>
-<div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb647-1"><a href="决策树及其组合方法.html#cb647-1" aria-hidden="true" tabindex="-1"></a><span class="co">#accuracy rate </span></span>
-<span id="cb647-2"><a href="决策树及其组合方法.html#cb647-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1276</span><span class="sc">+</span> <span class="dv">173</span>)<span class="sc">/</span>(<span class="dv">1276</span><span class="sc">+</span><span class="dv">12</span><span class="sc">+</span><span class="dv">39</span><span class="sc">+</span><span class="dv">173</span>) <span class="co"># 97 % of accuracy : higher than decision tree , where accuracy rate is 95 % </span></span></code></pre></div>
+<div class="sourceCode" id="cb647"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#accuracy rate </span>
+<span class="op">(</span><span class="fl">1276</span><span class="op">+</span> <span class="fl">173</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fl">1276</span><span class="op">+</span><span class="fl">12</span><span class="op">+</span><span class="fl">39</span><span class="op">+</span><span class="fl">173</span><span class="op">)</span> <span class="co"># 97 % of accuracy : higher than decision tree , where accuracy rate is 95 % </span></code></pre></div>
 <pre><code>## [1] 0.966</code></pre>
-<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="决策树及其组合方法.html#cb649-1" aria-hidden="true" tabindex="-1"></a><span class="co">#most commonly mean decrease gini is considered</span></span>
-<span id="cb649-2"><a href="决策树及其组合方法.html#cb649-2" aria-hidden="true" tabindex="-1"></a><span class="fu">importance</span>(random_model)</span></code></pre></div>
+<div class="sourceCode" id="cb649"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#most commonly mean decrease gini is considered</span>
+<span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/importance.html">importance</a></span><span class="op">(</span><span class="va">random_model</span><span class="op">)</span></code></pre></div>
 <pre><code>##                                       no         yes MeanDecreaseAccuracy
 ## international_plan            71.6786627  81.0854662          86.75733745
 ## voice_mail_plan               17.5649360  21.6852537          21.95585067
@@ -774,34 +782,38 @@
 ## total_intl_calls                      45.68021
 ## total_intl_charge                     39.44432
 ## number_customer_service_calls         98.06230</code></pre>
-<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="决策树及其组合方法.html#cb651-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variables that result in nodes with higher purity have a higher decrease in Gini coefficient.</span></span>
-<span id="cb651-2"><a href="决策树及其组合方法.html#cb651-2" aria-hidden="true" tabindex="-1"></a><span class="fu">varImpPlot</span>(random_model)</span></code></pre></div>
-<p><img src="07-decisiontree_files/figure-html/project-2.png" width="672" /></p>
-<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb652-1"><a href="决策树及其组合方法.html#cb652-1" aria-hidden="true" tabindex="-1"></a><span class="co">#total day charges have higher decrease in gini index so its more significant than other</span></span></code></pre></div>
+<div class="sourceCode" id="cb651"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Variables that result in nodes with higher purity have a higher decrease in Gini coefficient.</span>
+<span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/varImpPlot.html">varImpPlot</a></span><span class="op">(</span><span class="va">random_model</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="07-decisiontree_files/figure-html/project-2.png" width="672"></div>
+<div class="sourceCode" id="cb652"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#total day charges have higher decrease in gini index so its more significant than other</span></code></pre></div>
 
 </div>
 </div>
-  </main>
-
-  <div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
-    <nav id="toc" data-toggle="toc" aria-label="On this page">
-      <h2>On this page</h2>
-      <div id="book-on-this-page"></div>
+  <div class="chapter-nav">
+<div class="prev"><a href="logistic%E5%9B%9E%E5%BD%92.html"><span class="header-section-number">7</span> Logistic回归</a></div>
+<div class="next"><a href="%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%E5%92%8C%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html"><span class="header-section-number">9</span> 支持向量机和神经网络</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%E5%86%B3%E7%AD%96%E6%A0%91%E5%8F%8A%E5%85%B6%E7%BB%84%E5%90%88%E6%96%B9%E6%B3%95"><span class="header-section-number">8</span> 决策树及其组合方法</a></li>
+<li><a class="nav-link" href="#%E5%86%B3%E7%AD%96%E6%A0%91"><span class="header-section-number">8.1</span> 决策树</a></li>
+<li><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B-1"><span class="header-section-number">8.2</span> 实例</a></li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-          <li><a id="book-source" href="#">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="#">Edit this page <i class="fab fa-github"></i></a></li>
+          
         </ul>
-      </div>
+</div>
     </nav>
-  </div>
+</div>
 
 </div>
 </div> <!-- .container -->
 
-<footer class="bg-primary text-light mt-5">
-  <div class="container"><div class="row">
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
     <p>"<strong>数据科学导论（Introductory of Data Science）</strong>" was written by 潘蓄林. It was last built on 2022-06-08.</p>
@@ -812,11 +824,7 @@
   </div>
 
 </div></div>
-</footer>
-
-
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -828,8 +836,7 @@
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
-</script>
-<script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
 for (let popover of popovers) {
   const div = document.createElement('div');
   div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
@@ -847,5 +854,4 @@ for (let popover of popovers) {
 }
 </script>
 </body>
-
 </html>
