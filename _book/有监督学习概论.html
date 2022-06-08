@@ -1,32 +1,56 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 5 有监督学习概论 | 数据科学导论（Introductory of Data Science）</title>
-<meta name="author" content="潘蓄林">
-<meta name="description" content="5.0.1 机器学习 机器学习1959年由Arthur Samuel首次提出； 机器学习是研究计算机算法，这个算法可通过数据产生的经验自动地改善（Machine learning (ML) is the study of computer algorithms that can improve automatically through experience and by the use...">
-<meta name="generator" content="bookdown 0.25 with bs4_book()">
-<meta property="og:title" content="Chapter 5 有监督学习概论 | 数据科学导论（Introductory of Data Science）">
-<meta property="og:type" content="book">
-<meta property="og:description" content="5.0.1 机器学习 机器学习1959年由Arthur Samuel首次提出； 机器学习是研究计算机算法，这个算法可通过数据产生的经验自动地改善（Machine learning (ML) is the study of computer algorithms that can improve automatically through experience and by the use...">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 5 有监督学习概论 | 数据科学导论（Introductory of Data Science）">
-<meta name="twitter:description" content="5.0.1 机器学习 机器学习1959年由Arthur Samuel首次提出； 机器学习是研究计算机算法，这个算法可通过数据产生的经验自动地改善（Machine learning (ML) is the study of computer algorithms that can improve automatically through experience and by the use...">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Chapter 5 有监督学习概论 | 数据科学导论（Introductory of Data Science）</title>
+
+    <meta name="author" content="潘蓄林" />
+  
+   <meta name="description" content="2022年数据科学导论" />
+   <meta name="generator" content="placeholder" />
+  <meta property="og:title" content="Chapter 5 有监督学习概论 | 数据科学导论（Introductory of Data Science）" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="2022年数据科学导论" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 有监督学习概论 | 数据科学导论（Introductory of Data Science）" />
+  
+  <meta name="twitter:description" content="2022年数据科学导论" />
+  
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script>
+    <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet" />
+    <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script>
+    <script src="libs/bs3compat-0.3.1/transition.js"></script>
+    <script src="libs/bs3compat-0.3.1/tabs.js"></script>
+    <script src="libs/bs3compat-0.3.1/bs3compat.js"></script>
+    <link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet" />
+    <script src="libs/bs4_book-1.0.0/bs4_book.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script>
+
+  <!-- CSS -->
+  <style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
+    
 </head>
+
 <body data-spy="scroll" data-target="#toc">
 
 <div class="container-fluid">
 <div class="row">
-  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book">
+    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
@@ -38,35 +62,24 @@
     <div id="main-nav" class="collapse-lg">
       <form role="search">
         <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
-</form>
+      </form>
 
-      <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html"><span class="header-section-number">1</span> 前言（Prerequisites）</a></li>
-<li><a class="" href="r%E5%8F%8Apython%E8%AF%AD%E8%A8%80%E7%AE%80%E4%BB%8B.html"><span class="header-section-number">2</span> R及Python语言简介</a></li>
-<li><a class="" href="%E6%95%B0%E6%8D%AE%E6%8F%8F%E8%BF%B0.html"><span class="header-section-number">3</span> 数据描述</a></li>
-<li><a class="" href="%E6%95%B0%E6%8D%AE%E6%95%B4%E7%90%86%E5%92%8C%E6%B8%85%E7%90%86.html"><span class="header-section-number">4</span> 数据整理和清理</a></li>
-<li><a class="active" href="%E6%9C%89%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%AE%BA.html"><span class="header-section-number">5</span> 有监督学习概论</a></li>
-<li><a class="" href="%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%B3%95.html"><span class="header-section-number">6</span> 最小二乘线性回归法</a></li>
-<li><a class="" href="logistic%E5%9B%9E%E5%BD%92.html"><span class="header-section-number">7</span> Logistic回归</a></li>
-<li><a class="" href="%E5%86%B3%E7%AD%96%E6%A0%91%E5%8F%8A%E5%85%B6%E7%BB%84%E5%90%88%E6%96%B9%E6%B3%95.html"><span class="header-section-number">8</span> 决策树及其组合方法</a></li>
-<li><a class="" href="github%E4%BD%BF%E7%94%A8.html"><span class="header-section-number">9</span> github使用</a></li>
-<li><a class="" href="references.html">References</a></li>
-</ul>
+      <nav aria-label="Table of contents">
+        <h2>Table of contents</h2>
+        <div id="book-toc"></div>
 
         <div class="book-extra">
-          
+          <p><a id="book-repo" href="#">View book source <i class="fab fa-github"></i></a></li></p>
         </div>
       </nav>
-</div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="有监督学习概论" class="section level1" number="5">
-<h1>
-<span class="header-section-number">5</span> 有监督学习概论<a class="anchor" aria-label="anchor" href="#%E6%9C%89%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%AE%BA"><i class="fas fa-link"></i></a>
-</h1>
+    </div>
+  </header>
+
+  <main class="col-sm-12 col-md-9 col-lg-7" id="content">
+<div id="有监督学习概论" class="section level1" number="5">
+<h1><span class="header-section-number">Chapter 5</span> 有监督学习概论</h1>
 <div id="机器学习" class="section level3" number="5.0.1">
-<h3>
-<span class="header-section-number">5.0.1</span> 机器学习<a class="anchor" aria-label="anchor" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"><i class="fas fa-link"></i></a>
-</h3>
+<h3><span class="header-section-number">5.0.1</span> 机器学习</h3>
 <ul>
 <li>机器学习1959年由Arthur Samuel首次提出；</li>
 <li>机器学习是研究计算机算法，这个算法可通过数据产生的经验自动地改善（Machine learning (ML) is the study of computer algorithms that can improve automatically through experience and by the use of data）（Mitchell,Tom，1959）</li>
@@ -75,13 +88,12 @@
 <li>机器学习的种类:</li>
 </ul>
 <div class="figure">
-<img src="pics/machine%20learning.jpg" alt=""><p class="caption">machine learning</p>
+<img src="pics/machine%20learning.jpg" alt="" />
+<p class="caption">machine learning</p>
 </div>
 </div>
 <div id="机器学习实例" class="section level3" number="5.0.2">
-<h3>
-<span class="header-section-number">5.0.2</span> 机器学习实例<a class="anchor" aria-label="anchor" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E4%BE%8B"><i class="fas fa-link"></i></a>
-</h3>
+<h3><span class="header-section-number">5.0.2</span> 机器学习实例</h3>
 <ul>
 <li><p>房价预测：如何对房子的价格进行预测？采集与房子有关的变量：区域、房子朝向、楼层、周围是否有地铁、面积、房屋的价格等数据，构建一个回归模型来进行预测。<span class="math display">\[y=f(X)+\epsilon\]</span></p></li>
 <li><p>垃圾邮件分类：根据邮件内容提取出一些特征关键词作为X，而响应变量y为两个是值：1垃圾邮件，0好邮件，构建一个分类器进行邮件分类。<span class="math display">\[C(x)=P(y=1|X)\]</span></p></li>
@@ -89,50 +101,44 @@
 <li><p>强化学习:玩Super Mario Bros游戏</p></li>
 </ul>
 <div class="figure">
-<img src="pics/reinforcementLearning.png" alt=""><p class="caption">ReinforcementLearning</p>
+<img src="pics/reinforcementLearning.png" alt="" />
+<p class="caption">ReinforcementLearning</p>
 </div>
 </div>
 <div id="模型及拟合" class="section level2" number="5.1">
-<h2>
-<span class="header-section-number">5.1</span> 模型及拟合<a class="anchor" aria-label="anchor" href="#%E6%A8%A1%E5%9E%8B%E5%8F%8A%E6%8B%9F%E5%90%88"><i class="fas fa-link"></i></a>
-</h2>
+<h2><span class="header-section-number">5.1</span> 模型及拟合</h2>
 <ol style="list-style-type: decimal">
 <li>模型：人们对所关心的真实世界问题的一个近似描述。</li>
 </ol>
 <div class="figure">
-<img src="pics/model.jpg" alt=""><p class="caption">Model</p>
+<img src="pics/model.jpg" alt="" />
+<p class="caption">Model</p>
 </div>
 <ol start="2" style="list-style-type: decimal">
-<li>
-<div class="inline-figure">决策树模型：是一种有监督学习的算法，使用一系列的是和否规则（if-then rules)来进行决策，和人进行决策的过程类似。
-<img src="pics/decisiontree.jpg" alt="Model">
-</div>
+<li><p>决策树模型：是一种有监督学习的算法，使用一系列的是和否规则（if-then rules)来进行决策，和人进行决策的过程类似。
+<img src="pics/decisiontree.jpg" alt="Model" /></p>
 <ul>
 <li>数据：</li>
-</ul>
-</li>
+</ul></li>
 </ol>
-<div class="sourceCode" id="cb497"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages{"rpart"}</span>
-<span class="co"># install.packages{"rattle"}</span>
-<span class="co"># install.packages{"partykit"}</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bethatkinson/rpart">rpart</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.milbo.org/rpart-plot/index.html">rpart.plot</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rattle.togaware.com/">rattle</a></span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb497-1"><a href="有监督学习概论.html#cb497-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages{&quot;rpart&quot;}</span></span>
+<span id="cb497-2"><a href="有监督学习概论.html#cb497-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages{&quot;rattle&quot;}</span></span>
+<span id="cb497-3"><a href="有监督学习概论.html#cb497-3" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages{&quot;partykit&quot;}</span></span>
+<span id="cb497-4"><a href="有监督学习概论.html#cb497-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>
+<span id="cb497-5"><a href="有监督学习概论.html#cb497-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart.plot)</span>
+<span id="cb497-6"><a href="有监督学习概论.html#cb497-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rattle)</span></code></pre></div>
 <pre><code>## Loading required package: tibble</code></pre>
 <pre><code>## Loading required package: bitops</code></pre>
 <pre><code>## Rattle: A free graphical interface for data science with R.
 ## Version 5.5.1 Copyright (c) 2006-2021 Togaware Pty Ltd.
-## Type 'rattle()' to shake, rattle, and roll your data.</code></pre>
-<div class="sourceCode" id="cb501"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://partykit.r-forge.r-project.org/partykit/">partykit</a></span><span class="op">)</span></code></pre></div>
+## Type &#39;rattle()&#39; to shake, rattle, and roll your data.</code></pre>
+<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="有监督学习概论.html#cb501-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(partykit)</span></code></pre></div>
 <pre><code>## Loading required package: grid</code></pre>
 <pre><code>## Loading required package: libcoin</code></pre>
 <pre><code>## Loading required package: mvtnorm</code></pre>
-<div class="sourceCode" id="cb505"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># inpput the file</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">trees</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">trees</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="有监督学习概论.html#cb505-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inpput the file</span></span>
+<span id="cb505-2"><a href="有监督学习概论.html#cb505-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(trees)</span>
+<span id="cb505-3"><a href="有监督学习概论.html#cb505-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(trees)</span></code></pre></div>
 <pre><code>##   Girth Height Volume
 ## 1   8.3     70   10.3
 ## 2   8.6     65   10.3
@@ -140,13 +146,11 @@
 ## 4  10.5     72   16.4
 ## 5  10.7     81   18.8
 ## 6  10.8     83   19.7</code></pre>
-<div class="sourceCode" id="cb507"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">volume</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rpart/man/rpart.html">rpart</a></span><span class="op">(</span><span class="va">Volume</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">trees</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/rpart.plot/man/rpart.plot.html">rpart.plot</a></span><span class="op">(</span><span class="va">volume</span>, type <span class="op">=</span> <span class="fl">3</span>, clip.right.labs <span class="op">=</span> <span class="cn">FALSE</span>, branch <span class="op">=</span> <span class="fl">.3</span>, under <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="04-application_files/figure-html/decisiontree-1.png" width="672"></div>
-<div class="sourceCode" id="cb508"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"./data/simple4.csv"</span><span class="op">)</span>
-<span class="va">df</span></code></pre></div>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="有监督学习概论.html#cb507-1" aria-hidden="true" tabindex="-1"></a>volume <span class="ot">&lt;-</span> <span class="fu">rpart</span>(Volume <span class="sc">~</span> ., <span class="at">data =</span> trees)</span>
+<span id="cb507-2"><a href="有监督学习概论.html#cb507-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rpart.plot</span>(volume, <span class="at">type =</span> <span class="dv">3</span>, <span class="at">clip.right.labs =</span> <span class="cn">FALSE</span>, <span class="at">branch =</span> .<span class="dv">3</span>, <span class="at">under =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="04-application_files/figure-html/decisiontree-1.png" width="672" /></p>
+<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="有监督学习概论.html#cb508-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;./data/simple4.csv&quot;</span>)</span>
+<span id="cb508-2"><a href="有监督学习概论.html#cb508-2" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
 <pre><code>##    sex haircol skirt style
 ## 1    F  yellow     y     n
 ## 2    F   black     y     n
@@ -160,16 +164,15 @@
 ## 10   F   black     y     n
 ## 11   M   black     y     y
 ## 12   F  yellow     n     y</code></pre>
-<div class="sourceCode" id="cb510"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#sex &lt;- factor(df$sex, levels = 0:1, labels = c("M", "F"))</span>
-<span class="co">#haircol &lt;- factor(df$haircol,levels = 0:1, labels = c("yellow", "black"))</span>
-<span class="co">#skirt &lt;- factor(df$skirt,levels = 0:1, labels = c("y", "n"))</span>
-<span class="co">#style &lt;- factor(df$style,levels = 0:1, labels = c("y", "n"))</span>
-<span class="co">#df[] &lt;- lapply(df,factor)</span>
-<span class="co">#str(df)</span>
-<span class="co">#output.tree&lt;- rpart(sex~.,data=df,cp=0.02)</span>
-<span class="co">#print(output.tree)</span>
-<span class="co">#rpart.plot(output.tree)</span></code></pre></div>
+<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="有监督学习概论.html#cb510-1" aria-hidden="true" tabindex="-1"></a><span class="co">#sex &lt;- factor(df$sex, levels = 0:1, labels = c(&quot;M&quot;, &quot;F&quot;))</span></span>
+<span id="cb510-2"><a href="有监督学习概论.html#cb510-2" aria-hidden="true" tabindex="-1"></a><span class="co">#haircol &lt;- factor(df$haircol,levels = 0:1, labels = c(&quot;yellow&quot;, &quot;black&quot;))</span></span>
+<span id="cb510-3"><a href="有监督学习概论.html#cb510-3" aria-hidden="true" tabindex="-1"></a><span class="co">#skirt &lt;- factor(df$skirt,levels = 0:1, labels = c(&quot;y&quot;, &quot;n&quot;))</span></span>
+<span id="cb510-4"><a href="有监督学习概论.html#cb510-4" aria-hidden="true" tabindex="-1"></a><span class="co">#style &lt;- factor(df$style,levels = 0:1, labels = c(&quot;y&quot;, &quot;n&quot;))</span></span>
+<span id="cb510-5"><a href="有监督学习概论.html#cb510-5" aria-hidden="true" tabindex="-1"></a><span class="co">#df[] &lt;- lapply(df,factor)</span></span>
+<span id="cb510-6"><a href="有监督学习概论.html#cb510-6" aria-hidden="true" tabindex="-1"></a><span class="co">#str(df)</span></span>
+<span id="cb510-7"><a href="有监督学习概论.html#cb510-7" aria-hidden="true" tabindex="-1"></a><span class="co">#output.tree&lt;- rpart(sex~.,data=df,cp=0.02)</span></span>
+<span id="cb510-8"><a href="有监督学习概论.html#cb510-8" aria-hidden="true" tabindex="-1"></a><span class="co">#print(output.tree)</span></span>
+<span id="cb510-9"><a href="有监督学习概论.html#cb510-9" aria-hidden="true" tabindex="-1"></a><span class="co">#rpart.plot(output.tree)</span></span></code></pre></div>
 <p>3.节点纯度的度量：Gini系数和熵
 + 也称Gini不纯度，当随机选择一个特征，这个特定特征的总概率的计算（Gini Index, also known as Gini impurity, calculates the amount of probability of a specific feature that is classified incorrectly when selected randomly）.
 <span class="math display">\[GiniIndex=1-\sum\limits_{i=1}^kp_i^2\]</span>
@@ -177,11 +180,10 @@
 <span class="math display">\[Entropy=-\sum\limits_{i=1}^kp_i\times log(p_i)\]</span>
 + 不同的决策树算法使用不同的计算方法，CART树使用Gini系数，ID3和C4.5算法使用熵。（Different decision tree algorithms utilize different impurity metrics: CART uses Gini; ID3 and C4.5 use Entropy).</p>
 <p>4.决策树例子</p>
-<div class="sourceCode" id="cb511"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">decisiontree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>emotion<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'sick'</span>,<span class="st">'sick'</span>,<span class="st">'sick'</span>,<span class="st">'notsick'</span>,<span class="st">'notsick'</span>,<span class="st">'sick'</span>,<span class="st">'notsick'</span>,<span class="st">'notsick'</span><span class="op">)</span>,
-                 temperature<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'under'</span>,<span class="st">'over'</span>,<span class="st">'under'</span>,<span class="st">'under'</span>,<span class="st">'over'</span>,<span class="st">'over'</span>,<span class="st">'under'</span>,<span class="st">'over'</span><span class="op">)</span>,
-                 stayhome<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'N'</span>,<span class="st">'Y'</span>,<span class="st">'Y'</span>,<span class="st">'N'</span>,<span class="st">'Y'</span>,<span class="st">'N'</span>,<span class="st">'N'</span>,<span class="st">'Y'</span><span class="op">)</span><span class="op">)</span>
-<span class="va">decisiontree</span></code></pre></div>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="有监督学习概论.html#cb511-1" aria-hidden="true" tabindex="-1"></a>decisiontree <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">emotion=</span><span class="fu">c</span>(<span class="st">&#39;sick&#39;</span>,<span class="st">&#39;sick&#39;</span>,<span class="st">&#39;sick&#39;</span>,<span class="st">&#39;notsick&#39;</span>,<span class="st">&#39;notsick&#39;</span>,<span class="st">&#39;sick&#39;</span>,<span class="st">&#39;notsick&#39;</span>,<span class="st">&#39;notsick&#39;</span>),</span>
+<span id="cb511-2"><a href="有监督学习概论.html#cb511-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">temperature=</span><span class="fu">c</span>(<span class="st">&#39;under&#39;</span>,<span class="st">&#39;over&#39;</span>,<span class="st">&#39;under&#39;</span>,<span class="st">&#39;under&#39;</span>,<span class="st">&#39;over&#39;</span>,<span class="st">&#39;over&#39;</span>,<span class="st">&#39;under&#39;</span>,<span class="st">&#39;over&#39;</span>),</span>
+<span id="cb511-3"><a href="有监督学习概论.html#cb511-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">stayhome=</span><span class="fu">c</span>(<span class="st">&#39;N&#39;</span>,<span class="st">&#39;Y&#39;</span>,<span class="st">&#39;Y&#39;</span>,<span class="st">&#39;N&#39;</span>,<span class="st">&#39;Y&#39;</span>,<span class="st">&#39;N&#39;</span>,<span class="st">&#39;N&#39;</span>,<span class="st">&#39;Y&#39;</span>))</span>
+<span id="cb511-4"><a href="有监督学习概论.html#cb511-4" aria-hidden="true" tabindex="-1"></a>decisiontree</span></code></pre></div>
 <pre><code>##   emotion temperature stayhome
 ## 1    sick       under        N
 ## 2    sick        over        Y
@@ -192,16 +194,14 @@
 ## 7 notsick       under        N
 ## 8 notsick        over        Y</code></pre>
 <ul>
-<li>
-<p>计算步骤：</p>
+<li><p>计算步骤：</p>
 <ul>
 <li>选择stayhome作为因变量y,emotion和temperature作为自变量<span class="math inline">\(x_1,x_2\)</span>;</li>
 <li>首先计算根结点的GiniIndex：<span class="math inline">\(GiniIndex_r=\frac{1}{2}\)</span>;</li>
 <li>随机选择一个变量，如<span class="math inline">\(x_2\)</span>进行根结点裂分，分别计算左节点(condition为True)的Gini系数<span class="math inline">\(GiniIndex_1=\frac{3}{8}\)</span>和右节点(condition为False)的Gini系数<span class="math inline">\(GiniIndex_2=\frac{3}{8}\)</span>，然后计算加权的GiniIndex<span class="math inline">\(GiniIndex_w=\frac{3}{8}\times\frac{4}{8}+\frac{3}{8}\times\frac{4}{8}=\frac{1}{2}\)</span>,最后计算使用<span class="math inline">\(x_2\)</span>进行根结点裂分得到的基尼不纯度的降低值<span class="math inline">\(GiniIndex_r-GiniIndex_w=\frac{1}{2}-\frac{3}{8}=\frac{1}{8}\)</span>;</li>
 <li>根据上述过程选择另一个变量(<span class="math inline">\(x_1\)</span>)，进行类似的计算得到的基尼不纯度的降低值为0</li>
 <li>所以第一轮选择<span class="math inline">\(x_2\)</span>进行裂分。</li>
-</ul>
-</li>
+</ul></li>
 <li><p>使用信息熵的方法进行相似的计算。</p></li>
 </ul>
 <p>5.预测值、拟合值及误判率</p>
@@ -211,9 +211,8 @@
 <li>使用训练模型的训练集会产生一个误判, 这实际上是用训练集“学习到” 的模型对训练集的因变量sex做预测。</li>
 <li>混淆矩阵(confusion Matrix)是机器学习用来衡量分类好坏的方法（Confusion Matrix is a performance measurement for machine learning classification）.</li>
 </ul>
-<div class="inline-figure">
-<img src="pics/confusionmatrix.png" alt="Confusion Matrix">
-6.过拟合</div>
+<p><img src="pics/confusionmatrix.png" alt="Confusion Matrix" />
+6.过拟合</p>
 <ul>
 <li>机器学习的目的是得到一个泛化误差比较小的模型；</li>
 <li>如果用训练集所得到的误判率和用非训练集(或测试集) 得到的误判率之间差别很大, 则说明该模型有过拟合现象(overfitting).</li>
@@ -221,55 +220,50 @@
 <li>简单来说就是模型在训练集上得到的误差非常小（偏差较小）而在不同数据集之间得到的误差非常大（方差较大），而模型总的误差基本由偏差和方差组成。</li>
 <li>例子：买家秀和卖家秀；</li>
 </ul>
-<div class="sourceCode" id="cb513"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">###Overfitting</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com">data.table</a></span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb513-1"><a href="有监督学习概论.html#cb513-1" aria-hidden="true" tabindex="-1"></a><span class="do">###Overfitting</span></span>
+<span id="cb513-2"><a href="有监督学习概论.html#cb513-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(data.table)</span></code></pre></div>
 <pre><code>## Loading required package: data.table</code></pre>
-<div class="sourceCode" id="cb515"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bethatkinson/rpart">rpart</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb515"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb515-1"><a href="有监督学习概论.html#cb515-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>
+<span id="cb515-2"><a href="有监督学习概论.html#cb515-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span></code></pre></div>
 <pre><code>## Loading required package: ggplot2</code></pre>
-<div class="sourceCode" id="cb517"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">456</span><span class="op">)</span>
-<span class="co">##Reading data</span>
-<span class="va">overfitting_data</span><span class="op">=</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html">data.table</a></span><span class="op">(</span><span class="va">airquality</span><span class="op">)</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">overfitting_data</span>,<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">Wind</span>,<span class="va">Ozone</span><span class="op">)</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Ozone vs wind speed"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb517-1"><a href="有监督学习概论.html#cb517-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">456</span>)</span>
+<span id="cb517-2"><a href="有监督学习概论.html#cb517-2" aria-hidden="true" tabindex="-1"></a><span class="do">##Reading data</span></span>
+<span id="cb517-3"><a href="有监督学习概论.html#cb517-3" aria-hidden="true" tabindex="-1"></a>overfitting_data<span class="ot">=</span><span class="fu">data.table</span>(airquality)</span>
+<span id="cb517-4"><a href="有监督学习概论.html#cb517-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(overfitting_data,<span class="fu">aes</span>(Wind,Ozone))<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">&quot;Ozone vs wind speed&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning: Removed 37 rows containing missing values (geom_point).</code></pre>
-<div class="inline-figure"><img src="04-application_files/figure-html/overfitting-1.png" width="672"></div>
-<div class="sourceCode" id="cb519"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data_test</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="va">overfitting_data</span><span class="op">[</span>,<span class="fu">.</span><span class="op">(</span><span class="va">Wind</span>,<span class="va">Ozone</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
-<span class="va">train_sample</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">data_test</span><span class="op">)</span>,size <span class="op">=</span> <span class="fl">0.7</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">data_test</span><span class="op">)</span><span class="op">)</span>
-<span class="co">###creation of polynomial models</span>
-<span class="va">degree_of_poly</span><span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>
-<span class="va">degree_to_plot</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">10</span>,<span class="fl">20</span><span class="op">)</span>
-<span class="va">polynomial_model</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">df_result</span><span class="op">=</span><span class="cn">NULL</span>
-<span class="kw">for</span> <span class="op">(</span><span class="va">degree</span> <span class="kw">in</span> <span class="va">degree_of_poly</span><span class="op">)</span>
-<span class="op">{</span>
- <span class="va">fm</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/formula.html">as.formula</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Ozone~poly(Wind,"</span>,<span class="va">degree</span>,<span class="st">",raw=T)"</span><span class="op">)</span><span class="op">)</span>
- <span class="va">polynomial_model</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">polynomial_model</span>,<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">fm</span>,<span class="va">data_test</span><span class="op">[</span><span class="va">train_sample</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
- <span class="va">Polynomial_degree</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">degree</span><span class="op">)</span>
- <span class="va">data_fitted</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">polynomial_model</span>,<span class="fl">1</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">fitted.values</span>
- <span class="va">new_df</span><span class="op">=</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html">data.table</a></span><span class="op">(</span>Wind<span class="op">=</span><span class="va">data_test</span><span class="op">[</span><span class="va">train_sample</span>,<span class="va">Wind</span><span class="op">]</span>,Ozone_real<span class="op">=</span><span class="va">data_test</span><span class="op">[</span><span class="va">train_sample</span>,<span class="va">Ozone</span><span class="op">]</span>,Ozone_fitted<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">polynomial_model</span>,<span class="fl">1</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">fitted.values</span>,degree<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">degree</span><span class="op">)</span><span class="op">)</span>
- <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="va">df_result</span><span class="op">)</span><span class="op">)</span>
- <span class="va">df_result</span><span class="op">=</span><span class="va">new_df</span>
- <span class="kw">else</span>
- <span class="va">df_result</span><span class="op">=</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html">rbind</a></span><span class="op">(</span><span class="va">df_result</span>,<span class="va">new_df</span><span class="op">)</span>
-<span class="op">}</span>
-<span class="va">gg</span><span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df_result</span><span class="op">[</span><span class="va">degree</span><span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span><span class="va">degree_to_plot</span><span class="op">]</span>,<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Wind</span><span class="op">)</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">Ozone_real</span><span class="op">)</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color<span class="op">=</span><span class="va">degree</span>,y<span class="op">=</span><span class="va">Ozone_fitted</span><span class="op">)</span><span class="op">)</span>
-<span class="va">gg</span><span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">'Ozone vs wind for several polynomial regressions'</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">'Ozone'</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="04-application_files/figure-html/overfitting-2.png" width="672"></div>
-<div class="sourceCode" id="cb520"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">###Computing SE</span>
-<span class="va">SE_train_list</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">SE_test_list</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">)</span>
-<span class="kw">for</span> <span class="op">(</span><span class="va">poly_mod</span> <span class="kw">in</span> <span class="va">polynomial_model</span><span class="op">)</span>
-<span class="op">{</span>
- <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">poly_mod</span><span class="op">)</span><span class="op">)</span>
- <span class="va">SE_train_list</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">SE_train_list</span>,<span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">poly_mod</span><span class="op">$</span><span class="va">residuals</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
- <span class="va">SE_test</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">data_test</span><span class="op">[</span><span class="op">-</span><span class="va">train_sample</span><span class="op">]</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">poly_mod</span>,<span class="va">data_test</span><span class="op">[</span><span class="op">-</span><span class="va">train_sample</span>,<span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>
- <span class="va">SE_test_list</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">SE_test_list</span>,<span class="va">SE_test</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<p><img src="04-application_files/figure-html/overfitting-1.png" width="672" /></p>
+<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb519-1"><a href="有监督学习概论.html#cb519-1" aria-hidden="true" tabindex="-1"></a>data_test<span class="ot">=</span><span class="fu">na.omit</span>(overfitting_data[,.(Wind,Ozone)])</span>
+<span id="cb519-2"><a href="有监督学习概论.html#cb519-2" aria-hidden="true" tabindex="-1"></a>train_sample<span class="ot">=</span><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(data_test),<span class="at">size =</span> <span class="fl">0.7</span><span class="sc">*</span><span class="fu">nrow</span>(data_test))</span>
+<span id="cb519-3"><a href="有监督学习概论.html#cb519-3" aria-hidden="true" tabindex="-1"></a><span class="do">###creation of polynomial models</span></span>
+<span id="cb519-4"><a href="有监督学习概论.html#cb519-4" aria-hidden="true" tabindex="-1"></a>degree_of_poly<span class="ot">=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">20</span></span>
+<span id="cb519-5"><a href="有监督学习概论.html#cb519-5" aria-hidden="true" tabindex="-1"></a>degree_to_plot<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">20</span>)</span>
+<span id="cb519-6"><a href="有监督学习概论.html#cb519-6" aria-hidden="true" tabindex="-1"></a>polynomial_model<span class="ot">=</span><span class="fu">list</span>()</span>
+<span id="cb519-7"><a href="有监督学习概论.html#cb519-7" aria-hidden="true" tabindex="-1"></a>df_result<span class="ot">=</span><span class="cn">NULL</span></span>
+<span id="cb519-8"><a href="有监督学习概论.html#cb519-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (degree <span class="cf">in</span> degree_of_poly)</span>
+<span id="cb519-9"><a href="有监督学习概论.html#cb519-9" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb519-10"><a href="有监督学习概论.html#cb519-10" aria-hidden="true" tabindex="-1"></a> fm<span class="ot">=</span><span class="fu">as.formula</span>(<span class="fu">paste0</span>(<span class="st">&quot;Ozone~poly(Wind,&quot;</span>,degree,<span class="st">&quot;,raw=T)&quot;</span>))</span>
+<span id="cb519-11"><a href="有监督学习概论.html#cb519-11" aria-hidden="true" tabindex="-1"></a> polynomial_model<span class="ot">=</span><span class="fu">c</span>(polynomial_model,<span class="fu">list</span>(<span class="fu">lm</span>(fm,data_test[train_sample])))</span>
+<span id="cb519-12"><a href="有监督学习概论.html#cb519-12" aria-hidden="true" tabindex="-1"></a> Polynomial_degree<span class="ot">=</span><span class="fu">paste0</span>(degree)</span>
+<span id="cb519-13"><a href="有监督学习概论.html#cb519-13" aria-hidden="true" tabindex="-1"></a> data_fitted<span class="ot">=</span><span class="fu">tail</span>(polynomial_model,<span class="dv">1</span>)[[<span class="dv">1</span>]]<span class="sc">$</span>fitted.values</span>
+<span id="cb519-14"><a href="有监督学习概论.html#cb519-14" aria-hidden="true" tabindex="-1"></a> new_df<span class="ot">=</span><span class="fu">data.table</span>(<span class="at">Wind=</span>data_test[train_sample,Wind],<span class="at">Ozone_real=</span>data_test[train_sample,Ozone],<span class="at">Ozone_fitted=</span><span class="fu">tail</span>(polynomial_model,<span class="dv">1</span>)[[<span class="dv">1</span>]]<span class="sc">$</span>fitted.values,<span class="at">degree=</span><span class="fu">as.factor</span>(degree))</span>
+<span id="cb519-15"><a href="有监督学习概论.html#cb519-15" aria-hidden="true" tabindex="-1"></a> <span class="cf">if</span> (<span class="fu">is.null</span>(df_result))</span>
+<span id="cb519-16"><a href="有监督学习概论.html#cb519-16" aria-hidden="true" tabindex="-1"></a> df_result<span class="ot">=</span>new_df</span>
+<span id="cb519-17"><a href="有监督学习概论.html#cb519-17" aria-hidden="true" tabindex="-1"></a> <span class="cf">else</span></span>
+<span id="cb519-18"><a href="有监督学习概论.html#cb519-18" aria-hidden="true" tabindex="-1"></a> df_result<span class="ot">=</span><span class="fu">rbind</span>(df_result,new_df)</span>
+<span id="cb519-19"><a href="有监督学习概论.html#cb519-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb519-20"><a href="有监督学习概论.html#cb519-20" aria-hidden="true" tabindex="-1"></a>gg<span class="ot">=</span><span class="fu">ggplot</span>(df_result[degree<span class="sc">%in%</span>degree_to_plot],<span class="fu">aes</span>(<span class="at">x=</span>Wind))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y=</span>Ozone_real))<span class="sc">+</span><span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color=</span>degree,<span class="at">y=</span>Ozone_fitted))</span>
+<span id="cb519-21"><a href="有监督学习概论.html#cb519-21" aria-hidden="true" tabindex="-1"></a>gg<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">&#39;Ozone vs wind for several polynomial regressions&#39;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&#39;Ozone&#39;</span>)</span></code></pre></div>
+<p><img src="04-application_files/figure-html/overfitting-2.png" width="672" /></p>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="有监督学习概论.html#cb520-1" aria-hidden="true" tabindex="-1"></a><span class="do">###Computing SE</span></span>
+<span id="cb520-2"><a href="有监督学习概论.html#cb520-2" aria-hidden="true" tabindex="-1"></a>SE_train_list<span class="ot">=</span><span class="fu">c</span>()</span>
+<span id="cb520-3"><a href="有监督学习概论.html#cb520-3" aria-hidden="true" tabindex="-1"></a>SE_test_list<span class="ot">=</span><span class="fu">c</span>()</span>
+<span id="cb520-4"><a href="有监督学习概论.html#cb520-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (poly_mod <span class="cf">in</span> polynomial_model)</span>
+<span id="cb520-5"><a href="有监督学习概论.html#cb520-5" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb520-6"><a href="有监督学习概论.html#cb520-6" aria-hidden="true" tabindex="-1"></a> <span class="fu">print</span>(<span class="fu">summary</span>(poly_mod))</span>
+<span id="cb520-7"><a href="有监督学习概论.html#cb520-7" aria-hidden="true" tabindex="-1"></a> SE_train_list<span class="ot">=</span><span class="fu">c</span>(SE_train_list,<span class="fu">sqrt</span>(<span class="fu">mean</span>(poly_mod<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>)))</span>
+<span id="cb520-8"><a href="有监督学习概论.html#cb520-8" aria-hidden="true" tabindex="-1"></a> SE_test<span class="ot">=</span><span class="fu">sqrt</span>(<span class="fu">mean</span>((data_test[<span class="sc">-</span>train_sample]<span class="sc">-</span><span class="fu">predict</span>(poly_mod,data_test[<span class="sc">-</span>train_sample,]))<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb520-9"><a href="有监督学习概论.html#cb520-9" aria-hidden="true" tabindex="-1"></a> SE_test_list<span class="ot">=</span><span class="fu">c</span>(SE_test_list,SE_test)</span>
+<span id="cb520-10"><a href="有监督学习概论.html#cb520-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = fm, data = data_test[train_sample])
@@ -283,7 +277,7 @@
 ## (Intercept)             98.0237     8.4012   11.67  &lt; 2e-16 ***
 ## poly(Wind, 1, raw = T)  -5.8422     0.7842   -7.45 1.02e-10 ***
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 24.64 on 79 degrees of freedom
 ## Multiple R-squared:  0.4127, Adjusted R-squared:  0.4052 
@@ -304,7 +298,7 @@
 ## poly(Wind, 2, raw = T)1 -18.5808     3.1105  -5.974 6.52e-08 ***
 ## poly(Wind, 2, raw = T)2   0.6053     0.1439   4.207 6.85e-05 ***
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 22.39 on 78 degrees of freedom
 ## Multiple R-squared:  0.5213, Adjusted R-squared:  0.509 
@@ -326,7 +320,7 @@
 ## poly(Wind, 3, raw = T)2   1.94131    0.93449   2.077  0.04110 *  
 ## poly(Wind, 3, raw = T)3  -0.04083    0.02822  -1.447  0.15203    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 22.23 on 77 degrees of freedom
 ## Multiple R-squared:  0.534,  Adjusted R-squared:  0.5158 
@@ -349,7 +343,7 @@
 ## poly(Wind, 4, raw = T)3   0.346829   0.250332   1.385   0.1700  
 ## poly(Wind, 4, raw = T)4  -0.008786   0.005638  -1.558   0.1233  
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 22.03 on 76 degrees of freedom
 ## Multiple R-squared:  0.5484, Adjusted R-squared:  0.5246 
@@ -373,7 +367,7 @@
 ## poly(Wind, 5, raw = T)4  -0.161312   0.076795  -2.101   0.0390 *
 ## poly(Wind, 5, raw = T)5   0.002768   0.001390   1.991   0.0501 .
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 21.61 on 75 degrees of freedom
 ## Multiple R-squared:  0.5711, Adjusted R-squared:  0.5425 
@@ -528,7 +522,7 @@
 ## poly(Wind, 11, raw = T)10  5.750e-05  3.747e-05   1.534   0.1295  
 ## poly(Wind, 11, raw = T)11 -4.793e-07  3.190e-07  -1.502   0.1375  
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 21.73 on 69 degrees of freedom
 ## Multiple R-squared:  0.6009, Adjusted R-squared:  0.5373 
@@ -559,7 +553,7 @@
 ## poly(Wind, 12, raw = T)11 -4.793e-07  3.190e-07  -1.502   0.1375  
 ## poly(Wind, 12, raw = T)12         NA         NA      NA       NA  
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 21.73 on 69 degrees of freedom
 ## Multiple R-squared:  0.6009, Adjusted R-squared:  0.5373 
@@ -860,27 +854,21 @@
 
 ## Warning in predict.lm(poly_mod, data_test[-train_sample, ]): argument is not
 ## numeric or logical: returning NA</code></pre>
-<div class="sourceCode" id="cb562"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data_plot</span><span class="op">=</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html">data.table</a></span><span class="op">(</span><span class="va">SE_test_list</span>,<span class="va">SE_train_list</span>,<span class="va">degree_of_poly</span><span class="op">)</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">data_plot</span><span class="op">[</span><span class="va">degree_of_poly</span><span class="op">&lt;=</span><span class="fl">8</span><span class="op">]</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">degree_of_poly</span>,y<span class="op">=</span><span class="va">SE_test_list</span><span class="op">)</span>,color<span class="op">=</span><span class="st">'red'</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">degree_of_poly</span>,y<span class="op">=</span><span class="va">SE_train_list</span><span class="op">)</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">'MSE'</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">'Degrees of polynomial'</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb562-1"><a href="有监督学习概论.html#cb562-1" aria-hidden="true" tabindex="-1"></a>data_plot<span class="ot">=</span><span class="fu">data.table</span>(SE_test_list,SE_train_list,degree_of_poly)</span>
+<span id="cb562-2"><a href="有监督学习概论.html#cb562-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_plot[degree_of_poly<span class="sc">&lt;=</span><span class="dv">8</span>])<span class="sc">+</span><span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x=</span>degree_of_poly,<span class="at">y=</span>SE_test_list),<span class="at">color=</span><span class="st">&#39;red&#39;</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x=</span>degree_of_poly,<span class="at">y=</span>SE_train_list))<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&#39;MSE&#39;</span>)<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">&#39;Degrees of polynomial&#39;</span>)</span></code></pre></div>
 <pre><code>## Warning: Removed 8 row(s) containing missing values (geom_path).</code></pre>
-<div class="inline-figure"><img src="04-application_files/figure-html/overfitting-3.png" width="672"></div>
+<p><img src="04-application_files/figure-html/overfitting-3.png" width="672" /></p>
 </div>
 <div id="训练最小二乘线性回归模型的例子" class="section level2" number="5.2">
-<h2>
-<span class="header-section-number">5.2</span> 训练最小二乘线性回归模型的例子<a class="anchor" aria-label="anchor" href="#%E8%AE%AD%E7%BB%83%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BE%8B%E5%AD%90"><i class="fas fa-link"></i></a>
-</h2>
+<h2><span class="header-section-number">5.2</span> 训练最小二乘线性回归模型的例子</h2>
 <ul>
 <li>回归(regression)：因变量(y)是连续型变量，自变量<span class="math inline">\(X\in R^p\)</span>是p维的连续型或离散型变量，一般求解<span class="math inline">\(E(y|X=x)\)</span>的模型。</li>
-<li>线性回归模型(一般形式）,其中<span class="math inline">\(\epsilon\)</span>是服从均值为0，方差为<span class="math inline">\(\sigma^2\)</span>的正态分布的随机变量：<span class="math display">\[y=\beta_0+\beta_1\times x_1+,\cdots,+\beta_p\times x_p+\epsilon=\sum\limits_{i=0}^p\beta_i\times x_i+\epsilon=X\beta+\epsilon\]</span>
-</li>
-<li>一元线性模型(simple linear model,SLM):最简单的线性模型，只包含一个自变量。<span class="math display">\[y=\beta_0+\beta_1\times x_1+\epsilon\]</span>
-</li>
+<li>线性回归模型(一般形式）,其中<span class="math inline">\(\epsilon\)</span>是服从均值为0，方差为<span class="math inline">\(\sigma^2\)</span>的正态分布的随机变量：<span class="math display">\[y=\beta_0+\beta_1\times x_1+,\cdots,+\beta_p\times x_p+\epsilon=\sum\limits_{i=0}^p\beta_i\times x_i+\epsilon=X\beta+\epsilon\]</span></li>
+<li>一元线性模型(simple linear model,SLM):最简单的线性模型，只包含一个自变量。<span class="math display">\[y=\beta_0+\beta_1\times x_1+\epsilon\]</span></li>
 </ul>
-<div class="sourceCode" id="cb564"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># data come from the R basic package which related to the black cherry tree,Girth is diameter of tree, Height and Volume</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"trees"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">trees</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb564-1"><a href="有监督学习概论.html#cb564-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data come from the R basic package which related to the black cherry tree,Girth is diameter of tree, Height and Volume</span></span>
+<span id="cb564-2"><a href="有监督学习概论.html#cb564-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;trees&quot;</span>)</span>
+<span id="cb564-3"><a href="有监督学习概论.html#cb564-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(trees)</span></code></pre></div>
 <pre><code>##   Girth Height Volume
 ## 1   8.3     70   10.3
 ## 2   8.6     65   10.3
@@ -888,12 +876,11 @@
 ## 4  10.5     72   16.4
 ## 5  10.7     81   18.8
 ## 6  10.8     83   19.7</code></pre>
-<div class="sourceCode" id="cb566"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">Girth</span> <span class="op">~</span> <span class="va">Height</span>, data <span class="op">=</span> <span class="va">trees</span>, pch<span class="op">=</span><span class="fl">16</span><span class="op">)</span>
-
-<span class="co"># run the model</span>
-<span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Girth</span><span class="op">~</span><span class="va">Height</span>,data<span class="op">=</span><span class="va">trees</span><span class="op">)</span>
-<span class="va">fit</span></code></pre></div>
+<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="有监督学习概论.html#cb566-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Girth <span class="sc">~</span> Height, <span class="at">data =</span> trees, <span class="at">pch=</span><span class="dv">16</span>)</span>
+<span id="cb566-2"><a href="有监督学习概论.html#cb566-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb566-3"><a href="有监督学习概论.html#cb566-3" aria-hidden="true" tabindex="-1"></a><span class="co"># run the model</span></span>
+<span id="cb566-4"><a href="有监督学习概论.html#cb566-4" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Girth<span class="sc">~</span>Height,<span class="at">data=</span>trees)</span>
+<span id="cb566-5"><a href="有监督学习概论.html#cb566-5" aria-hidden="true" tabindex="-1"></a>fit</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Girth ~ Height, data = trees)
@@ -901,8 +888,7 @@
 ## Coefficients:
 ## (Intercept)       Height  
 ##     -6.1884       0.2557</code></pre>
-<div class="sourceCode" id="cb568"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb568-1"><a href="有监督学习概论.html#cb568-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Girth ~ Height, data = trees)
@@ -916,39 +902,35 @@
 ## (Intercept) -6.18839    5.96020  -1.038  0.30772   
 ## Height       0.25575    0.07816   3.272  0.00276 **
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 2.728 on 29 degrees of freedom
 ## Multiple R-squared:  0.2697, Adjusted R-squared:  0.2445 
 ## F-statistic: 10.71 on 1 and 29 DF,  p-value: 0.002758</code></pre>
-<div class="sourceCode" id="cb570"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># visualize the results</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">Girth</span><span class="op">~</span><span class="va">Height</span>,data<span class="op">=</span><span class="va">trees</span>,pch<span class="op">=</span><span class="fl">16</span><span class="op">)</span>
-<span class="co"># plot the fitted line</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span><span class="va">fit</span>,col<span class="op">=</span><span class="st">"red"</span>,lwd<span class="op">=</span><span class="fl">2</span><span class="op">)</span>
-<span class="co">#quantile regression</span>
-<span class="co">#install.packages("quantreg")</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.r-project.org">quantreg</a></span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="有监督学习概论.html#cb570-1" aria-hidden="true" tabindex="-1"></a><span class="co"># visualize the results</span></span>
+<span id="cb570-2"><a href="有监督学习概论.html#cb570-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Girth<span class="sc">~</span>Height,<span class="at">data=</span>trees,<span class="at">pch=</span><span class="dv">16</span>)</span>
+<span id="cb570-3"><a href="有监督学习概论.html#cb570-3" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the fitted line</span></span>
+<span id="cb570-4"><a href="有监督学习概论.html#cb570-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(fit,<span class="at">col=</span><span class="st">&quot;red&quot;</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb570-5"><a href="有监督学习概论.html#cb570-5" aria-hidden="true" tabindex="-1"></a><span class="co">#quantile regression</span></span>
+<span id="cb570-6"><a href="有监督学习概论.html#cb570-6" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;quantreg&quot;)</span></span>
+<span id="cb570-7"><a href="有监督学习概论.html#cb570-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quantreg)</span></code></pre></div>
 <pre><code>## Loading required package: SparseM</code></pre>
 <pre><code>## 
-## Attaching package: 'SparseM'</code></pre>
-<pre><code>## The following object is masked from 'package:base':
+## Attaching package: &#39;SparseM&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
 ## 
 ##     backsolve</code></pre>
-<div class="sourceCode" id="cb574"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">fitq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/quantreg/man/rq.html">rq</a></span><span class="op">(</span><span class="va">Girth</span><span class="op">~</span><span class="va">Height</span>,data<span class="op">=</span><span class="va">trees</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span><span class="va">fitq</span>,col<span class="op">=</span><span class="st">"blue"</span>,lwd<span class="op">=</span><span class="fl">2</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span><span class="st">"topright"</span>, legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lm"</span>, <span class="st">"rq"</span><span class="op">)</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="st">"blue"</span><span class="op">)</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="04-application_files/figure-html/slm-1.png" width="672"></div>
+<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="有监督学习概论.html#cb574-1" aria-hidden="true" tabindex="-1"></a>fitq <span class="ot">&lt;-</span> <span class="fu">rq</span>(Girth<span class="sc">~</span>Height,<span class="at">data=</span>trees)</span>
+<span id="cb574-2"><a href="有监督学习概论.html#cb574-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(fitq,<span class="at">col=</span><span class="st">&quot;blue&quot;</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb574-3"><a href="有监督学习概论.html#cb574-3" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;lm&quot;</span>, <span class="st">&quot;rq&quot;</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>), <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="04-application_files/figure-html/slm-1.png" width="672" /></p>
 <ul>
 <li><p>最小一乘回归思想:计算<span class="math inline">\(\frac{1}{n}\sum\limits_{i=1}^n(y_i-\hat{y_i})\)</span></p></li>
 <li><p>最小二乘回归：计算MSE=<span class="math inline">\(\frac{1}{n}\sum\limits_{i=1}^n(y_i-\hat{y_i})^2\)</span></p></li>
 </ul>
 </div>
 <div id="模型评价" class="section level2" number="5.3">
-<h2>
-<span class="header-section-number">5.3</span> 模型评价<a class="anchor" aria-label="anchor" href="#%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BB%B7"><i class="fas fa-link"></i></a>
-</h2>
+<h2><span class="header-section-number">5.3</span> 模型评价</h2>
 <ul>
 <li>把数据分成：训练集(training data)、验证集(validate data)和测试集(test data),训练集用来学习模型；验证集进行参数优化和调节；测试集对模型的好坏进行最终的判定（泛化能力的评价），优点是相对比较客观，大家认可；缺点是需要较多的数据（大多数竞赛网站都不提供测试集中y的数值）。</li>
 <li>交叉验证（K折交叉验证）：数据即是训练集又是测试集，把数据分成k个子集，使用其中一个作为测试集，剩下的k-1个作为训练集，依次反复进行k次训练和测试，最后把所有测试集得到的预测值进行平均，计算得到一个平均的测试误差。优点：可充分的利用数据，缺点:可能得到的解不一定是最优解，但基本为一个次优解。</li>
@@ -956,61 +938,43 @@
 <li>分类模型的预测精度：混淆矩阵；</li>
 <li>回归问题交叉验证预测精度标准：
 <ul>
-<li>均方误差：<span class="math display">\[MSE=\frac{1}{n}\sum\limits_{i=1}^n(y_i-\hat{y_i})^2\]</span>
-</li>
-<li>均方误差平方根：<span class="math display">\[RMSE=\sqrt{MSE}=\sqrt{\frac{1}{n}\sum\limits_{i=1}^n(y_i-\hat{y_i})^2}\]</span>
-</li>
-<li>标准化均方误差: <span class="math display">\[NMSE=\frac{\sum\limits_{i=1}^n(y_i-\hat{y_i})^2}{\sum\limits_{i=1}^n(y_i-\bar{y_i})^2}\]</span>
-</li>
-<li>误差平均绝对值:<span class="math display">\[MAE=\frac{\sum\limits_{i=1}^n|y_i-\hat{y_i}|}{n}\]</span>
-</li>
-<li>
-<span class="math inline">\(R^2\)</span>:<span class="math display">\[R^2=1-NMSE\]</span>
-</li>
-</ul>
-</li>
+<li>均方误差：<span class="math display">\[MSE=\frac{1}{n}\sum\limits_{i=1}^n(y_i-\hat{y_i})^2\]</span></li>
+<li>均方误差平方根：<span class="math display">\[RMSE=\sqrt{MSE}=\sqrt{\frac{1}{n}\sum\limits_{i=1}^n(y_i-\hat{y_i})^2}\]</span></li>
+<li>标准化均方误差: <span class="math display">\[NMSE=\frac{\sum\limits_{i=1}^n(y_i-\hat{y_i})^2}{\sum\limits_{i=1}^n(y_i-\bar{y_i})^2}\]</span></li>
+<li>误差平均绝对值:<span class="math display">\[MAE=\frac{\sum\limits_{i=1}^n|y_i-\hat{y_i}|}{n}\]</span></li>
+<li><span class="math inline">\(R^2\)</span>:<span class="math display">\[R^2=1-NMSE\]</span></li>
+</ul></li>
 </ul>
 </div>
 <div id="exercise" class="section level2" number="5.4">
-<h2>
-<span class="header-section-number">5.4</span> Exercise<a class="anchor" aria-label="anchor" href="#exercise"><i class="fas fa-link"></i></a>
-</h2>
+<h2><span class="header-section-number">5.4</span> Exercise</h2>
 
 </div>
 </div>
-  <div class="chapter-nav">
-<div class="prev"><a href="%E6%95%B0%E6%8D%AE%E6%95%B4%E7%90%86%E5%92%8C%E6%B8%85%E7%90%86.html"><span class="header-section-number">4</span> 数据整理和清理</a></div>
-<div class="next"><a href="%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%B3%95.html"><span class="header-section-number">6</span> 最小二乘线性回归法</a></div>
-</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
-    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li>
-<a class="nav-link" href="#%E6%9C%89%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%AE%BA"><span class="header-section-number">5</span> 有监督学习概论</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"><span class="header-section-number">5.0.1</span> 机器学习</a></li>
-<li><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E4%BE%8B"><span class="header-section-number">5.0.2</span> 机器学习实例</a></li>
-</ul>
-</li>
-<li><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E5%8F%8A%E6%8B%9F%E5%90%88"><span class="header-section-number">5.1</span> 模型及拟合</a></li>
-<li><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="header-section-number">5.2</span> 训练最小二乘线性回归模型的例子</a></li>
-<li><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BB%B7"><span class="header-section-number">5.3</span> 模型评价</a></li>
-<li><a class="nav-link" href="#exercise"><span class="header-section-number">5.4</span> Exercise</a></li>
-</ul>
+  </main>
+
+  <div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page">
+      <h2>On this page</h2>
+      <div id="book-on-this-page"></div>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-          
+          <li><a id="book-source" href="#">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="#">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
-</div>
+      </div>
     </nav>
-</div>
+  </div>
 
 </div>
 </div> <!-- .container -->
 
-<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+<footer class="bg-primary text-light mt-5">
+  <div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>数据科学导论（Introductory of Data Science）</strong>" was written by 潘蓄林. It was last built on 2022-06-01.</p>
+    <p>"<strong>数据科学导论（Introductory of Data Science）</strong>" was written by 潘蓄林. It was last built on 2022-06-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
@@ -1018,7 +982,11 @@
   </div>
 
 </div></div>
-</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+</footer>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -1030,7 +998,8 @@
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
-</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+</script>
+<script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
 for (let popover of popovers) {
   const div = document.createElement('div');
   div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
@@ -1048,4 +1017,5 @@ for (let popover of popovers) {
 }
 </script>
 </body>
+
 </html>

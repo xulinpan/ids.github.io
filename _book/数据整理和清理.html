@@ -50,8 +50,10 @@
 <li><a class="" href="%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%B3%95.html"><span class="header-section-number">6</span> 最小二乘线性回归法</a></li>
 <li><a class="" href="logistic%E5%9B%9E%E5%BD%92.html"><span class="header-section-number">7</span> Logistic回归</a></li>
 <li><a class="" href="%E5%86%B3%E7%AD%96%E6%A0%91%E5%8F%8A%E5%85%B6%E7%BB%84%E5%90%88%E6%96%B9%E6%B3%95.html"><span class="header-section-number">8</span> 决策树及其组合方法</a></li>
-<li><a class="" href="github%E4%BD%BF%E7%94%A8.html"><span class="header-section-number">9</span> github使用</a></li>
+<li><a class="" href="%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%E5%92%8C%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html"><span class="header-section-number">9</span> 支持向量机和神经网络</a></li>
+<li><a class="" href="github%E4%BD%BF%E7%94%A8.html"><span class="header-section-number">10</span> github使用</a></li>
 <li><a class="" href="references.html">References</a></li>
+<li><a class="" href="references-1.html">References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -2209,18 +2211,18 @@ By default, linear regression is used to predict continuous missing values. Logi
 <span class="co">#Check missing values introduced in the data</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">iris.mis</span><span class="op">)</span></code></pre></div>
 <pre><code>##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
-##  Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
-##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.550   1st Qu.:0.300  
-##  Median :5.800   Median :3.000   Median :4.400   Median :1.300  
-##  Mean   :5.884   Mean   :3.078   Mean   :3.782   Mean   :1.214  
-##  3rd Qu.:6.400   3rd Qu.:3.400   3rd Qu.:5.100   3rd Qu.:1.800  
+##  Min.   :4.400   Min.   :2.000   Min.   :1.000   Min.   :0.100  
+##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+##  Median :5.800   Median :3.000   Median :4.300   Median :1.300  
+##  Mean   :5.832   Mean   :3.058   Mean   :3.757   Mean   :1.189  
+##  3rd Qu.:6.400   3rd Qu.:3.325   3rd Qu.:5.100   3rd Qu.:1.800  
 ##  Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
-##  NA's   :15      NA's   :14      NA's   :11      NA's   :17     
+##  NA's   :14      NA's   :18      NA's   :16      NA's   :14     
 ##        Species  
-##  setosa    :45  
-##  versicolor:44  
-##  virginica :43  
-##  NA's      :18  
+##  setosa    :46  
+##  versicolor:46  
+##  virginica :45  
+##  NA's      :13  
 ##                 
 ##                 
 ## </code></pre>
@@ -2229,30 +2231,27 @@ By default, linear regression is used to predict continuous missing values. Logi
 <span class="va">iris.mis</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">iris.mis</span>, select <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">iris.mis</span><span class="op">)</span></code></pre></div>
 <pre><code>##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
-##  Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
-##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.550   1st Qu.:0.300  
-##  Median :5.800   Median :3.000   Median :4.400   Median :1.300  
-##  Mean   :5.884   Mean   :3.078   Mean   :3.782   Mean   :1.214  
-##  3rd Qu.:6.400   3rd Qu.:3.400   3rd Qu.:5.100   3rd Qu.:1.800  
+##  Min.   :4.400   Min.   :2.000   Min.   :1.000   Min.   :0.100  
+##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+##  Median :5.800   Median :3.000   Median :4.300   Median :1.300  
+##  Mean   :5.832   Mean   :3.058   Mean   :3.757   Mean   :1.189  
+##  3rd Qu.:6.400   3rd Qu.:3.325   3rd Qu.:5.100   3rd Qu.:1.800  
 ##  Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
-##  NA's   :15      NA's   :14      NA's   :11      NA's   :17</code></pre>
+##  NA's   :14      NA's   :18      NA's   :16      NA's   :14</code></pre>
 <div class="sourceCode" id="cb477"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://amices.org/mice/reference/md.pattern.html">md.pattern</a></span><span class="op">(</span><span class="va">iris.mis</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="03-method_files/figure-html/mdcase-1.png" width="672"></div>
-<pre><code>##     Petal.Length Sepal.Width Sepal.Length Petal.Width   
-## 103            1           1            1           1  0
-## 14             1           1            1           0  1
-## 10             1           1            0           1  1
-## 1              1           1            0           0  2
-## 8              1           0            1           1  1
-## 1              1           0            1           0  2
-## 2              1           0            0           1  2
-## 6              0           1            1           1  1
-## 1              0           1            1           0  2
-## 1              0           1            0           1  2
-## 2              0           0            1           1  2
-## 1              0           0            0           1  3
-##               11          14           15          17 57</code></pre>
+<pre><code>##    Sepal.Length Petal.Width Petal.Length Sepal.Width   
+## 95            1           1            1           1  0
+## 16            1           1            1           0  1
+## 13            1           1            0           1  1
+## 8             1           0            1           1  1
+## 1             1           0            1           0  2
+## 2             1           0            0           1  2
+## 1             1           0            0           0  3
+## 12            0           1            1           1  1
+## 2             0           0            1           1  2
+##              14          14           16          18 62</code></pre>
 <div class="sourceCode" id="cb479"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># make it beautiful missing pattern</span>
 <span class="co">#install.packages("VIM")</span>
@@ -2278,10 +2277,10 @@ gap<span class="op">=</span><span class="fl">3</span>, ylab<span class="op">=</s
 <pre><code>## 
 ##  Variables sorted by number of missings: 
 ##      Variable      Count
-##   Petal.Width 0.11333333
-##  Sepal.Length 0.10000000
-##   Sepal.Width 0.09333333
-##  Petal.Length 0.07333333</code></pre>
+##   Sepal.Width 0.12000000
+##  Petal.Length 0.10666667
+##  Sepal.Length 0.09333333
+##   Petal.Width 0.09333333</code></pre>
 <div class="sourceCode" id="cb489"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># impute the missing data using mice</span>
 <span class="va">imputed_Data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://amices.org/mice/reference/mice.html">mice</a></span><span class="op">(</span><span class="va">iris.mis</span>, m<span class="op">=</span><span class="fl">5</span>, maxit <span class="op">=</span> <span class="fl">50</span>, method <span class="op">=</span> <span class="st">'pmm'</span>, seed <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></code></pre></div>
@@ -2555,20 +2554,24 @@ gap<span class="op">=</span><span class="fl">3</span>, ylab<span class="op">=</s
 <code class="sourceCode R"><span class="co">#check imputed values</span>
 <span class="va">imputed_Data</span><span class="op">$</span><span class="va">imp</span><span class="op">$</span><span class="va">Sepal.Width</span></code></pre></div>
 <pre><code>##       1   2   3   4   5
-## 9   3.4 3.0 3.0 3.6 2.8
-## 24  3.9 3.0 3.7 3.9 4.1
-## 53  2.8 2.8 3.2 3.4 3.0
-## 54  2.7 2.8 2.5 2.5 2.4
-## 58  2.7 2.7 2.8 3.0 3.0
-## 64  2.3 2.5 2.2 3.4 3.4
-## 78  3.2 3.2 3.4 3.7 3.2
-## 81  2.7 2.8 3.0 2.6 3.0
-## 86  2.5 3.4 3.4 2.8 3.0
-## 107 2.6 3.0 2.7 2.6 2.0
-## 108 2.5 2.5 3.2 2.7 3.0
-## 122 2.7 3.2 2.8 2.5 3.2
-## 138 2.7 3.4 3.0 3.1 2.8
-## 139 2.6 2.8 3.0 3.1 3.0</code></pre>
+## 4   2.9 2.8 3.2 2.8 3.2
+## 6   3.5 3.1 3.5 3.8 3.5
+## 7   3.0 3.0 3.1 3.1 3.1
+## 13  3.0 3.0 3.1 3.8 3.1
+## 25  2.9 3.2 2.5 2.5 2.5
+## 26  3.6 3.3 3.0 3.8 3.1
+## 32  3.9 3.7 3.4 4.0 3.7
+## 71  2.7 2.8 2.3 2.5 2.8
+## 74  3.0 2.8 3.4 2.8 2.3
+## 81  2.8 2.6 3.0 2.6 2.5
+## 93  2.9 2.9 3.0 3.0 2.9
+## 95  2.8 3.0 2.8 2.7 2.7
+## 103 2.8 3.1 2.6 2.8 2.9
+## 127 3.0 3.8 3.3 2.6 3.0
+## 138 2.8 3.0 2.5 2.8 2.8
+## 143 3.0 2.8 2.5 3.0 3.8
+## 144 2.2 2.8 3.2 2.5 3.0
+## 145 2.8 3.1 3.0 3.0 2.8</code></pre>
 <div class="sourceCode" id="cb495"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#get complete data ( 2nd out of 5)</span>
 <span class="va">completeData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://amices.org/mice/reference/complete.mids.html">complete</a></span><span class="op">(</span><span class="va">imputed_Data</span>,<span class="fl">2</span><span class="op">)</span>
@@ -2584,20 +2587,20 @@ gap<span class="op">=</span><span class="fl">3</span>, ylab<span class="op">=</s
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -0.98372 -0.23642 -0.00891  0.21625  1.02678 
+## -1.02548 -0.24898  0.00855  0.26530  0.93867 
 ## 
 ## Coefficients:
 ##              Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)   2.33094    0.39185   5.949 3.53e-08 ***
-## Sepal.Length  0.21248    0.08056   2.638  0.00961 ** 
-## Petal.Width  -0.42208    0.08760  -4.818 4.86e-06 ***
+## (Intercept)   1.74703    0.38192   4.574 1.31e-05 ***
+## Sepal.Length  0.34028    0.07794   4.366 2.97e-05 ***
+## Petal.Width  -0.56323    0.08664  -6.501 2.75e-09 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 0.3864 on 106 degrees of freedom
-##   (41 observations deleted due to missingness)
-## Multiple R-squared:  0.2181, Adjusted R-squared:  0.2033 
-## F-statistic: 14.78 on 2 and 106 DF,  p-value: 2.173e-06</code></pre>
+## Residual standard error: 0.4012 on 105 degrees of freedom
+##   (42 observations deleted due to missingness)
+## Multiple R-squared:  0.2962, Adjusted R-squared:  0.2828 
+## F-statistic: 22.09 on 2 and 105 DF,  p-value: 9.825e-09</code></pre>
 
 </div>
 </div>
@@ -2636,7 +2639,7 @@ gap<span class="op">=</span><span class="fl">3</span>, ylab<span class="op">=</s
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>数据科学导论（Introductory of Data Science）</strong>" was written by 潘蓄林. It was last built on 2022-06-01.</p>
+    <p>"<strong>数据科学导论（Introductory of Data Science）</strong>" was written by 潘蓄林. It was last built on 2022-06-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

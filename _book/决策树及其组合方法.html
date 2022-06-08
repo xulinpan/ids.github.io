@@ -1,256 +1,107 @@
-<!DOCTYPE html>
-<html lang="" xml:lang="">
+<!doctype html>
+<html lang="en">
 <head>
-
   <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 8 决策树及其组合方法 | 数据科学导论（Introductory of Data Science）</title>
-  <meta name="description" content="2022年数据科学导论" />
-  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+  <title>Chapter 8 决策树及其组合方法 | 数据科学导论（Introductory of Data Science）</title>
+
+    <meta name="author" content="潘蓄林" />
+  
+   <meta name="description" content="2022年数据科学导论" />
+   <meta name="generator" content="placeholder" />
   <meta property="og:title" content="Chapter 8 决策树及其组合方法 | 数据科学导论（Introductory of Data Science）" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="2022年数据科学导论" />
   
+  <meta property="og:description" content="2022年数据科学导论" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 8 决策树及其组合方法 | 数据科学导论（Introductory of Data Science）" />
   
   <meta name="twitter:description" content="2022年数据科学导论" />
   
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script>
+    <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet" />
+    <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script>
+    <script src="libs/bs3compat-0.3.1/transition.js"></script>
+    <script src="libs/bs3compat-0.3.1/tabs.js"></script>
+    <script src="libs/bs3compat-0.3.1/bs3compat.js"></script>
+    <link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet" />
+    <script src="libs/bs4_book-1.0.0/bs4_book.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script>
 
-<meta name="author" content="潘蓄林" />
-
-
-<meta name="date" content="2022-06-01" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  
-<link rel="prev" href="logistic回归.html"/>
-<link rel="next" href="github使用.html"/>
-<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
-<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
-<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-
-
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
-
-<link rel="stylesheet" href="style.css" type="text/css" />
+  <!-- CSS -->
+  <style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+    
 </head>
 
-<body>
+<body data-spy="scroll" data-target="#toc">
 
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book">
+    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
-
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li><a href="./">数据科学导论(Introductory of Data Science)</a></li>
-
-<li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 前言（Prerequisites）<span></span></a></li>
-<li class="chapter" data-level="2" data-path="r及python语言简介.html"><a href="r及python语言简介.html"><i class="fa fa-check"></i><b>2</b> R及Python语言简介<span></span></a>
-<ul>
-<li class="chapter" data-level="2.0.1" data-path="r及python语言简介.html"><a href="r及python语言简介.html#r简介"><i class="fa fa-check"></i><b>2.0.1</b> R简介<span></span></a></li>
-<li class="chapter" data-level="2.0.2" data-path="r及python语言简介.html"><a href="r及python语言简介.html#r语言安装及环境配置"><i class="fa fa-check"></i><b>2.0.2</b> R语言安装及环境配置<span></span></a></li>
-<li class="chapter" data-level="2.0.3" data-path="r及python语言简介.html"><a href="r及python语言简介.html#rstudio软件安装"><i class="fa fa-check"></i><b>2.0.3</b> Rstudio软件安装<span></span></a></li>
-<li class="chapter" data-level="2.0.4" data-path="r及python语言简介.html"><a href="r及python语言简介.html#r基础"><i class="fa fa-check"></i><b>2.0.4</b> R基础<span></span></a></li>
-<li class="chapter" data-level="2.0.5" data-path="r及python语言简介.html"><a href="r及python语言简介.html#python语言安装及环境配置"><i class="fa fa-check"></i><b>2.0.5</b> python语言安装及环境配置<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="数据描述.html"><a href="数据描述.html"><i class="fa fa-check"></i><b>3</b> 数据描述<span></span></a>
-<ul>
-<li class="chapter" data-level="3.0.1" data-path="数据描述.html"><a href="数据描述.html#数据的意义及获取"><i class="fa fa-check"></i><b>3.0.1</b> 数据的意义及获取<span></span></a></li>
-<li class="chapter" data-level="3.0.2" data-path="数据描述.html"><a href="数据描述.html#简单的数据汇总"><i class="fa fa-check"></i><b>3.0.2</b> 简单的数据汇总<span></span></a></li>
-<li class="chapter" data-level="3.0.3" data-path="数据描述.html"><a href="数据描述.html#数据的可视化"><i class="fa fa-check"></i><b>3.0.3</b> 数据的可视化<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="数据整理和清理.html"><a href="数据整理和清理.html"><i class="fa fa-check"></i><b>4</b> 数据整理和清理<span></span></a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="数据整理和清理.html"><a href="数据整理和清理.html#数据的筛选"><i class="fa fa-check"></i><b>4.1</b> 数据的筛选<span></span></a></li>
-<li class="chapter" data-level="4.2" data-path="数据整理和清理.html"><a href="数据整理和清理.html#数据合并"><i class="fa fa-check"></i><b>4.2</b> 数据合并<span></span></a></li>
-<li class="chapter" data-level="4.3" data-path="数据整理和清理.html"><a href="数据整理和清理.html#数据的缺失"><i class="fa fa-check"></i><b>4.3</b> 数据的缺失<span></span></a>
-<ul>
-<li class="chapter" data-level="4.3.1" data-path="数据整理和清理.html"><a href="数据整理和清理.html#缺失值的审视与标记"><i class="fa fa-check"></i><b>4.3.1</b> 缺失值的审视与标记<span></span></a></li>
-<li class="chapter" data-level="4.3.2" data-path="数据整理和清理.html"><a href="数据整理和清理.html#删除缺失值的方法及问题"><i class="fa fa-check"></i><b>4.3.2</b> 删除缺失值的方法及问题<span></span></a></li>
-<li class="chapter" data-level="4.3.3" data-path="数据整理和清理.html"><a href="数据整理和清理.html#利用可预测模型来填补缺失值"><i class="fa fa-check"></i><b>4.3.3</b> 利用可预测模型来填补缺失值<span></span></a></li>
-<li class="chapter" data-level="4.3.4" data-path="数据整理和清理.html"><a href="数据整理和清理.html#处理缺失值的r包"><i class="fa fa-check"></i><b>4.3.4</b> 处理缺失值的R包<span></span></a></li>
-<li class="chapter" data-level="4.3.5" data-path="数据整理和清理.html"><a href="数据整理和清理.html#实例"><i class="fa fa-check"></i><b>4.3.5</b> 实例<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="有监督学习概论.html"><a href="有监督学习概论.html"><i class="fa fa-check"></i><b>5</b> 有监督学习概论<span></span></a>
-<ul>
-<li class="chapter" data-level="5.0.1" data-path="有监督学习概论.html"><a href="有监督学习概论.html#机器学习"><i class="fa fa-check"></i><b>5.0.1</b> 机器学习<span></span></a></li>
-<li class="chapter" data-level="5.0.2" data-path="有监督学习概论.html"><a href="有监督学习概论.html#机器学习实例"><i class="fa fa-check"></i><b>5.0.2</b> 机器学习实例<span></span></a></li>
-<li class="chapter" data-level="5.1" data-path="有监督学习概论.html"><a href="有监督学习概论.html#模型及拟合"><i class="fa fa-check"></i><b>5.1</b> 模型及拟合<span></span></a></li>
-<li class="chapter" data-level="5.2" data-path="有监督学习概论.html"><a href="有监督学习概论.html#训练最小二乘线性回归模型的例子"><i class="fa fa-check"></i><b>5.2</b> 训练最小二乘线性回归模型的例子<span></span></a></li>
-<li class="chapter" data-level="5.3" data-path="有监督学习概论.html"><a href="有监督学习概论.html#模型评价"><i class="fa fa-check"></i><b>5.3</b> 模型评价<span></span></a></li>
-<li class="chapter" data-level="5.4" data-path="有监督学习概论.html"><a href="有监督学习概论.html#exercise"><i class="fa fa-check"></i><b>5.4</b> Exercise<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="最小二乘线性回归法.html"><a href="最小二乘线性回归法.html"><i class="fa fa-check"></i><b>6</b> 最小二乘线性回归法<span></span></a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="最小二乘线性回归法.html"><a href="最小二乘线性回归法.html#相关概念"><i class="fa fa-check"></i><b>6.1</b> 相关概念<span></span></a></li>
-<li class="chapter" data-level="6.2" data-path="最小二乘线性回归法.html"><a href="最小二乘线性回归法.html#线性模型"><i class="fa fa-check"></i><b>6.2</b> 线性模型<span></span></a>
-<ul>
-<li class="chapter" data-level="6.2.1" data-path="最小二乘线性回归法.html"><a href="最小二乘线性回归法.html#模型的估计"><i class="fa fa-check"></i><b>6.2.1</b> 模型的估计<span></span></a></li>
-<li class="chapter" data-level="6.2.2" data-path="最小二乘线性回归法.html"><a href="最小二乘线性回归法.html#简单线性模型simple-linear-modelslm"><i class="fa fa-check"></i><b>6.2.2</b> 简单线性模型(Simple Linear Model,SLM)<span></span></a></li>
-<li class="chapter" data-level="6.2.3" data-path="最小二乘线性回归法.html"><a href="最小二乘线性回归法.html#多元线性回归multiple-linear-modelmlm"><i class="fa fa-check"></i><b>6.2.3</b> 多元线性回归(Multiple Linear Model,mlm)<span></span></a></li>
-<li class="chapter" data-level="6.2.4" data-path="最小二乘线性回归法.html"><a href="最小二乘线性回归法.html#回归实例"><i class="fa fa-check"></i><b>6.2.4</b> 回归实例<span></span></a></li>
-<li class="chapter" data-level="6.2.5" data-path="最小二乘线性回归法.html"><a href="最小二乘线性回归法.html#练习"><i class="fa fa-check"></i><b>6.2.5</b> 练习<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="logistic回归.html"><a href="logistic回归.html"><i class="fa fa-check"></i><b>7</b> Logistic回归<span></span></a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="logistic回归.html"><a href="logistic回归.html#相关概念-1"><i class="fa fa-check"></i><b>7.1</b> 相关概念<span></span></a></li>
-<li class="chapter" data-level="7.2" data-path="logistic回归.html"><a href="logistic回归.html#logistic模型"><i class="fa fa-check"></i><b>7.2</b> Logistic模型<span></span></a></li>
-<li class="chapter" data-level="7.3" data-path="logistic回归.html"><a href="logistic回归.html#模型估计"><i class="fa fa-check"></i><b>7.3</b> 模型估计<span></span></a>
-<ul>
-<li class="chapter" data-level="7.3.1" data-path="logistic回归.html"><a href="logistic回归.html#损失函数loss-function"><i class="fa fa-check"></i><b>7.3.1</b> 损失函数(Loss function)<span></span></a></li>
-<li class="chapter" data-level="7.3.2" data-path="logistic回归.html"><a href="logistic回归.html#代价函数cost-funtion"><i class="fa fa-check"></i><b>7.3.2</b> 代价函数(Cost funtion)<span></span></a></li>
-<li class="chapter" data-level="7.3.3" data-path="logistic回归.html"><a href="logistic回归.html#模型估计estimation"><i class="fa fa-check"></i><b>7.3.3</b> 模型估计(estimation)<span></span></a></li>
-<li class="chapter" data-level="7.3.4" data-path="logistic回归.html"><a href="logistic回归.html#模拟数据模型"><i class="fa fa-check"></i><b>7.3.4</b> 模拟数据模型<span></span></a></li>
-<li class="chapter" data-level="7.3.5" data-path="logistic回归.html"><a href="logistic回归.html#logistic回归实例模型"><i class="fa fa-check"></i><b>7.3.5</b> Logistic回归实例模型<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="决策树及其组合方法.html"><a href="决策树及其组合方法.html"><i class="fa fa-check"></i><b>8</b> 决策树及其组合方法<span></span></a>
-<ul>
-<li class="chapter" data-level="8.1" data-path="决策树及其组合方法.html"><a href="决策树及其组合方法.html#决策树"><i class="fa fa-check"></i><b>8.1</b> 决策树<span></span></a></li>
-<li class="chapter" data-level="8.2" data-path="决策树及其组合方法.html"><a href="决策树及其组合方法.html#实例-1"><i class="fa fa-check"></i><b>8.2</b> 实例<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="github使用.html"><a href="github使用.html"><i class="fa fa-check"></i><b>9</b> github使用<span></span></a></li>
-<li><a href="references.html#references">References<span></span></a></li>
-<li class="divider"></li>
-<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-
-</ul>
-
-      </nav>
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">数据科学导论（Introductory of Data Science）</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
 
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">数据科学导论（Introductory of Data Science）</a>
-          </h1>
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+      </form>
+
+      <nav aria-label="Table of contents">
+        <h2>Table of contents</h2>
+        <div id="book-toc"></div>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="#">View book source <i class="fab fa-github"></i></a></li></p>
         </div>
+      </nav>
+    </div>
+  </header>
 
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
-<div id="决策树及其组合方法" class="section level1 hasAnchor" number="8">
-<h1><span class="header-section-number">Chapter 8</span> 决策树及其组合方法<a href="决策树及其组合方法.html#决策树及其组合方法" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+  <main class="col-sm-12 col-md-9 col-lg-7" id="content">
+<div id="决策树及其组合方法" class="section level1" number="8">
+<h1><span class="header-section-number">Chapter 8</span> 决策树及其组合方法</h1>
 <ul>
 <li><p>Decision Tree: A decision tree is a decision support tool that uses a tree-like graph or model of decisions and their possible consequences, including chance event outcomes, resource costs, and utility.</p></li>
 <li><p>Decision trees are produced by algorithms that identify various ways of splitting a data set into branch-like segments. These segments form an inverted decision tree that originates with a root node at the top of the tree.</p></li>
 </ul>
-<div id="决策树" class="section level2 hasAnchor" number="8.1">
-<h2><span class="header-section-number">8.1</span> 决策树<a href="决策树及其组合方法.html#决策树" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="决策树" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> 决策树</h2>
 </div>
-<div id="实例-1" class="section level2 hasAnchor" number="8.2">
-<h2><span class="header-section-number">8.2</span> 实例<a href="决策树及其组合方法.html#实例-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="决策树及其组合方法.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">#####</span></span>
-<span id="cb1-2"><a href="决策树及其组合方法.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># importing churn data set from .csv file</span></span>
-<span id="cb1-3"><a href="决策树及其组合方法.html#cb1-3" aria-hidden="true" tabindex="-1"></a>data1 <span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;./data/chun_data.csv&quot;</span>,<span class="at">header=</span> <span class="cn">TRUE</span>,<span class="at">sep=</span><span class="st">&quot;,&quot;</span>)</span>
-<span id="cb1-4"><a href="决策树及其组合方法.html#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="决策树及其组合方法.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#as the first three columns of the data arent important for the prediction we drop those columns from the data frame </span></span>
-<span id="cb1-6"><a href="决策树及其组合方法.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># drop the variables from the data set</span></span>
-<span id="cb1-7"><a href="决策树及其组合方法.html#cb1-7" aria-hidden="true" tabindex="-1"></a>data1<span class="ot">&lt;-</span>data1[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)]</span>
-<span id="cb1-8"><a href="决策树及其组合方法.html#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="决策树及其组合方法.html#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#data exploration</span></span>
-<span id="cb1-10"><a href="决策树及其组合方法.html#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="决策树及其组合方法.html#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#gives the dimensions of the data set</span></span>
-<span id="cb1-12"><a href="决策树及其组合方法.html#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(data1)</span></code></pre></div>
+<div id="实例-1" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> 实例</h2>
+<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb613-1"><a href="决策树及其组合方法.html#cb613-1" aria-hidden="true" tabindex="-1"></a><span class="do">#####</span></span>
+<span id="cb613-2"><a href="决策树及其组合方法.html#cb613-2" aria-hidden="true" tabindex="-1"></a><span class="co"># importing churn data set from .csv file</span></span>
+<span id="cb613-3"><a href="决策树及其组合方法.html#cb613-3" aria-hidden="true" tabindex="-1"></a>data1 <span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;./data/chun_data.csv&quot;</span>,<span class="at">header=</span> <span class="cn">TRUE</span>,<span class="at">sep=</span><span class="st">&quot;,&quot;</span>)</span>
+<span id="cb613-4"><a href="决策树及其组合方法.html#cb613-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb613-5"><a href="决策树及其组合方法.html#cb613-5" aria-hidden="true" tabindex="-1"></a><span class="co">#as the first three columns of the data arent important for the prediction we drop those columns from the data frame </span></span>
+<span id="cb613-6"><a href="决策树及其组合方法.html#cb613-6" aria-hidden="true" tabindex="-1"></a><span class="co"># drop the variables from the data set</span></span>
+<span id="cb613-7"><a href="决策树及其组合方法.html#cb613-7" aria-hidden="true" tabindex="-1"></a>data1<span class="ot">&lt;-</span>data1[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)]</span>
+<span id="cb613-8"><a href="决策树及其组合方法.html#cb613-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb613-9"><a href="决策树及其组合方法.html#cb613-9" aria-hidden="true" tabindex="-1"></a><span class="co">#data exploration</span></span>
+<span id="cb613-10"><a href="决策树及其组合方法.html#cb613-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb613-11"><a href="决策树及其组合方法.html#cb613-11" aria-hidden="true" tabindex="-1"></a><span class="co">#gives the dimensions of the data set</span></span>
+<span id="cb613-12"><a href="决策树及其组合方法.html#cb613-12" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(data1)</span></code></pre></div>
 <pre><code>## [1] 5000   17</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="决策树及其组合方法.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#gives the names of the variables in the data set</span></span>
-<span id="cb3-2"><a href="决策树及其组合方法.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data1)</span></code></pre></div>
+<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb615-1"><a href="决策树及其组合方法.html#cb615-1" aria-hidden="true" tabindex="-1"></a><span class="co">#gives the names of the variables in the data set</span></span>
+<span id="cb615-2"><a href="决策树及其组合方法.html#cb615-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data1)</span></code></pre></div>
 <pre><code>##  [1] &quot;international_plan&quot;            &quot;voice_mail_plan&quot;              
 ##  [3] &quot;number_vmail_messages&quot;         &quot;total_day_minutes&quot;            
 ##  [5] &quot;total_day_calls&quot;               &quot;total_day_charge&quot;             
@@ -260,8 +111,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [13] &quot;total_intl_minutes&quot;            &quot;total_intl_calls&quot;             
 ## [15] &quot;total_intl_charge&quot;             &quot;number_customer_service_calls&quot;
 ## [17] &quot;churn&quot;</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="决策树及其组合方法.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#displays top 10 observations of the data set</span></span>
-<span id="cb5-2"><a href="决策树及其组合方法.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data1)</span></code></pre></div>
+<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="决策树及其组合方法.html#cb617-1" aria-hidden="true" tabindex="-1"></a><span class="co">#displays top 10 observations of the data set</span></span>
+<span id="cb617-2"><a href="决策树及其组合方法.html#cb617-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data1)</span></code></pre></div>
 <pre><code>##   international_plan voice_mail_plan number_vmail_messages total_day_minutes
 ## 1                 no             yes                    25             265.1
 ## 2                 no             yes                    26             161.6
@@ -297,8 +148,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4                             2    no
 ## 5                             3    no
 ## 6                             0    no</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="决策树及其组合方法.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#displays bottom top 10 observations of the data set</span></span>
-<span id="cb7-2"><a href="决策树及其组合方法.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(data1)</span></code></pre></div>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="决策树及其组合方法.html#cb619-1" aria-hidden="true" tabindex="-1"></a><span class="co">#displays bottom top 10 observations of the data set</span></span>
+<span id="cb619-2"><a href="决策树及其组合方法.html#cb619-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(data1)</span></code></pre></div>
 <pre><code>##      international_plan voice_mail_plan number_vmail_messages total_day_minutes
 ## 4995                 no              no                     0             170.7
 ## 4996                 no             yes                    40             235.7
@@ -334,8 +185,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4998                             1    no
 ## 4999                             0    no
 ## 5000                             0    no</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="决策树及其组合方法.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#displays structure of the variables in the data set</span></span>
-<span id="cb9-2"><a href="决策树及其组合方法.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data1)</span></code></pre></div>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="决策树及其组合方法.html#cb621-1" aria-hidden="true" tabindex="-1"></a><span class="co">#displays structure of the variables in the data set</span></span>
+<span id="cb621-2"><a href="决策树及其组合方法.html#cb621-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data1)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    5000 obs. of  17 variables:
 ##  $ international_plan           : chr  &quot;no&quot; &quot;no&quot; &quot;no&quot; &quot;yes&quot; ...
 ##  $ voice_mail_plan              : chr  &quot;yes&quot; &quot;yes&quot; &quot;no&quot; &quot;no&quot; ...
@@ -354,8 +205,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  $ total_intl_charge            : num  2.7 3.7 3.29 1.78 2.73 1.7 2.03 1.92 2.35 3.02 ...
 ##  $ number_customer_service_calls: int  1 1 0 2 3 0 3 0 1 0 ...
 ##  $ churn                        : chr  &quot;no&quot; &quot;no&quot; &quot;no&quot; &quot;no&quot; ...</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="决策树及其组合方法.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#gives the summary of the variables of the data set </span></span>
-<span id="cb11-2"><a href="决策树及其组合方法.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data1)</span></code></pre></div>
+<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="决策树及其组合方法.html#cb623-1" aria-hidden="true" tabindex="-1"></a><span class="co">#gives the summary of the variables of the data set </span></span>
+<span id="cb623-2"><a href="决策树及其组合方法.html#cb623-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data1)</span></code></pre></div>
 <pre><code>##  international_plan voice_mail_plan    number_vmail_messages total_day_minutes
 ##  Length:5000        Length:5000        Min.   : 0.000        Min.   :  0.0    
 ##  Class :character   Class :character   1st Qu.: 0.000        1st Qu.:143.7    
@@ -391,275 +242,277 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  Mean   :1.57                                    
 ##  3rd Qu.:2.00                                    
 ##  Max.   :9.00</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="决策树及其组合方法.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#library for the sample.split function</span></span>
-<span id="cb13-2"><a href="决策树及其组合方法.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caTools)</span>
-<span id="cb13-3"><a href="决策树及其组合方法.html#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="决策树及其组合方法.html#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#splitting the data into training and testing data </span></span>
-<span id="cb13-5"><a href="决策树及其组合方法.html#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># sample the input data with 70% for training and 30% for testing</span></span>
-<span id="cb13-6"><a href="决策树及其组合方法.html#cb13-6" aria-hidden="true" tabindex="-1"></a>data1<span class="sc">$</span>churn <span class="ot">&lt;-</span> <span class="fu">factor</span>(data1<span class="sc">$</span>churn)</span>
-<span id="cb13-7"><a href="决策树及其组合方法.html#cb13-7" aria-hidden="true" tabindex="-1"></a>sample <span class="ot">&lt;-</span> <span class="fu">sample.split</span>(data1<span class="sc">$</span>churn,<span class="at">SplitRatio=</span><span class="fl">0.70</span>)</span>
-<span id="cb13-8"><a href="决策树及其组合方法.html#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-9"><a href="决策树及其组合方法.html#cb13-9" aria-hidden="true" tabindex="-1"></a>trainData <span class="ot">&lt;-</span> <span class="fu">subset</span>(data1,sample<span class="sc">==</span><span class="cn">TRUE</span>)</span>
-<span id="cb13-10"><a href="决策树及其组合方法.html#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-11"><a href="决策树及其组合方法.html#cb13-11" aria-hidden="true" tabindex="-1"></a>testData <span class="ot">&lt;-</span> <span class="fu">subset</span>(data1,sample<span class="sc">==</span><span class="cn">FALSE</span>)</span>
-<span id="cb13-12"><a href="决策树及其组合方法.html#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-13"><a href="决策树及其组合方法.html#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co">#rpart --- recursive partitioning decision tree</span></span>
-<span id="cb13-14"><a href="决策树及其组合方法.html#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>
-<span id="cb13-15"><a href="决策树及其组合方法.html#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-16"><a href="决策树及其组合方法.html#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co">#TO BUILD DECISON TREE BY USING RPART PACKAGE(recursive partitioning decision tree)</span></span>
-<span id="cb13-17"><a href="决策树及其组合方法.html#cb13-17" aria-hidden="true" tabindex="-1"></a>churn_model<span class="ot">&lt;-</span> <span class="fu">rpart</span>(churn <span class="sc">~</span> .,<span class="at">data=</span>trainData)</span>
-<span id="cb13-18"><a href="决策树及其组合方法.html#cb13-18" aria-hidden="true" tabindex="-1"></a>churn_model</span></code></pre></div>
+<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="决策树及其组合方法.html#cb625-1" aria-hidden="true" tabindex="-1"></a><span class="co">#library for the sample.split function</span></span>
+<span id="cb625-2"><a href="决策树及其组合方法.html#cb625-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caTools)</span>
+<span id="cb625-3"><a href="决策树及其组合方法.html#cb625-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb625-4"><a href="决策树及其组合方法.html#cb625-4" aria-hidden="true" tabindex="-1"></a><span class="co">#splitting the data into training and testing data </span></span>
+<span id="cb625-5"><a href="决策树及其组合方法.html#cb625-5" aria-hidden="true" tabindex="-1"></a><span class="co"># sample the input data with 70% for training and 30% for testing</span></span>
+<span id="cb625-6"><a href="决策树及其组合方法.html#cb625-6" aria-hidden="true" tabindex="-1"></a>data1<span class="sc">$</span>churn <span class="ot">&lt;-</span> <span class="fu">factor</span>(data1<span class="sc">$</span>churn)</span>
+<span id="cb625-7"><a href="决策树及其组合方法.html#cb625-7" aria-hidden="true" tabindex="-1"></a>sample <span class="ot">&lt;-</span> <span class="fu">sample.split</span>(data1<span class="sc">$</span>churn,<span class="at">SplitRatio=</span><span class="fl">0.70</span>)</span>
+<span id="cb625-8"><a href="决策树及其组合方法.html#cb625-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb625-9"><a href="决策树及其组合方法.html#cb625-9" aria-hidden="true" tabindex="-1"></a>trainData <span class="ot">&lt;-</span> <span class="fu">subset</span>(data1,sample<span class="sc">==</span><span class="cn">TRUE</span>)</span>
+<span id="cb625-10"><a href="决策树及其组合方法.html#cb625-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb625-11"><a href="决策树及其组合方法.html#cb625-11" aria-hidden="true" tabindex="-1"></a>testData <span class="ot">&lt;-</span> <span class="fu">subset</span>(data1,sample<span class="sc">==</span><span class="cn">FALSE</span>)</span>
+<span id="cb625-12"><a href="决策树及其组合方法.html#cb625-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb625-13"><a href="决策树及其组合方法.html#cb625-13" aria-hidden="true" tabindex="-1"></a><span class="co">#rpart --- recursive partitioning decision tree</span></span>
+<span id="cb625-14"><a href="决策树及其组合方法.html#cb625-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>
+<span id="cb625-15"><a href="决策树及其组合方法.html#cb625-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb625-16"><a href="决策树及其组合方法.html#cb625-16" aria-hidden="true" tabindex="-1"></a><span class="co">#TO BUILD DECISON TREE BY USING RPART PACKAGE(recursive partitioning decision tree)</span></span>
+<span id="cb625-17"><a href="决策树及其组合方法.html#cb625-17" aria-hidden="true" tabindex="-1"></a>churn_model<span class="ot">&lt;-</span> <span class="fu">rpart</span>(churn <span class="sc">~</span> .,<span class="at">data=</span>trainData)</span>
+<span id="cb625-18"><a href="决策树及其组合方法.html#cb625-18" aria-hidden="true" tabindex="-1"></a>churn_model</span></code></pre></div>
 <pre><code>## n= 3500 
 ## 
 ## node), split, n, loss, yval, (yprob)
 ##       * denotes terminal node
 ## 
-##  1) root 3500 495 no (0.85857143 0.14142857)  
-##    2) total_day_minutes&lt; 264.65 3286 363 no (0.88953135 0.11046865)  
-##      4) number_customer_service_calls&lt; 3.5 3014 227 no (0.92468480 0.07531520)  
-##        8) international_plan=no 2747 134 no (0.95121951 0.04878049)  
-##         16) total_day_minutes&lt; 232.7 2446  75 no (0.96933769 0.03066231) *
-##         17) total_day_minutes&gt;=232.7 301  59 no (0.80398671 0.19601329)  
-##           34) total_eve_minutes&lt; 242.35 240  22 no (0.90833333 0.09166667) *
-##           35) total_eve_minutes&gt;=242.35 61  24 yes (0.39344262 0.60655738)  
-##             70) voice_mail_plan=yes 14   0 no (1.00000000 0.00000000) *
-##             71) voice_mail_plan=no 47  10 yes (0.21276596 0.78723404) *
-##        9) international_plan=yes 267  93 no (0.65168539 0.34831461)  
-##         18) total_intl_minutes&lt; 13.1 220  46 no (0.79090909 0.20909091)  
-##           36) total_intl_calls&gt;=2.5 179   5 no (0.97206704 0.02793296) *
-##           37) total_intl_calls&lt; 2.5 41   0 yes (0.00000000 1.00000000) *
-##         19) total_intl_minutes&gt;=13.1 47   0 yes (0.00000000 1.00000000) *
-##      5) number_customer_service_calls&gt;=3.5 272 136 no (0.50000000 0.50000000)  
-##       10) total_day_minutes&gt;=162.95 163  42 no (0.74233129 0.25766871)  
-##         20) total_eve_minutes&gt;=141.45 142  28 no (0.80281690 0.19718310) *
-##         21) total_eve_minutes&lt; 141.45 21   7 yes (0.33333333 0.66666667) *
-##       11) total_day_minutes&lt; 162.95 109  15 yes (0.13761468 0.86238532) *
-##    3) total_day_minutes&gt;=264.65 214  82 yes (0.38317757 0.61682243)  
-##      6) voice_mail_plan=yes 51   6 no (0.88235294 0.11764706) *
-##      7) voice_mail_plan=no 163  37 yes (0.22699387 0.77300613)  
-##       14) total_eve_minutes&lt; 189.45 68  33 no (0.51470588 0.48529412)  
-##         28) total_day_minutes&lt; 288.5 44  11 no (0.75000000 0.25000000) *
-##         29) total_day_minutes&gt;=288.5 24   2 yes (0.08333333 0.91666667) *
-##       15) total_eve_minutes&gt;=189.45 95   2 yes (0.02105263 0.97894737) *</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="决策树及其组合方法.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#to display it in diagram</span></span>
-<span id="cb15-2"><a href="决策树及其组合方法.html#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="决策树及其组合方法.html#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rattle)</span></code></pre></div>
+##   1) root 3500 495 no (0.85857143 0.14142857)  
+##     2) total_day_minutes&lt; 263.55 3276 362 no (0.88949939 0.11050061)  
+##       4) number_customer_service_calls&lt; 3.5 3009 234 no (0.92223330 0.07776670)  
+##         8) international_plan=no 2743 134 no (0.95114838 0.04885162)  
+##          16) total_day_minutes&lt; 221.85 2309  62 no (0.97314855 0.02685145) *
+##          17) total_day_minutes&gt;=221.85 434  72 no (0.83410138 0.16589862)  
+##            34) total_eve_minutes&lt; 242.7 353  25 no (0.92917847 0.07082153) *
+##            35) total_eve_minutes&gt;=242.7 81  34 yes (0.41975309 0.58024691)  
+##              70) voice_mail_plan=yes 14   0 no (1.00000000 0.00000000) *
+##              71) voice_mail_plan=no 67  20 yes (0.29850746 0.70149254)  
+##               142) total_night_minutes&lt; 172.5 17   4 no (0.76470588 0.23529412) *
+##               143) total_night_minutes&gt;=172.5 50   7 yes (0.14000000 0.86000000) *
+##         9) international_plan=yes 266 100 no (0.62406015 0.37593985)  
+##          18) total_intl_calls&gt;=2.5 214  48 no (0.77570093 0.22429907)  
+##            36) total_intl_minutes&lt; 13.1 170   4 no (0.97647059 0.02352941) *
+##            37) total_intl_minutes&gt;=13.1 44   0 yes (0.00000000 1.00000000) *
+##          19) total_intl_calls&lt; 2.5 52   0 yes (0.00000000 1.00000000) *
+##       5) number_customer_service_calls&gt;=3.5 267 128 no (0.52059925 0.47940075)  
+##        10) total_day_minutes&gt;=162.7 157  32 no (0.79617834 0.20382166)  
+##          20) total_eve_minutes&gt;=135.1 143  22 no (0.84615385 0.15384615) *
+##          21) total_eve_minutes&lt; 135.1 14   4 yes (0.28571429 0.71428571) *
+##        11) total_day_minutes&lt; 162.7 110  14 yes (0.12727273 0.87272727) *
+##     3) total_day_minutes&gt;=263.55 224  91 yes (0.40625000 0.59375000)  
+##       6) voice_mail_plan=yes 50   5 no (0.90000000 0.10000000) *
+##       7) voice_mail_plan=no 174  46 yes (0.26436782 0.73563218)  
+##        14) total_eve_minutes&lt; 185.15 69  29 no (0.57971014 0.42028986)  
+##          28) total_day_minutes&lt; 289.2 48  12 no (0.75000000 0.25000000) *
+##          29) total_day_minutes&gt;=289.2 21   4 yes (0.19047619 0.80952381) *
+##        15) total_eve_minutes&gt;=185.15 105   6 yes (0.05714286 0.94285714) *</code></pre>
+<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="决策树及其组合方法.html#cb627-1" aria-hidden="true" tabindex="-1"></a><span class="co">#to display it in diagram</span></span>
+<span id="cb627-2"><a href="决策树及其组合方法.html#cb627-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb627-3"><a href="决策树及其组合方法.html#cb627-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rattle)</span></code></pre></div>
 <pre><code>## Loading required package: tibble</code></pre>
 <pre><code>## Loading required package: bitops</code></pre>
 <pre><code>## Rattle: A free graphical interface for data science with R.
 ## Version 5.5.1 Copyright (c) 2006-2021 Togaware Pty Ltd.
 ## Type &#39;rattle()&#39; to shake, rattle, and roll your data.</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="决策树及其组合方法.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart.plot)</span>
-<span id="cb19-2"><a href="决策树及其组合方法.html#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="决策树及其组合方法.html#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fancyRpartPlot</span>(churn_model)</span></code></pre></div>
+<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb631-1"><a href="决策树及其组合方法.html#cb631-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart.plot)</span>
+<span id="cb631-2"><a href="决策树及其组合方法.html#cb631-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb631-3"><a href="决策树及其组合方法.html#cb631-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fancyRpartPlot</span>(churn_model)</span></code></pre></div>
 <p><img src="07-decisiontree_files/figure-html/project-1.png" width="672" /></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="决策树及其组合方法.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#predicting the model data based on the model built from training data set</span></span>
-<span id="cb20-2"><a href="决策树及其组合方法.html#cb20-2" aria-hidden="true" tabindex="-1"></a>pred<span class="ot">&lt;-</span> <span class="fu">predict</span>(churn_model,testData,<span class="at">type =</span> <span class="st">&quot;class&quot;</span> )</span>
-<span id="cb20-3"><a href="决策树及其组合方法.html#cb20-3" aria-hidden="true" tabindex="-1"></a>pred</span></code></pre></div>
-<pre><code>##    4    5    6    7   10   13   15   16   17   23   27   31   32   35   36   37 
-##  yes   no   no   no   no   no  yes  yes   no   no   no   no   no   no   no   no 
-##   41   46   48   49   50   58   59   60   62   64   66   68   69   78   80   81 
-##   no   no   no  yes   no   no   no   no   no   no   no   no   no  yes   no   no 
-##   82   86   93   95  101  113  120  121  122  133  137  141  144  145  147  150 
-##   no   no   no   no  yes  yes   no   no   no   no   no   no   no  yes   no   no 
-##  168  175  176  177  184  188  195  196  197  198  206  211  213  214  215  223 
-##   no   no   no   no   no  yes   no   no   no  yes   no   no   no   no  yes   no 
-##  228  229  230  232  238  240  248  249  250  254  258  260  261  262  263  264 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  265  266  270  271  272  276  279  283  290  293  295  296  298  304  311  313 
-##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
-##  314  315  316  319  320  324  325  327  328  330  331  337  339  343  344  354 
-##   no   no   no   no  yes   no   no   no   no   no   no   no  yes   no   no   no 
-##  356  357  358  368  370  373  374  376  378  380  381  387  394  395  396  402 
-##   no   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no 
-##  405  406  407  409  410  416  417  418  419  421  423  432  440  441  442  449 
-##   no   no   no   no   no  yes  yes   no   no   no   no   no   no   no   no   no 
-##  452  453  455  460  464  468  471  474  479  481  486  494  500  504  508  509 
-##   no   no  yes   no   no   no   no  yes   no   no   no   no   no   no   no   no 
-##  512  513  515  518  521  522  523  530  532  535  536  538  540  545  549  555 
-##   no   no   no   no   no  yes   no   no   no  yes   no   no   no   no   no   no 
-##  560  563  565  574  578  581  586  587  588  590  593  598  600  604  607  608 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  615  616  619  621  629  631  633  635  636  643  648  652  653  659  660  664 
-##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
-##  667  678  682  685  689  691  695  696  698  700  702  704  711  715  716  717 
-##   no   no   no   no   no   no  yes   no   no   no   no   no   no   no  yes   no 
-##  721  722  723  730  733  734  752  755  757  759  760  761  762  767  768  772 
-##   no  yes   no   no  yes   no   no   no   no   no   no   no   no  yes   no  yes 
-##  775  778  781  784  785  790  794  805  815  816  818  832  834  837  840  844 
-##   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no 
-##  846  848  850  852  855  857  861  862  865  866  867  868  872  873  875  876 
-##   no   no   no   no   no   no   no   no   no   no   no   no  yes   no  yes   no 
-##  878  879  880  882  884  885  887  890  891  892  897  900  904  912  916  917 
-##  yes   no   no   no   no   no   no   no   no   no   no   no   no  yes   no   no 
-##  918  919  922  924  925  927  929  933  936  939  940  942  949  957  962  971 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  976  981  999 1000 1001 1003 1006 1007 1010 1018 1020 1021 1022 1026 1036 1038 
-##  yes   no   no   no  yes   no   no   no   no   no   no   no   no   no   no   no 
-## 1040 1047 1051 1060 1061 1062 1064 1067 1070 1075 1080 1082 1089 1090 1091 1092 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 1094 1096 1097 1101 1102 1107 1110 1113 1115 1116 1120 1129 1132 1139 1140 1149 
-##   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 1156 1158 1161 1163 1167 1171 1172 1178 1180 1181 1197 1204 1205 1212 1213 1215 
-##  yes   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no 
-## 1217 1220 1224 1231 1234 1237 1245 1247 1248 1256 1257 1258 1261 1268 1271 1274 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no  yes 
-## 1277 1281 1285 1291 1297 1300 1302 1307 1308 1310 1321 1322 1323 1325 1328 1331 
-##   no   no   no   no   no  yes   no   no   no   no   no   no  yes   no   no   no 
-## 1334 1338 1339 1342 1344 1346 1347 1351 1355 1356 1362 1364 1366 1367 1374 1379 
-##   no  yes   no   no   no  yes  yes  yes   no   no   no   no   no   no  yes   no 
-## 1381 1384 1390 1396 1400 1402 1409 1417 1418 1429 1432 1435 1436 1438 1441 1446 
-##   no   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no 
-## 1447 1451 1452 1455 1459 1464 1466 1467 1469 1470 1474 1475 1477 1482 1483 1490 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 1491 1503 1505 1507 1514 1519 1522 1524 1529 1530 1531 1533 1536 1537 1539 1541 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no  yes   no 
-## 1547 1548 1550 1551 1552 1553 1554 1556 1558 1560 1561 1565 1570 1576 1584 1585 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 1587 1589 1592 1596 1600 1604 1605 1613 1615 1617 1621 1624 1626 1627 1628 1630 
-##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
-## 1634 1641 1647 1649 1651 1653 1657 1661 1662 1664 1667 1671 1673 1675 1680 1690 
-##   no   no  yes   no   no   no   no   no   no   no   no   no   no  yes  yes   no 
-## 1691 1692 1693 1695 1696 1702 1706 1711 1717 1718 1719 1721 1722 1723 1726 1733 
-##   no  yes   no  yes   no  yes   no   no   no   no   no   no   no   no   no   no 
-## 1734 1739 1742 1743 1745 1746 1749 1757 1759 1763 1766 1773 1777 1782 1785 1787 
-##   no   no   no   no   no   no   no   no   no   no  yes   no   no   no  yes   no 
-## 1792 1794 1795 1797 1800 1804 1808 1810 1821 1826 1827 1828 1831 1838 1841 1842 
-##   no   no  yes   no   no   no   no   no   no   no   no   no  yes  yes   no   no 
-## 1843 1845 1846 1849 1857 1858 1867 1868 1869 1873 1876 1880 1882 1883 1884 1886 
-##  yes  yes  yes   no   no   no   no   no   no   no   no   no  yes   no   no   no 
-## 1892 1898 1899 1900 1905 1909 1910 1911 1917 1927 1929 1931 1932 1936 1945 1950 
-##   no   no  yes   no   no   no   no   no   no   no   no   no   no  yes   no   no 
-## 1951 1965 1967 1968 1969 1970 1974 1977 1981 1984 1985 1986 1989 1990 1993 1994 
-##  yes   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no 
-## 2004 2006 2011 2020 2022 2023 2028 2033 2034 2035 2038 2039 2041 2044 2045 2046 
+<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="决策树及其组合方法.html#cb632-1" aria-hidden="true" tabindex="-1"></a><span class="co">#predicting the model data based on the model built from training data set</span></span>
+<span id="cb632-2"><a href="决策树及其组合方法.html#cb632-2" aria-hidden="true" tabindex="-1"></a>pred<span class="ot">&lt;-</span> <span class="fu">predict</span>(churn_model,testData,<span class="at">type =</span> <span class="st">&quot;class&quot;</span> )</span>
+<span id="cb632-3"><a href="决策树及其组合方法.html#cb632-3" aria-hidden="true" tabindex="-1"></a>pred</span></code></pre></div>
+<pre><code>##    2    4    9   12   13   16   19   25   26   29   33   36   37   38   43   46 
+##   no  yes   no   no   no  yes   no   no   no   no   no   no   no   no   no   no 
+##   50   53   56   58   62   68   69   70   71   77   78   80   81   84   88   91 
+##   no   no   no   no   no   no   no   no   no  yes  yes   no   no   no   no   no 
+##   92   95   97   99  100  106  107  111  115  124  125  127  128  129  131  134 
 ##   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no 
-## 2052 2056 2066 2069 2070 2073 2077 2079 2089 2093 2094 2095 2101 2104 2105 2107 
-##   no   no   no   no  yes   no   no   no   no   no   no   no   no  yes   no  yes 
-## 2110 2112 2118 2123 2124 2125 2129 2136 2138 2139 2140 2142 2151 2156 2157 2159 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no  yes   no  yes 
-## 2160 2162 2164 2165 2167 2168 2170 2172 2173 2178 2179 2182 2183 2188 2192 2201 
-##   no   no   no  yes   no   no   no   no   no   no   no   no   no   no   no   no 
-## 2206 2208 2209 2229 2235 2237 2239 2245 2250 2251 2257 2262 2268 2269 2270 2275 
-##   no   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no 
-## 2280 2283 2285 2289 2296 2298 2301 2302 2304 2306 2308 2311 2312 2313 2317 2318 
+##  135  141  142  150  156  158  159  161  162  164  165  171  172  176  177  183 
 ##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 2320 2328 2329 2330 2333 2334 2336 2339 2341 2345 2348 2350 2353 2355 2359 2362 
-##   no  yes   no   no   no   no  yes   no   no   no  yes   no   no  yes   no   no 
-## 2365 2369 2374 2377 2379 2383 2385 2386 2389 2392 2395 2403 2404 2408 2411 2419 
-##   no   no   no  yes   no   no   no   no  yes   no   no  yes   no  yes   no   no 
-## 2427 2429 2432 2437 2446 2447 2457 2460 2466 2468 2469 2475 2478 2481 2482 2483 
-##   no  yes   no   no   no   no   no   no   no   no  yes   no   no   no   no   no 
-## 2486 2488 2490 2491 2494 2496 2498 2499 2504 2505 2510 2512 2520 2521 2522 2527 
-##   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no  yes 
-## 2529 2534 2546 2547 2550 2551 2554 2558 2569 2573 2576 2582 2585 2586 2589 2593 
-##   no   no   no   no   no   no   no   no   no  yes   no  yes   no   no   no   no 
-## 2597 2602 2618 2620 2622 2624 2625 2626 2633 2641 2642 2643 2646 2647 2650 2654 
-##   no   no   no  yes   no   no   no   no   no   no   no   no  yes   no   no   no 
-## 2657 2659 2661 2669 2671 2677 2679 2685 2690 2691 2694 2698 2701 2702 2703 2704 
-##   no   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 2706 2709 2712 2714 2719 2721 2727 2730 2735 2740 2741 2750 2753 2754 2755 2756 
-##   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 2758 2763 2764 2765 2766 2767 2768 2771 2772 2773 2775 2788 2789 2790 2793 2795 
-##   no   no   no   no   no   no   no   no   no  yes  yes   no  yes   no   no   no 
-## 2800 2808 2810 2811 2812 2813 2820 2825 2827 2829 2830 2836 2841 2844 2851 2853 
-##   no   no   no   no   no   no   no  yes   no  yes   no   no   no   no   no   no 
-## 2856 2861 2864 2867 2871 2874 2877 2883 2884 2886 2888 2898 2903 2914 2919 2921 
-##   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no   no 
-## 2922 2932 2938 2940 2942 2943 2945 2948 2952 2965 2971 2973 2975 2977 2982 2985 
-##   no   no   no   no   no  yes   no  yes   no   no   no   no   no   no   no   no 
-## 2988 2989 2995 2996 2997 2999 3005 3006 3008 3011 3012 3020 3025 3027 3028 3029 
-##  yes   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 3032 3035 3036 3047 3055 3059 3062 3068 3071 3073 3077 3078 3079 3085 3094 3096 
-##   no   no  yes   no   no   no   no   no   no  yes   no   no   no   no   no   no 
-## 3101 3105 3108 3112 3114 3115 3116 3120 3121 3122 3128 3131 3134 3151 3152 3161 
-##   no   no   no   no  yes   no   no   no   no   no  yes   no   no   no   no   no 
-## 3167 3169 3170 3171 3176 3177 3181 3182 3186 3191 3194 3195 3199 3201 3208 3209 
-##   no   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 3210 3213 3221 3229 3232 3239 3243 3246 3247 3248 3249 3250 3253 3254 3256 3257 
-##  yes   no   no   no   no  yes   no   no  yes  yes   no   no   no   no   no   no 
-## 3260 3262 3264 3270 3275 3276 3285 3287 3288 3289 3292 3293 3295 3297 3302 3303 
-##   no   no   no   no   no   no   no   no  yes   no  yes   no   no   no  yes   no 
-## 3305 3307 3311 3312 3316 3317 3321 3322 3328 3329 3330 3336 3337 3338 3342 3343 
-##   no   no   no   no   no   no  yes   no   no   no   no   no   no   no   no   no 
-## 3347 3348 3349 3351 3356 3362 3374 3376 3379 3381 3387 3389 3396 3399 3402 3405 
-##   no   no   no   no   no   no  yes   no   no   no   no   no  yes   no   no   no 
-## 3416 3418 3420 3430 3431 3437 3440 3441 3443 3444 3450 3451 3454 3460 3464 3465 
-##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
-## 3466 3467 3469 3473 3474 3476 3489 3491 3494 3495 3498 3499 3500 3503 3513 3514 
-##   no   no   no   no   no   no   no   no   no  yes   no  yes   no   no   no   no 
-## 3518 3523 3524 3525 3531 3532 3536 3539 3540 3543 3545 3549 3552 3554 3557 3571 
-##   no   no   no   no  yes   no   no   no   no   no   no  yes   no   no   no   no 
-## 3574 3584 3586 3587 3590 3602 3607 3610 3612 3616 3617 3620 3626 3627 3628 3631 
-##   no   no  yes   no   no   no   no  yes   no   no  yes   no   no   no   no  yes 
-## 3633 3635 3636 3637 3644 3647 3649 3651 3654 3657 3658 3659 3664 3669 3672 3677 
-##   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no 
-## 3679 3682 3684 3686 3687 3688 3696 3699 3704 3708 3713 3718 3722 3728 3729 3730 
-##   no   no   no   no  yes   no   no   no   no   no   no  yes   no   no   no   no 
-## 3733 3737 3740 3743 3746 3754 3758 3761 3762 3769 3770 3776 3780 3785 3786 3790 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 3793 3794 3796 3797 3798 3802 3809 3810 3815 3816 3819 3820 3821 3826 3831 3836 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 3841 3845 3846 3851 3852 3853 3854 3855 3858 3863 3864 3866 3872 3875 3877 3879 
-##   no   no   no   no  yes  yes   no  yes   no   no   no   no   no   no   no   no 
-## 3882 3886 3895 3898 3906 3907 3909 3914 3915 3916 3918 3921 3923 3931 3933 3934 
+##  189  194  196  203  206  210  218  223  228  238  242  244  249  250  255  261 
 ##   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no 
-## 3937 3946 3948 3950 3954 3960 3963 3964 3967 3969 3970 3971 3975 3986 3987 3990 
-##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no  yes   no 
-## 3991 3992 3993 3995 3996 3997 4002 4006 4013 4017 4021 4022 4024 4026 4030 4035 
-##   no   no   no   no   no   no   no   no   no   no   no  yes  yes   no   no   no 
-## 4036 4037 4045 4048 4049 4056 4059 4061 4065 4070 4071 4072 4074 4084 4089 4090 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 4091 4094 4097 4099 4101 4118 4119 4121 4124 4129 4130 4134 4137 4142 4144 4145 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 4146 4148 4151 4158 4162 4167 4168 4170 4172 4185 4190 4213 4218 4224 4225 4227 
+##  265  266  278  283  290  292  296  298  304  305  306  315  317  318  321  327 
+##   no   no   no   no  yes   no   no   no   no   no  yes   no   no   no   no   no 
+##  329  336  337  342  346  350  356  359  360  361  364  367  368  370  372  374 
+##   no   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no 
+##  382  383  389  396  397  398  399  401  403  406  407  412  414  417  418  424 
+##   no   no   no   no   no  yes   no   no   no   no   no   no   no  yes   no   no 
+##  425  431  432  433  434  438  440  444  446  448  449  452  453  454  455  458 
+##   no  yes   no   no   no   no   no   no   no   no   no   no   no   no  yes   no 
+##  460  463  464  467  468  469  476  477  479  483  486  499  501  503  504  508 
+##   no   no   no   no   no   no   no   no   no   no   no  yes   no  yes   no   no 
+##  512  515  517  519  527  531  538  541  548  549  550  553  554  556  561  562 
+##   no   no   no   no   no   no   no   no  yes   no   no  yes   no   no   no   no 
+##  564  565  567  568  569  571  573  574  576  577  578  581  584  590  593  601 
+##   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no   no 
+##  602  603  605  608  609  613  618  622  624  630  637  639  640  641  644  649 
+##  yes   no   no   no   no  yes   no   no   no  yes   no   no   no   no   no   no 
+##  653  656  657  660  663  664  665  669  670  678  679  682  684  697  703  705 
+##   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+##  706  707  710  711  712  720  722  730  735  736  738  741  750  754  756  759 
+##   no   no   no   no  yes   no  yes   no   no   no  yes   no   no   no   no   no 
+##  762  763  764  767  769  772  773  780  782  783  785  786  787  793  797  798 
+##   no   no   no  yes   no  yes   no   no   no   no   no   no   no   no   no  yes 
+##  800  803  810  811  813  816  827  832  834  838  842  843  848  852  853  855 
+##   no   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no 
+##  859  861  863  869  870  878  882  884  888  890  891  892  894  897  898  899 
+##   no   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no 
+##  900  901  903  905  912  913  916  918  923  926  928  933  936  943  944  945 
+##   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no   no 
+##  955  961  964  965  968  971  974  976  982  983  984  989  995  996  997  998 
+##   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no   no 
+##  999 1000 1016 1019 1022 1030 1034 1035 1039 1041 1042 1043 1044 1048 1050 1052 
 ##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
-## 4230 4233 4239 4241 4242 4248 4251 4261 4262 4269 4272 4273 4278 4281 4292 4295 
-##  yes   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no 
-## 4299 4303 4307 4308 4313 4316 4321 4322 4324 4330 4335 4338 4339 4340 4343 4344 
-##   no   no   no  yes   no   no   no   no   no   no   no  yes   no   no   no   no 
-## 4347 4358 4360 4362 4363 4365 4367 4372 4373 4374 4381 4384 4386 4387 4388 4398 
-##   no   no   no   no   no   no  yes  yes   no   no   no  yes   no  yes   no   no 
-## 4399 4400 4410 4412 4417 4430 4433 4437 4447 4450 4451 4462 4464 4466 4470 4473 
-##   no   no   no  yes   no   no   no   no   no   no   no   no   no  yes   no   no 
-## 4474 4478 4480 4482 4485 4494 4498 4503 4504 4508 4516 4524 4527 4528 4529 4530 
-##   no   no   no   no   no   no   no  yes   no  yes   no   no   no   no   no   no 
-## 4532 4537 4545 4551 4552 4556 4557 4567 4570 4579 4581 4583 4586 4587 4589 4591 
+## 1054 1057 1061 1063 1065 1073 1082 1086 1087 1088 1093 1095 1100 1101 1105 1107 
 ##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 4596 4606 4607 4610 4613 4615 4617 4621 4622 4623 4624 4631 4633 4640 4642 4643 
+## 1117 1119 1123 1140 1149 1150 1151 1152 1155 1160 1173 1178 1182 1184 1186 1188 
+##   no   no   no   no   no   no  yes   no   no   no   no   no   no   no   no   no 
+## 1190 1191 1193 1194 1195 1196 1197 1199 1203 1206 1213 1218 1225 1227 1232 1235 
+##   no   no   no  yes   no   no   no   no   no   no   no   no   no   no  yes   no 
+## 1238 1240 1245 1249 1256 1257 1260 1261 1266 1268 1272 1280 1281 1284 1288 1298 
 ##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 4644 4645 4647 4649 4650 4652 4654 4657 4658 4659 4660 4664 4675 4676 4678 4680 
-##  yes   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no 
-## 4681 4684 4686 4687 4689 4690 4696 4702 4703 4704 4710 4711 4715 4716 4718 4725 
-##   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no 
-## 4727 4729 4734 4738 4740 4743 4746 4748 4753 4754 4757 4761 4762 4763 4771 4778 
-##   no   no   no  yes   no   no   no   no   no   no   no   no   no   no   no   no 
-## 4780 4784 4788 4789 4791 4793 4794 4798 4799 4801 4803 4807 4810 4811 4815 4816 
-##   no   no   no  yes   no   no   no   no   no   no   no   no  yes   no   no   no 
-## 4818 4819 4824 4826 4828 4829 4838 4840 4845 4851 4853 4854 4855 4860 4862 4865 
-##  yes   no   no  yes   no   no  yes   no   no   no   no   no   no   no  yes   no 
-## 4868 4869 4875 4878 4880 4883 4884 4886 4896 4900 4904 4909 4912 4914 4915 4931 
-##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no  yes   no 
-## 4933 4935 4938 4939 4940 4946 4950 4953 4956 4958 4959 4964 4967 4970 4972 4973 
+## 1306 1307 1308 1309 1310 1312 1315 1316 1317 1320 1322 1325 1335 1336 1344 1351 
+##   no   no   no   no   no   no   no   no   no   no   no   no  yes   no   no  yes 
+## 1355 1356 1357 1360 1366 1367 1369 1373 1377 1381 1385 1388 1392 1396 1397 1398 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 1405 1408 1411 1413 1416 1417 1418 1419 1420 1421 1426 1427 1433 1442 1449 1454 
+##   no  yes   no   no   no   no   no   no   no  yes   no   no   no   no   no   no 
+## 1458 1459 1462 1463 1464 1471 1472 1473 1474 1478 1493 1500 1506 1512 1513 1516 
+##   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no   no 
+## 1517 1523 1528 1530 1537 1539 1542 1548 1550 1554 1556 1557 1564 1565 1570 1571 
+##   no   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no 
+## 1574 1575 1581 1584 1588 1590 1595 1596 1598 1600 1602 1609 1611 1612 1613 1614 
+##   no   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no 
+## 1616 1621 1625 1632 1635 1653 1655 1656 1660 1665 1689 1693 1694 1695 1703 1704 
+##   no   no   no   no   no   no   no   no   no   no   no  yes   no  yes  yes   no 
+## 1705 1707 1710 1711 1717 1723 1728 1729 1732 1736 1740 1743 1747 1750 1756 1757 
+##  yes   no   no   no   no   no   no  yes  yes   no  yes   no   no   no   no   no 
+## 1762 1764 1765 1769 1770 1771 1773 1775 1776 1791 1795 1797 1801 1802 1806 1807 
+##   no   no  yes  yes   no   no   no   no   no   no  yes   no  yes   no   no   no 
+## 1811 1815 1819 1820 1822 1823 1840 1842 1846 1847 1848 1854 1855 1862 1866 1868 
+##   no   no   no   no   no   no   no   no  yes   no   no   no   no  yes  yes   no 
+## 1871 1874 1875 1876 1880 1888 1890 1891 1893 1894 1895 1897 1904 1905 1907 1908 
+##   no   no   no   no   no  yes   no   no  yes  yes   no   no  yes   no   no   no 
+## 1910 1911 1913 1914 1915 1921 1922 1923 1926 1927 1930 1932 1944 1945 1948 1949 
+##   no   no  yes   no   no   no   no  yes   no   no   no   no   no   no   no   no 
+## 1954 1955 1957 1958 1959 1962 1963 1964 1967 1969 1973 1976 1982 1983 1987 1993 
+##   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 1996 1998 1999 2002 2004 2008 2009 2017 2024 2025 2026 2031 2032 2034 2038 2051 
+##   no   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no 
+## 2054 2057 2060 2064 2071 2076 2079 2080 2085 2088 2097 2102 2109 2111 2112 2115 
+##   no   no  yes   no   no   no   no   no   no  yes   no   no   no   no   no   no 
+## 2117 2118 2119 2120 2121 2128 2129 2133 2136 2138 2139 2140 2143 2145 2147 2148 
+##   no   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 2153 2156 2157 2158 2160 2161 2165 2166 2169 2172 2173 2175 2178 2179 2181 2183 
+##   no  yes   no   no   no  yes  yes   no   no   no   no   no   no   no   no   no 
+## 2186 2198 2203 2204 2205 2209 2210 2211 2217 2218 2222 2228 2231 2232 2235 2237 
+##   no   no   no  yes   no   no   no  yes   no   no   no   no   no   no   no   no 
+## 2240 2241 2248 2254 2265 2267 2269 2274 2276 2277 2280 2281 2282 2283 2285 2286 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 2290 2292 2294 2310 2312 2317 2318 2320 2326 2335 2337 2340 2341 2343 2345 2346 
+##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
+## 2349 2353 2356 2359 2360 2361 2375 2376 2377 2379 2381 2386 2389 2391 2395 2402 
+##   no   no   no   no   no   no   no   no  yes   no  yes   no  yes   no   no  yes 
+## 2404 2406 2409 2411 2413 2420 2436 2437 2443 2446 2454 2458 2461 2463 2469 2471 
+##   no   no   no   no  yes  yes   no   no   no   no   no   no   no   no  yes   no 
+## 2474 2479 2480 2483 2487 2491 2493 2496 2498 2512 2514 2517 2522 2525 2526 2527 
+##   no   no  yes   no   no   no   no   no   no   no   no   no   no   no   no  yes 
+## 2530 2532 2533 2538 2540 2541 2550 2552 2553 2560 2561 2562 2563 2569 2572 2577 
+##   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no   no 
+## 2578 2588 2591 2592 2593 2599 2600 2604 2605 2606 2613 2618 2620 2624 2631 2633 
+##   no   no   no  yes   no   no  yes   no   no   no   no   no  yes   no   no   no 
+## 2635 2637 2638 2644 2645 2649 2650 2654 2656 2658 2664 2666 2668 2670 2672 2675 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 2678 2683 2689 2690 2696 2698 2708 2710 2711 2712 2713 2714 2717 2724 2728 2729 
+##  yes   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
+## 2730 2733 2738 2739 2741 2744 2745 2747 2749 2750 2751 2752 2753 2756 2760 2768 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 2769 2770 2771 2772 2774 2776 2782 2783 2785 2789 2790 2792 2793 2796 2823 2824 
+##   no   no   no   no   no   no   no   no  yes  yes   no   no   no   no   no   no 
+## 2825 2826 2827 2829 2830 2832 2834 2837 2839 2840 2841 2846 2849 2850 2852 2853 
+##  yes   no   no  yes   no   no   no   no   no  yes   no   no   no   no   no   no 
+## 2856 2862 2863 2865 2868 2871 2873 2874 2876 2878 2879 2883 2884 2886 2889 2890 
+##   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no  yes 
+## 2901 2904 2905 2906 2908 2916 2922 2924 2928 2929 2930 2931 2937 2938 2940 2943 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no  yes 
+## 2945 2956 2957 2961 2962 2966 2973 2976 2979 2985 2986 2987 2988 2989 2990 2992 
+##   no   no   no  yes   no   no   no   no   no   no   no   no  yes   no  yes   no 
+## 2993 2994 2996 3002 3003 3007 3013 3017 3022 3028 3032 3034 3035 3036 3040 3041 
+##   no   no   no   no  yes   no   no   no   no   no   no   no   no  yes   no   no 
+## 3050 3051 3053 3060 3067 3070 3074 3080 3087 3103 3106 3111 3118 3120 3121 3122 
+##   no  yes   no   no   no   no   no  yes   no   no   no   no   no   no   no   no 
+## 3124 3126 3133 3135 3142 3146 3160 3161 3164 3170 3172 3174 3180 3184 3191 3192 
+##   no   no  yes   no   no   no   no   no   no  yes   no   no   no   no   no   no 
+## 3196 3198 3201 3204 3215 3218 3219 3221 3225 3231 3233 3234 3237 3240 3241 3243 
+##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
+## 3247 3250 3255 3259 3271 3272 3273 3279 3287 3302 3306 3309 3311 3317 3319 3323 
+##  yes   no   no   no   no   no  yes   no   no  yes   no   no   no   no   no  yes 
+## 3328 3329 3330 3332 3333 3335 3341 3343 3347 3350 3351 3357 3359 3364 3365 3366 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 3367 3372 3376 3379 3380 3381 3382 3393 3394 3406 3418 3419 3421 3424 3425 3433 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 3435 3439 3442 3445 3450 3453 3454 3461 3462 3468 3473 3483 3484 3485 3491 3495 
+##   no   no   no   no   no  yes   no   no  yes   no   no  yes   no   no   no  yes 
+## 3497 3500 3505 3507 3509 3510 3517 3519 3520 3530 3531 3532 3549 3551 3570 3572 
+##   no   no   no   no   no  yes   no   no   no   no   no   no  yes   no   no   no 
+## 3576 3579 3580 3582 3583 3588 3594 3597 3599 3606 3607 3608 3618 3619 3622 3627 
+##   no   no   no   no   no  yes   no   no   no   no   no   no  yes   no   no   no 
+## 3632 3634 3635 3640 3643 3645 3651 3654 3655 3657 3658 3659 3661 3667 3675 3676 
+##   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no  yes 
+## 3679 3680 3681 3685 3687 3691 3693 3699 3704 3710 3717 3718 3722 3727 3731 3735 
+##   no   no   no   no  yes   no  yes   no   no   no   no  yes   no   no   no   no 
+## 3737 3742 3745 3750 3751 3754 3756 3758 3760 3762 3764 3769 3771 3772 3781 3785 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 3786 3787 3789 3793 3794 3798 3799 3802 3808 3810 3811 3815 3816 3819 3836 3842 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 3844 3845 3848 3853 3855 3858 3860 3862 3863 3866 3867 3871 3877 3882 3883 3885 
 ##   no   no  yes   no  yes   no   no   no   no   no   no   no   no   no   no   no 
-## 4975 4977 4978 4980 4981 4982 4983 4984 4985 4993 4995 5000 
-##   no   no   no   no   no   no   no   no   no   no   no   no 
+## 3888 3889 3896 3897 3901 3902 3905 3907 3910 3911 3912 3914 3921 3923 3925 3933 
+##   no   no   no   no   no  yes   no   no  yes   no   no   no   no   no   no   no 
+## 3934 3937 3938 3943 3949 3951 3960 3962 3964 3968 3971 3977 3979 3982 3984 3985 
+##   no   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no 
+## 3990 3999 4004 4007 4008 4012 4015 4016 4018 4021 4024 4025 4029 4035 4042 4045 
+##   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no 
+## 4046 4065 4069 4070 4074 4077 4084 4087 4088 4097 4099 4100 4102 4105 4106 4107 
+##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
+## 4109 4113 4117 4119 4121 4124 4131 4133 4135 4145 4156 4159 4163 4164 4168 4169 
+##   no   no   no   no   no   no  yes  yes   no   no   no   no  yes   no   no   no 
+## 4175 4179 4190 4193 4196 4198 4199 4206 4207 4210 4216 4218 4224 4228 4243 4244 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 4249 4264 4272 4278 4281 4287 4289 4290 4294 4297 4298 4302 4310 4311 4312 4318 
+##   no   no   no   no   no   no   no   no   no  yes  yes   no  yes   no   no   no 
+## 4319 4321 4322 4325 4327 4328 4334 4336 4338 4339 4341 4347 4353 4354 4355 4359 
+##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
+## 4362 4367 4368 4370 4373 4374 4376 4378 4382 4388 4389 4391 4394 4395 4396 4399 
+##   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 4400 4405 4407 4415 4416 4419 4423 4424 4430 4436 4439 4445 4451 4452 4454 4461 
+##   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 4462 4463 4467 4469 4470 4471 4472 4473 4475 4478 4479 4480 4481 4485 4487 4490 
+##   no   no   no   no   no   no  yes   no   no   no   no   no   no   no  yes   no 
+## 4493 4494 4497 4502 4505 4508 4510 4511 4512 4513 4516 4517 4520 4522 4525 4527 
+##  yes   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no 
+## 4540 4545 4547 4554 4555 4563 4564 4567 4570 4574 4583 4589 4592 4594 4595 4598 
+##   no   no   no   no   no  yes   no   no   no   no   no   no   no   no   no  yes 
+## 4600 4604 4606 4609 4611 4612 4613 4614 4616 4617 4619 4623 4629 4642 4643 4644 
+##  yes   no   no   no   no   no   no   no   no   no   no   no  yes   no   no  yes 
+## 4650 4651 4652 4657 4660 4662 4663 4670 4674 4675 4681 4684 4687 4688 4690 4693 
+##   no  yes   no   no   no   no   no   no   no   no   no   no   no  yes   no   no 
+## 4694 4696 4698 4699 4703 4704 4708 4709 4710 4711 4714 4715 4719 4732 4735 4736 
+##   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no 
+## 4739 4740 4741 4743 4745 4754 4763 4766 4774 4775 4776 4777 4784 4785 4792 4795 
+##   no   no  yes   no   no   no   no   no  yes   no   no   no   no   no   no   no 
+## 4798 4800 4802 4803 4810 4830 4832 4835 4837 4838 4841 4848 4850 4852 4854 4858 
+##   no   no   no   no  yes   no   no   no   no  yes   no   no   no   no   no   no 
+## 4862 4864 4868 4874 4875 4876 4878 4879 4881 4889 4894 4897 4904 4909 4911 4914 
+##  yes   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 4915 4917 4918 4922 4923 4932 4934 4935 4937 4940 4941 4942 4943 4944 4947 4952 
+##  yes   no  yes   no   no   no   no   no   no  yes   no   no   no  yes   no   no 
+## 4954 4956 4960 4968 4969 4971 4973 4975 4982 4992 4995 5000 
+##  yes   no  yes   no   no   no   no   no   no  yes   no   no 
 ## Levels: no yes</code></pre>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="决策树及其组合方法.html#cb22-1" aria-hidden="true" tabindex="-1"></a>pred1<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(pred)</span>
-<span id="cb22-2"><a href="决策树及其组合方法.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#View(pred1)</span></span>
-<span id="cb22-3"><a href="决策树及其组合方法.html#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="决策树及其组合方法.html#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Confusion matrix is a technique for summarizing the performance of a classification algorithm </span></span>
-<span id="cb22-5"><a href="决策树及其组合方法.html#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(testData<span class="sc">$</span>churn ,pred)<span class="co">#create confusion matrix to see how mnay cus are correctly predicted and incorrectly predicted</span></span></code></pre></div>
+<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="决策树及其组合方法.html#cb634-1" aria-hidden="true" tabindex="-1"></a>pred1<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(pred)</span>
+<span id="cb634-2"><a href="决策树及其组合方法.html#cb634-2" aria-hidden="true" tabindex="-1"></a><span class="co">#View(pred1)</span></span>
+<span id="cb634-3"><a href="决策树及其组合方法.html#cb634-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb634-4"><a href="决策树及其组合方法.html#cb634-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Confusion matrix is a technique for summarizing the performance of a classification algorithm </span></span>
+<span id="cb634-5"><a href="决策树及其组合方法.html#cb634-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(testData<span class="sc">$</span>churn ,pred)<span class="co">#create confusion matrix to see how mnay cus are correctly predicted and incorrectly predicted</span></span></code></pre></div>
 <pre><code>##      pred
 ##         no  yes
-##   no  1269   19
-##   yes   66  146</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="决策树及其组合方法.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">#####</span></span>
-<span id="cb24-2"><a href="决策树及其组合方法.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="do">#####RANDOM FOREST MODEL</span></span>
-<span id="cb24-3"><a href="决策树及其组合方法.html#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="do">#####</span></span>
-<span id="cb24-4"><a href="决策树及其组合方法.html#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="决策树及其组合方法.html#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="决策树及其组合方法.html#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span></code></pre></div>
+##   no  1272   16
+##   yes   64  148</code></pre>
+<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="决策树及其组合方法.html#cb636-1" aria-hidden="true" tabindex="-1"></a><span class="do">#####</span></span>
+<span id="cb636-2"><a href="决策树及其组合方法.html#cb636-2" aria-hidden="true" tabindex="-1"></a><span class="do">#####RANDOM FOREST MODEL</span></span>
+<span id="cb636-3"><a href="决策树及其组合方法.html#cb636-3" aria-hidden="true" tabindex="-1"></a><span class="do">#####</span></span>
+<span id="cb636-4"><a href="决策树及其组合方法.html#cb636-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb636-5"><a href="决策树及其组合方法.html#cb636-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb636-6"><a href="决策树及其组合方法.html#cb636-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span></code></pre></div>
 <pre><code>## randomForest 4.7-1.1</code></pre>
 <pre><code>## Type rfNews() to see new features/changes/bug fixes.</code></pre>
 <pre><code>## 
@@ -667,10 +520,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## The following object is masked from &#39;package:rattle&#39;:
 ## 
 ##     importance</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="决策树及其组合方法.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#to build the random forest model </span></span>
-<span id="cb29-2"><a href="决策树及其组合方法.html#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co">#trainData$churn = as.character(trainData$churn)</span></span>
-<span id="cb29-3"><a href="决策树及其组合方法.html#cb29-3" aria-hidden="true" tabindex="-1"></a>random_model <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(churn<span class="sc">~</span>.,<span class="at">data=</span>trainData, <span class="at">importance =</span> T)</span>
-<span id="cb29-4"><a href="决策树及其组合方法.html#cb29-4" aria-hidden="true" tabindex="-1"></a>random_model</span></code></pre></div>
+<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="决策树及其组合方法.html#cb641-1" aria-hidden="true" tabindex="-1"></a><span class="co">#to build the random forest model </span></span>
+<span id="cb641-2"><a href="决策树及其组合方法.html#cb641-2" aria-hidden="true" tabindex="-1"></a><span class="co">#trainData$churn = as.character(trainData$churn)</span></span>
+<span id="cb641-3"><a href="决策树及其组合方法.html#cb641-3" aria-hidden="true" tabindex="-1"></a>random_model <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(churn<span class="sc">~</span>.,<span class="at">data=</span>trainData, <span class="at">importance =</span> T)</span>
+<span id="cb641-4"><a href="决策树及其组合方法.html#cb641-4" aria-hidden="true" tabindex="-1"></a>random_model</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ##  randomForest(formula = churn ~ ., data = trainData, importance = T) 
@@ -678,316 +531,321 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##                      Number of trees: 500
 ## No. of variables tried at each split: 4
 ## 
-##         OOB estimate of  error rate: 4.2%
+##         OOB estimate of  error rate: 4.51%
 ## Confusion matrix:
 ##       no yes class.error
-## no  2979  26 0.008652246
-## yes  121 374 0.244444444</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="决策树及其组合方法.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#predicting the data based on the model developed</span></span>
-<span id="cb31-2"><a href="决策树及其组合方法.html#cb31-2" aria-hidden="true" tabindex="-1"></a>ran_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(random_model,testData)</span>
-<span id="cb31-3"><a href="决策树及其组合方法.html#cb31-3" aria-hidden="true" tabindex="-1"></a>ran_pred</span></code></pre></div>
-<pre><code>##    4    5    6    7   10   13   15   16   17   23   27   31   32   35   36   37 
-##  yes   no   no   no   no   no  yes  yes   no   no   no   no   no   no   no   no 
-##   41   46   48   49   50   58   59   60   62   64   66   68   69   78   80   81 
-##   no   no   no  yes   no   no   no   no   no   no   no   no   no  yes   no   no 
-##   82   86   93   95  101  113  120  121  122  133  137  141  144  145  147  150 
-##   no   no   no   no   no  yes   no   no   no   no   no   no   no  yes   no   no 
-##  168  175  176  177  184  188  195  196  197  198  206  211  213  214  215  223 
-##   no   no   no   no   no   no   no   no   no  yes   no   no   no   no  yes   no 
-##  228  229  230  232  238  240  248  249  250  254  258  260  261  262  263  264 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  265  266  270  271  272  276  279  283  290  293  295  296  298  304  311  313 
-##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no  yes   no 
-##  314  315  316  319  320  324  325  327  328  330  331  337  339  343  344  354 
-##   no   no   no   no  yes   no   no   no   no   no   no   no  yes   no   no   no 
-##  356  357  358  368  370  373  374  376  378  380  381  387  394  395  396  402 
+## no  2977  28 0.009317804
+## yes  130 365 0.262626263</code></pre>
+<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="决策树及其组合方法.html#cb643-1" aria-hidden="true" tabindex="-1"></a><span class="co">#predicting the data based on the model developed</span></span>
+<span id="cb643-2"><a href="决策树及其组合方法.html#cb643-2" aria-hidden="true" tabindex="-1"></a>ran_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(random_model,testData)</span>
+<span id="cb643-3"><a href="决策树及其组合方法.html#cb643-3" aria-hidden="true" tabindex="-1"></a>ran_pred</span></code></pre></div>
+<pre><code>##    2    4    9   12   13   16   19   25   26   29   33   36   37   38   43   46 
 ##   no   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no 
-##  405  406  407  409  410  416  417  418  419  421  423  432  440  441  442  449 
-##   no   no   no   no   no  yes  yes   no   no   no   no   no   no   no   no   no 
-##  452  453  455  460  464  468  471  474  479  481  486  494  500  504  508  509 
-##   no   no  yes   no   no   no   no  yes   no   no   no   no   no   no   no   no 
-##  512  513  515  518  521  522  523  530  532  535  536  538  540  545  549  555 
-##   no   no  yes   no   no  yes   no   no   no  yes   no   no   no   no   no   no 
-##  560  563  565  574  578  581  586  587  588  590  593  598  600  604  607  608 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  615  616  619  621  629  631  633  635  636  643  648  652  653  659  660  664 
-##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
-##  667  678  682  685  689  691  695  696  698  700  702  704  711  715  716  717 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no  yes   no 
-##  721  722  723  730  733  734  752  755  757  759  760  761  762  767  768  772 
-##   no  yes   no   no  yes   no   no   no   no   no   no   no   no  yes   no  yes 
-##  775  778  781  784  785  790  794  805  815  816  818  832  834  837  840  844 
-##   no   no  yes   no   no   no   no   no   no  yes   no   no   no   no   no   no 
-##  846  848  850  852  855  857  861  862  865  866  867  868  872  873  875  876 
-##   no   no   no   no   no   no   no   no   no   no   no   no  yes   no  yes   no 
-##  878  879  880  882  884  885  887  890  891  892  897  900  904  912  916  917 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no  yes   no   no 
-##  918  919  922  924  925  927  929  933  936  939  940  942  949  957  962  971 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  976  981  999 1000 1001 1003 1006 1007 1010 1018 1020 1021 1022 1026 1036 1038 
-##  yes   no   no   no  yes   no   no   no   no   no   no   no   no   no   no   no 
-## 1040 1047 1051 1060 1061 1062 1064 1067 1070 1075 1080 1082 1089 1090 1091 1092 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 1094 1096 1097 1101 1102 1107 1110 1113 1115 1116 1120 1129 1132 1139 1140 1149 
-##   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 1156 1158 1161 1163 1167 1171 1172 1178 1180 1181 1197 1204 1205 1212 1213 1215 
-##  yes   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no 
-## 1217 1220 1224 1231 1234 1237 1245 1247 1248 1256 1257 1258 1261 1268 1271 1274 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no  yes 
-## 1277 1281 1285 1291 1297 1300 1302 1307 1308 1310 1321 1322 1323 1325 1328 1331 
-##  yes   no  yes   no   no  yes   no   no   no   no   no   no  yes   no   no   no 
-## 1334 1338 1339 1342 1344 1346 1347 1351 1355 1356 1362 1364 1366 1367 1374 1379 
-##   no  yes   no   no   no  yes  yes  yes   no   no   no   no   no   no  yes   no 
-## 1381 1384 1390 1396 1400 1402 1409 1417 1418 1429 1432 1435 1436 1438 1441 1446 
-##   no   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no 
-## 1447 1451 1452 1455 1459 1464 1466 1467 1469 1470 1474 1475 1477 1482 1483 1490 
-##   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no 
-## 1491 1503 1505 1507 1514 1519 1522 1524 1529 1530 1531 1533 1536 1537 1539 1541 
-##   no   no   no   no   no   no   no   no   no   no  yes   no   no   no  yes   no 
-## 1547 1548 1550 1551 1552 1553 1554 1556 1558 1560 1561 1565 1570 1576 1584 1585 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 1587 1589 1592 1596 1600 1604 1605 1613 1615 1617 1621 1624 1626 1627 1628 1630 
-##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
-## 1634 1641 1647 1649 1651 1653 1657 1661 1662 1664 1667 1671 1673 1675 1680 1690 
-##   no   no  yes   no   no   no   no   no   no   no   no   no   no  yes  yes   no 
-## 1691 1692 1693 1695 1696 1702 1706 1711 1717 1718 1719 1721 1722 1723 1726 1733 
-##   no  yes  yes  yes   no  yes   no   no   no   no   no   no   no   no   no   no 
-## 1734 1739 1742 1743 1745 1746 1749 1757 1759 1763 1766 1773 1777 1782 1785 1787 
-##   no   no   no   no   no   no   no   no   no   no  yes   no   no   no  yes   no 
-## 1792 1794 1795 1797 1800 1804 1808 1810 1821 1826 1827 1828 1831 1838 1841 1842 
-##   no   no  yes   no   no   no   no   no   no   no   no   no  yes  yes   no   no 
-## 1843 1845 1846 1849 1857 1858 1867 1868 1869 1873 1876 1880 1882 1883 1884 1886 
-##  yes  yes  yes   no   no  yes   no   no   no   no   no   no  yes   no   no   no 
-## 1892 1898 1899 1900 1905 1909 1910 1911 1917 1927 1929 1931 1932 1936 1945 1950 
-##   no   no  yes   no   no   no   no   no   no   no   no   no   no  yes   no   no 
-## 1951 1965 1967 1968 1969 1970 1974 1977 1981 1984 1985 1986 1989 1990 1993 1994 
-##  yes   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no 
-## 2004 2006 2011 2020 2022 2023 2028 2033 2034 2035 2038 2039 2041 2044 2045 2046 
-##   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no 
-## 2052 2056 2066 2069 2070 2073 2077 2079 2089 2093 2094 2095 2101 2104 2105 2107 
-##  yes   no   no   no  yes   no  yes   no   no   no   no   no   no  yes   no  yes 
-## 2110 2112 2118 2123 2124 2125 2129 2136 2138 2139 2140 2142 2151 2156 2157 2159 
-##   no   no   no   no   no   no   no   no   no   no   no   no  yes  yes   no  yes 
-## 2160 2162 2164 2165 2167 2168 2170 2172 2173 2178 2179 2182 2183 2188 2192 2201 
-##   no   no  yes  yes   no   no   no   no   no   no   no   no   no   no   no   no 
-## 2206 2208 2209 2229 2235 2237 2239 2245 2250 2251 2257 2262 2268 2269 2270 2275 
-##   no   no   no   no   no   no  yes   no   no   no   no   no  yes   no   no   no 
-## 2280 2283 2285 2289 2296 2298 2301 2302 2304 2306 2308 2311 2312 2313 2317 2318 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 2320 2328 2329 2330 2333 2334 2336 2339 2341 2345 2348 2350 2353 2355 2359 2362 
-##   no  yes   no   no   no   no  yes   no   no   no  yes   no   no  yes   no   no 
-## 2365 2369 2374 2377 2379 2383 2385 2386 2389 2392 2395 2403 2404 2408 2411 2419 
-##   no   no   no  yes   no   no   no   no  yes   no   no  yes   no  yes   no   no 
-## 2427 2429 2432 2437 2446 2447 2457 2460 2466 2468 2469 2475 2478 2481 2482 2483 
-##   no  yes   no   no   no   no   no   no   no   no  yes   no   no   no   no   no 
-## 2486 2488 2490 2491 2494 2496 2498 2499 2504 2505 2510 2512 2520 2521 2522 2527 
-##   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no  yes 
-## 2529 2534 2546 2547 2550 2551 2554 2558 2569 2573 2576 2582 2585 2586 2589 2593 
-##   no   no   no   no   no   no   no   no   no  yes   no  yes   no   no   no   no 
-## 2597 2602 2618 2620 2622 2624 2625 2626 2633 2641 2642 2643 2646 2647 2650 2654 
-##   no   no   no  yes   no   no   no   no   no   no   no   no  yes   no   no   no 
-## 2657 2659 2661 2669 2671 2677 2679 2685 2690 2691 2694 2698 2701 2702 2703 2704 
-##   no   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 2706 2709 2712 2714 2719 2721 2727 2730 2735 2740 2741 2750 2753 2754 2755 2756 
-##   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 2758 2763 2764 2765 2766 2767 2768 2771 2772 2773 2775 2788 2789 2790 2793 2795 
+##   50   53   56   58   62   68   69   70   71   77   78   80   81   84   88   91 
 ##   no   no   no   no   no   no   no   no   no  yes  yes   no   no   no   no   no 
-## 2800 2808 2810 2811 2812 2813 2820 2825 2827 2829 2830 2836 2841 2844 2851 2853 
-##   no   no   no   no   no   no   no  yes   no  yes   no   no   no   no   no   no 
-## 2856 2861 2864 2867 2871 2874 2877 2883 2884 2886 2888 2898 2903 2914 2919 2921 
-##   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no   no 
-## 2922 2932 2938 2940 2942 2943 2945 2948 2952 2965 2971 2973 2975 2977 2982 2985 
-##   no   no   no   no   no  yes   no  yes   no  yes   no   no   no   no   no   no 
-## 2988 2989 2995 2996 2997 2999 3005 3006 3008 3011 3012 3020 3025 3027 3028 3029 
-##  yes   no  yes   no   no   no   no   no   no   no   no  yes   no   no   no   no 
-## 3032 3035 3036 3047 3055 3059 3062 3068 3071 3073 3077 3078 3079 3085 3094 3096 
-##   no   no  yes   no   no   no   no   no   no  yes   no   no   no   no  yes   no 
-## 3101 3105 3108 3112 3114 3115 3116 3120 3121 3122 3128 3131 3134 3151 3152 3161 
-##   no   no   no   no  yes   no   no   no   no   no  yes   no   no   no   no   no 
-## 3167 3169 3170 3171 3176 3177 3181 3182 3186 3191 3194 3195 3199 3201 3208 3209 
-##  yes  yes  yes   no   no   no   no   no   no  yes   no   no   no   no   no   no 
-## 3210 3213 3221 3229 3232 3239 3243 3246 3247 3248 3249 3250 3253 3254 3256 3257 
-##  yes   no   no   no   no  yes   no   no  yes  yes   no   no   no   no  yes  yes 
-## 3260 3262 3264 3270 3275 3276 3285 3287 3288 3289 3292 3293 3295 3297 3302 3303 
-##   no   no   no   no   no   no   no   no   no   no  yes   no   no   no  yes   no 
-## 3305 3307 3311 3312 3316 3317 3321 3322 3328 3329 3330 3336 3337 3338 3342 3343 
-##  yes   no   no   no   no   no  yes   no   no   no   no   no   no   no   no   no 
-## 3347 3348 3349 3351 3356 3362 3374 3376 3379 3381 3387 3389 3396 3399 3402 3405 
-##   no   no   no   no   no   no  yes   no   no   no   no   no  yes   no   no   no 
-## 3416 3418 3420 3430 3431 3437 3440 3441 3443 3444 3450 3451 3454 3460 3464 3465 
-##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
-## 3466 3467 3469 3473 3474 3476 3489 3491 3494 3495 3498 3499 3500 3503 3513 3514 
-##   no   no  yes   no   no   no   no   no   no   no   no  yes   no   no   no   no 
-## 3518 3523 3524 3525 3531 3532 3536 3539 3540 3543 3545 3549 3552 3554 3557 3571 
+##   92   95   97   99  100  106  107  111  115  124  125  127  128  129  131  134 
 ##   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no 
-## 3574 3584 3586 3587 3590 3602 3607 3610 3612 3616 3617 3620 3626 3627 3628 3631 
-##   no   no  yes   no   no   no   no   no   no   no  yes   no   no   no   no  yes 
-## 3633 3635 3636 3637 3644 3647 3649 3651 3654 3657 3658 3659 3664 3669 3672 3677 
-##   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no 
-## 3679 3682 3684 3686 3687 3688 3696 3699 3704 3708 3713 3718 3722 3728 3729 3730 
-##   no  yes   no   no  yes   no   no   no   no   no   no  yes   no   no   no   no 
-## 3733 3737 3740 3743 3746 3754 3758 3761 3762 3769 3770 3776 3780 3785 3786 3790 
+##  135  141  142  150  156  158  159  161  162  164  165  171  172  176  177  183 
 ##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 3793 3794 3796 3797 3798 3802 3809 3810 3815 3816 3819 3820 3821 3826 3831 3836 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 3841 3845 3846 3851 3852 3853 3854 3855 3858 3863 3864 3866 3872 3875 3877 3879 
-##   no   no   no   no  yes   no   no  yes   no   no   no   no   no   no   no   no 
-## 3882 3886 3895 3898 3906 3907 3909 3914 3915 3916 3918 3921 3923 3931 3933 3934 
+##  189  194  196  203  206  210  218  223  228  238  242  244  249  250  255  261 
 ##   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no 
-## 3937 3946 3948 3950 3954 3960 3963 3964 3967 3969 3970 3971 3975 3986 3987 3990 
-##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no  yes   no 
-## 3991 3992 3993 3995 3996 3997 4002 4006 4013 4017 4021 4022 4024 4026 4030 4035 
-##   no   no   no   no   no   no   no   no   no   no   no  yes  yes   no   no   no 
-## 4036 4037 4045 4048 4049 4056 4059 4061 4065 4070 4071 4072 4074 4084 4089 4090 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 4091 4094 4097 4099 4101 4118 4119 4121 4124 4129 4130 4134 4137 4142 4144 4145 
+##  265  266  278  283  290  292  296  298  304  305  306  315  317  318  321  327 
+##   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no   no 
+##  329  336  337  342  346  350  356  359  360  361  364  367  368  370  372  374 
+##   no   no   no   no   no  yes   no   no   no  yes   no   no   no   no   no   no 
+##  382  383  389  396  397  398  399  401  403  406  407  412  414  417  418  424 
+##   no   no   no   no   no  yes   no   no   no   no   no   no   no  yes   no   no 
+##  425  431  432  433  434  438  440  444  446  448  449  452  453  454  455  458 
+##   no  yes   no   no   no  yes   no   no   no   no   no   no   no   no  yes   no 
+##  460  463  464  467  468  469  476  477  479  483  486  499  501  503  504  508 
 ##   no   no   no   no   no   no   no   no   no   no   no   no   no  yes   no   no 
-## 4146 4148 4151 4158 4162 4167 4168 4170 4172 4185 4190 4213 4218 4224 4225 4227 
+##  512  515  517  519  527  531  538  541  548  549  550  553  554  556  561  562 
+##   no  yes   no   no   no   no   no   no  yes   no   no  yes   no   no   no   no 
+##  564  565  567  568  569  571  573  574  576  577  578  581  584  590  593  601 
+##   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no   no 
+##  602  603  605  608  609  613  618  622  624  630  637  639  640  641  644  649 
+##  yes   no   no   no   no  yes   no   no   no  yes   no   no   no   no   no   no 
+##  653  656  657  660  663  664  665  669  670  678  679  682  684  697  703  705 
+##   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+##  706  707  710  711  712  720  722  730  735  736  738  741  750  754  756  759 
+##   no   no   no   no   no   no  yes   no   no   no  yes   no   no   no   no   no 
+##  762  763  764  767  769  772  773  780  782  783  785  786  787  793  797  798 
+##   no   no   no  yes   no  yes   no   no   no   no   no   no   no   no   no  yes 
+##  800  803  810  811  813  816  827  832  834  838  842  843  848  852  853  855 
+##   no   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no 
+##  859  861  863  869  870  878  882  884  888  890  891  892  894  897  898  899 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+##  900  901  903  905  912  913  916  918  923  926  928  933  936  943  944  945 
+##   no   no   no  yes  yes   no   no   no   no   no   no   no   no   no   no  yes 
+##  955  961  964  965  968  971  974  976  982  983  984  989  995  996  997  998 
+##   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no   no 
+##  999 1000 1016 1019 1022 1030 1034 1035 1039 1041 1042 1043 1044 1048 1050 1052 
+##   no   no   no  yes   no   no   no   no  yes   no   no   no   no   no   no   no 
+## 1054 1057 1061 1063 1065 1073 1082 1086 1087 1088 1093 1095 1100 1101 1105 1107 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 1117 1119 1123 1140 1149 1150 1151 1152 1155 1160 1173 1178 1182 1184 1186 1188 
+##   no   no   no   no   no   no  yes   no   no   no   no   no   no   no   no   no 
+## 1190 1191 1193 1194 1195 1196 1197 1199 1203 1206 1213 1218 1225 1227 1232 1235 
+##   no   no  yes  yes   no   no   no   no   no   no   no   no   no   no  yes   no 
+## 1238 1240 1245 1249 1256 1257 1260 1261 1266 1268 1272 1280 1281 1284 1288 1298 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 1306 1307 1308 1309 1310 1312 1315 1316 1317 1320 1322 1325 1335 1336 1344 1351 
+##   no   no   no   no   no   no   no   no   no   no   no   no  yes   no   no  yes 
+## 1355 1356 1357 1360 1366 1367 1369 1373 1377 1381 1385 1388 1392 1396 1397 1398 
 ##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
-## 4230 4233 4239 4241 4242 4248 4251 4261 4262 4269 4272 4273 4278 4281 4292 4295 
-##  yes   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no 
-## 4299 4303 4307 4308 4313 4316 4321 4322 4324 4330 4335 4338 4339 4340 4343 4344 
-##   no   no   no  yes   no   no   no   no   no   no   no  yes   no   no   no   no 
-## 4347 4358 4360 4362 4363 4365 4367 4372 4373 4374 4381 4384 4386 4387 4388 4398 
-##   no   no   no   no   no   no  yes  yes   no   no   no  yes   no  yes   no   no 
-## 4399 4400 4410 4412 4417 4430 4433 4437 4447 4450 4451 4462 4464 4466 4470 4473 
-##   no   no   no  yes   no   no   no   no   no   no   no   no   no  yes   no   no 
-## 4474 4478 4480 4482 4485 4494 4498 4503 4504 4508 4516 4524 4527 4528 4529 4530 
-##   no   no   no   no   no   no   no  yes   no  yes   no   no   no   no   no   no 
-## 4532 4537 4545 4551 4552 4556 4557 4567 4570 4579 4581 4583 4586 4587 4589 4591 
+## 1405 1408 1411 1413 1416 1417 1418 1419 1420 1421 1426 1427 1433 1442 1449 1454 
+##   no  yes   no   no   no   no   no   no   no  yes   no   no   no   no   no   no 
+## 1458 1459 1462 1463 1464 1471 1472 1473 1474 1478 1493 1500 1506 1512 1513 1516 
+##   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no   no 
+## 1517 1523 1528 1530 1537 1539 1542 1548 1550 1554 1556 1557 1564 1565 1570 1571 
+##   no   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no 
+## 1574 1575 1581 1584 1588 1590 1595 1596 1598 1600 1602 1609 1611 1612 1613 1614 
+##   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no 
+## 1616 1621 1625 1632 1635 1653 1655 1656 1660 1665 1689 1693 1694 1695 1703 1704 
+##   no   no   no   no   no   no   no   no   no   no   no  yes   no  yes  yes   no 
+## 1705 1707 1710 1711 1717 1723 1728 1729 1732 1736 1740 1743 1747 1750 1756 1757 
+##  yes   no   no   no   no   no   no  yes  yes   no  yes   no   no   no   no   no 
+## 1762 1764 1765 1769 1770 1771 1773 1775 1776 1791 1795 1797 1801 1802 1806 1807 
+##   no   no  yes  yes   no   no   no   no   no   no  yes   no   no   no   no   no 
+## 1811 1815 1819 1820 1822 1823 1840 1842 1846 1847 1848 1854 1855 1862 1866 1868 
+##   no   no   no   no   no   no   no   no  yes   no   no   no   no  yes  yes   no 
+## 1871 1874 1875 1876 1880 1888 1890 1891 1893 1894 1895 1897 1904 1905 1907 1908 
+##   no   no   no   no   no  yes   no   no  yes  yes   no   no  yes   no   no   no 
+## 1910 1911 1913 1914 1915 1921 1922 1923 1926 1927 1930 1932 1944 1945 1948 1949 
+##   no   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 1954 1955 1957 1958 1959 1962 1963 1964 1967 1969 1973 1976 1982 1983 1987 1993 
+##   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 1996 1998 1999 2002 2004 2008 2009 2017 2024 2025 2026 2031 2032 2034 2038 2051 
+##   no   no   no  yes   no   no   no   no   no   no   no   no  yes   no   no   no 
+## 2054 2057 2060 2064 2071 2076 2079 2080 2085 2088 2097 2102 2109 2111 2112 2115 
+##   no   no  yes   no   no   no   no   no   no  yes   no   no   no   no   no   no 
+## 2117 2118 2119 2120 2121 2128 2129 2133 2136 2138 2139 2140 2143 2145 2147 2148 
+##   no   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 2153 2156 2157 2158 2160 2161 2165 2166 2169 2172 2173 2175 2178 2179 2181 2183 
+##   no  yes   no   no   no  yes  yes   no   no   no   no   no   no   no   no   no 
+## 2186 2198 2203 2204 2205 2209 2210 2211 2217 2218 2222 2228 2231 2232 2235 2237 
+##   no   no   no  yes   no   no   no  yes   no   no   no   no   no   no   no   no 
+## 2240 2241 2248 2254 2265 2267 2269 2274 2276 2277 2280 2281 2282 2283 2285 2286 
 ##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 4596 4606 4607 4610 4613 4615 4617 4621 4622 4623 4624 4631 4633 4640 4642 4643 
+## 2290 2292 2294 2310 2312 2317 2318 2320 2326 2335 2337 2340 2341 2343 2345 2346 
+##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
+## 2349 2353 2356 2359 2360 2361 2375 2376 2377 2379 2381 2386 2389 2391 2395 2402 
+##   no   no   no   no   no   no   no   no  yes   no   no   no  yes   no   no  yes 
+## 2404 2406 2409 2411 2413 2420 2436 2437 2443 2446 2454 2458 2461 2463 2469 2471 
+##   no   no   no   no  yes   no   no   no   no   no   no   no   no   no  yes   no 
+## 2474 2479 2480 2483 2487 2491 2493 2496 2498 2512 2514 2517 2522 2525 2526 2527 
+##   no   no  yes   no   no   no   no   no   no   no   no   no   no   no   no  yes 
+## 2530 2532 2533 2538 2540 2541 2550 2552 2553 2560 2561 2562 2563 2569 2572 2577 
+##   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no   no 
+## 2578 2588 2591 2592 2593 2599 2600 2604 2605 2606 2613 2618 2620 2624 2631 2633 
+##   no   no   no  yes   no   no  yes   no   no   no   no   no  yes   no   no   no 
+## 2635 2637 2638 2644 2645 2649 2650 2654 2656 2658 2664 2666 2668 2670 2672 2675 
 ##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 4644 4645 4647 4649 4650 4652 4654 4657 4658 4659 4660 4664 4675 4676 4678 4680 
-##  yes   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no 
-## 4681 4684 4686 4687 4689 4690 4696 4702 4703 4704 4710 4711 4715 4716 4718 4725 
-##   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no 
-## 4727 4729 4734 4738 4740 4743 4746 4748 4753 4754 4757 4761 4762 4763 4771 4778 
-##   no   no   no  yes   no   no   no   no   no   no   no   no   no   no   no   no 
-## 4780 4784 4788 4789 4791 4793 4794 4798 4799 4801 4803 4807 4810 4811 4815 4816 
-##   no   no   no  yes   no   no   no   no  yes   no   no   no  yes   no   no   no 
-## 4818 4819 4824 4826 4828 4829 4838 4840 4845 4851 4853 4854 4855 4860 4862 4865 
-##   no   no   no  yes   no   no  yes   no   no   no   no   no   no   no  yes   no 
-## 4868 4869 4875 4878 4880 4883 4884 4886 4896 4900 4904 4909 4912 4914 4915 4931 
-##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no  yes   no 
-## 4933 4935 4938 4939 4940 4946 4950 4953 4956 4958 4959 4964 4967 4970 4972 4973 
-##   no   no  yes   no  yes   no   no   no   no   no   no   no   no   no   no   no 
-## 4975 4977 4978 4980 4981 4982 4983 4984 4985 4993 4995 5000 
-##   no   no   no   no   no   no   no   no   no   no   no   no 
+## 2678 2683 2689 2690 2696 2698 2708 2710 2711 2712 2713 2714 2717 2724 2728 2729 
+##  yes   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
+## 2730 2733 2738 2739 2741 2744 2745 2747 2749 2750 2751 2752 2753 2756 2760 2768 
+##   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 2769 2770 2771 2772 2774 2776 2782 2783 2785 2789 2790 2792 2793 2796 2823 2824 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 2825 2826 2827 2829 2830 2832 2834 2837 2839 2840 2841 2846 2849 2850 2852 2853 
+##  yes   no   no  yes   no   no   no   no   no  yes   no   no   no   no   no   no 
+## 2856 2862 2863 2865 2868 2871 2873 2874 2876 2878 2879 2883 2884 2886 2889 2890 
+##   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no  yes 
+## 2901 2904 2905 2906 2908 2916 2922 2924 2928 2929 2930 2931 2937 2938 2940 2943 
+##   no   no   no   no   no   no   no   no   no   no   no   no  yes   no   no  yes 
+## 2945 2956 2957 2961 2962 2966 2973 2976 2979 2985 2986 2987 2988 2989 2990 2992 
+##   no   no   no  yes  yes   no   no   no   no   no   no   no  yes   no  yes   no 
+## 2993 2994 2996 3002 3003 3007 3013 3017 3022 3028 3032 3034 3035 3036 3040 3041 
+##   no   no   no   no  yes   no   no   no   no   no   no   no   no  yes   no   no 
+## 3050 3051 3053 3060 3067 3070 3074 3080 3087 3103 3106 3111 3118 3120 3121 3122 
+##   no  yes   no   no   no   no   no  yes   no   no   no   no   no   no   no   no 
+## 3124 3126 3133 3135 3142 3146 3160 3161 3164 3170 3172 3174 3180 3184 3191 3192 
+##   no   no  yes   no   no   no   no   no   no  yes   no   no   no   no   no   no 
+## 3196 3198 3201 3204 3215 3218 3219 3221 3225 3231 3233 3234 3237 3240 3241 3243 
+##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
+## 3247 3250 3255 3259 3271 3272 3273 3279 3287 3302 3306 3309 3311 3317 3319 3323 
+##  yes   no   no   no   no   no  yes   no   no  yes   no   no   no   no   no  yes 
+## 3328 3329 3330 3332 3333 3335 3341 3343 3347 3350 3351 3357 3359 3364 3365 3366 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 3367 3372 3376 3379 3380 3381 3382 3393 3394 3406 3418 3419 3421 3424 3425 3433 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 3435 3439 3442 3445 3450 3453 3454 3461 3462 3468 3473 3483 3484 3485 3491 3495 
+##   no   no   no   no   no  yes   no   no  yes   no   no  yes   no   no   no  yes 
+## 3497 3500 3505 3507 3509 3510 3517 3519 3520 3530 3531 3532 3549 3551 3570 3572 
+##   no   no   no   no   no  yes   no   no   no   no   no   no  yes   no   no   no 
+## 3576 3579 3580 3582 3583 3588 3594 3597 3599 3606 3607 3608 3618 3619 3622 3627 
+##   no   no   no   no   no  yes   no   no   no   no   no   no  yes   no   no   no 
+## 3632 3634 3635 3640 3643 3645 3651 3654 3655 3657 3658 3659 3661 3667 3675 3676 
+##   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no  yes 
+## 3679 3680 3681 3685 3687 3691 3693 3699 3704 3710 3717 3718 3722 3727 3731 3735 
+##   no   no   no   no  yes   no  yes   no   no   no   no  yes   no   no   no   no 
+## 3737 3742 3745 3750 3751 3754 3756 3758 3760 3762 3764 3769 3771 3772 3781 3785 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 3786 3787 3789 3793 3794 3798 3799 3802 3808 3810 3811 3815 3816 3819 3836 3842 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 3844 3845 3848 3853 3855 3858 3860 3862 3863 3866 3867 3871 3877 3882 3883 3885 
+##   no   no  yes  yes  yes   no   no   no   no   no   no   no   no   no   no   no 
+## 3888 3889 3896 3897 3901 3902 3905 3907 3910 3911 3912 3914 3921 3923 3925 3933 
+##   no   no   no   no   no  yes   no   no  yes   no   no   no   no   no   no   no 
+## 3934 3937 3938 3943 3949 3951 3960 3962 3964 3968 3971 3977 3979 3982 3984 3985 
+##   no   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no 
+## 3990 3999 4004 4007 4008 4012 4015 4016 4018 4021 4024 4025 4029 4035 4042 4045 
+##   no   no   no   no   no   no   no   no   no   no  yes   no   no   no  yes   no 
+## 4046 4065 4069 4070 4074 4077 4084 4087 4088 4097 4099 4100 4102 4105 4106 4107 
+##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
+## 4109 4113 4117 4119 4121 4124 4131 4133 4135 4145 4156 4159 4163 4164 4168 4169 
+##   no   no   no   no   no   no  yes   no   no   no   no   no  yes   no   no   no 
+## 4175 4179 4190 4193 4196 4198 4199 4206 4207 4210 4216 4218 4224 4228 4243 4244 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 4249 4264 4272 4278 4281 4287 4289 4290 4294 4297 4298 4302 4310 4311 4312 4318 
+##   no   no   no   no   no   no   no   no   no  yes  yes   no  yes   no   no   no 
+## 4319 4321 4322 4325 4327 4328 4334 4336 4338 4339 4341 4347 4353 4354 4355 4359 
+##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
+## 4362 4367 4368 4370 4373 4374 4376 4378 4382 4388 4389 4391 4394 4395 4396 4399 
+##   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 4400 4405 4407 4415 4416 4419 4423 4424 4430 4436 4439 4445 4451 4452 4454 4461 
+##   no  yes  yes   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 4462 4463 4467 4469 4470 4471 4472 4473 4475 4478 4479 4480 4481 4485 4487 4490 
+##   no   no   no   no   no   no  yes   no   no   no   no   no   no   no   no  yes 
+## 4493 4494 4497 4502 4505 4508 4510 4511 4512 4513 4516 4517 4520 4522 4525 4527 
+##  yes   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no 
+## 4540 4545 4547 4554 4555 4563 4564 4567 4570 4574 4583 4589 4592 4594 4595 4598 
+##   no   no   no   no   no  yes   no   no   no   no   no   no   no   no   no  yes 
+## 4600 4604 4606 4609 4611 4612 4613 4614 4616 4617 4619 4623 4629 4642 4643 4644 
+##  yes   no   no   no   no   no   no   no   no   no   no   no  yes   no   no  yes 
+## 4650 4651 4652 4657 4660 4662 4663 4670 4674 4675 4681 4684 4687 4688 4690 4693 
+##   no  yes   no   no   no   no   no   no   no   no   no   no   no  yes   no   no 
+## 4694 4696 4698 4699 4703 4704 4708 4709 4710 4711 4714 4715 4719 4732 4735 4736 
+##   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no 
+## 4739 4740 4741 4743 4745 4754 4763 4766 4774 4775 4776 4777 4784 4785 4792 4795 
+##   no   no  yes   no   no   no   no   no  yes   no   no  yes   no   no   no   no 
+## 4798 4800 4802 4803 4810 4830 4832 4835 4837 4838 4841 4848 4850 4852 4854 4858 
+##   no   no   no   no  yes   no   no   no   no  yes   no   no   no   no   no   no 
+## 4862 4864 4868 4874 4875 4876 4878 4879 4881 4889 4894 4897 4904 4909 4911 4914 
+##  yes   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 4915 4917 4918 4922 4923 4932 4934 4935 4937 4940 4941 4942 4943 4944 4947 4952 
+##  yes   no  yes   no   no   no   no   no   no  yes   no   no   no  yes   no   no 
+## 4954 4956 4960 4968 4969 4971 4973 4975 4982 4992 4995 5000 
+##  yes   no  yes   no   no   no   no   no   no  yes   no   no 
 ## Levels: no yes</code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="决策树及其组合方法.html#cb33-1" aria-hidden="true" tabindex="-1"></a>ran_pred1 <span class="ot">&lt;-</span><span class="fu">data.frame</span>(ran_pred)</span>
-<span id="cb33-2"><a href="决策树及其组合方法.html#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="决策树及其组合方法.html#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(testData<span class="sc">$</span>churn ,ran_pred) <span class="co"># confusion matrix</span></span></code></pre></div>
+<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb645-1"><a href="决策树及其组合方法.html#cb645-1" aria-hidden="true" tabindex="-1"></a>ran_pred1 <span class="ot">&lt;-</span><span class="fu">data.frame</span>(ran_pred)</span>
+<span id="cb645-2"><a href="决策树及其组合方法.html#cb645-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb645-3"><a href="决策树及其组合方法.html#cb645-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(testData<span class="sc">$</span>churn ,ran_pred) <span class="co"># confusion matrix</span></span></code></pre></div>
 <pre><code>##      ran_pred
 ##         no  yes
-##   no  1272   16
-##   yes   46  166</code></pre>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="决策树及其组合方法.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#accuracy rate </span></span>
-<span id="cb35-2"><a href="决策树及其组合方法.html#cb35-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1276</span><span class="sc">+</span> <span class="dv">173</span>)<span class="sc">/</span>(<span class="dv">1276</span><span class="sc">+</span><span class="dv">12</span><span class="sc">+</span><span class="dv">39</span><span class="sc">+</span><span class="dv">173</span>) <span class="co"># 97 % of accuracy : higher than decision tree , where accuracy rate is 95 % </span></span></code></pre></div>
+##   no  1282    6
+##   yes   50  162</code></pre>
+<div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb647-1"><a href="决策树及其组合方法.html#cb647-1" aria-hidden="true" tabindex="-1"></a><span class="co">#accuracy rate </span></span>
+<span id="cb647-2"><a href="决策树及其组合方法.html#cb647-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1276</span><span class="sc">+</span> <span class="dv">173</span>)<span class="sc">/</span>(<span class="dv">1276</span><span class="sc">+</span><span class="dv">12</span><span class="sc">+</span><span class="dv">39</span><span class="sc">+</span><span class="dv">173</span>) <span class="co"># 97 % of accuracy : higher than decision tree , where accuracy rate is 95 % </span></span></code></pre></div>
 <pre><code>## [1] 0.966</code></pre>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="决策树及其组合方法.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#most commonly mean decrease gini is considered</span></span>
-<span id="cb37-2"><a href="决策树及其组合方法.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">importance</span>(random_model)</span></code></pre></div>
-<pre><code>##                                       no        yes MeanDecreaseAccuracy
-## international_plan            66.3001649 77.3105969           82.4148999
-## voice_mail_plan               21.7731970 24.9161134           25.9296837
-## number_vmail_messages         17.1042677 22.5664368           21.9432032
-## total_day_minutes             32.8759771 34.0522749           40.9207612
-## total_day_calls                0.1623616 -2.1991648           -0.8583942
-## total_day_charge              33.7253852 33.7382963           42.3306161
-## total_eve_minutes             24.7194284 22.7867202           28.0451913
-## total_eve_calls               -2.4398857 -1.7131349           -2.9654945
-## total_eve_charge              25.2363806 24.4041040           29.4101796
-## total_night_minutes           17.0926745  5.4936140           18.1580906
-## total_night_calls              1.1420561  0.3104906            1.1820237
-## total_night_charge            17.5457676  6.4127554           18.8664032
-## total_intl_minutes            24.0265470 18.0833553           27.1668913
-## total_intl_calls              34.3628312 43.4082896           46.2131373
-## total_intl_charge             23.9258523 18.6266636           27.9782043
-## number_customer_service_calls 75.6759709 98.3635775          101.0913362
+<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="决策树及其组合方法.html#cb649-1" aria-hidden="true" tabindex="-1"></a><span class="co">#most commonly mean decrease gini is considered</span></span>
+<span id="cb649-2"><a href="决策树及其组合方法.html#cb649-2" aria-hidden="true" tabindex="-1"></a><span class="fu">importance</span>(random_model)</span></code></pre></div>
+<pre><code>##                                       no         yes MeanDecreaseAccuracy
+## international_plan            71.6786627  81.0854662          86.75733745
+## voice_mail_plan               17.5649360  21.6852537          21.95585067
+## number_vmail_messages         17.5526580  23.6918646          23.45731299
+## total_day_minutes             32.1444221  33.3700120          40.84763576
+## total_day_calls               -0.7332284  -0.2622289          -0.74726915
+## total_day_charge              33.5784834  37.0647034          44.02444058
+## total_eve_minutes             23.5651706  23.2723158          27.45138323
+## total_eve_calls               -0.3764121  -2.8852315          -1.50063960
+## total_eve_charge              24.8277482  20.4497983          28.80630514
+## total_night_minutes           20.9917001   6.6569779          22.30739224
+## total_night_calls             -0.7637893   1.6614653          -0.06663555
+## total_night_charge            21.0935599   7.0747248          22.38821347
+## total_intl_minutes            24.4909233  20.0682927          29.10870917
+## total_intl_calls              33.7922896  46.9570237          48.07341347
+## total_intl_charge             22.8484086  19.5347150          26.74798164
+## number_customer_service_calls 76.6916632 100.1333436         104.12122334
 ##                               MeanDecreaseGini
-## international_plan                    63.12195
-## voice_mail_plan                       19.87769
-## number_vmail_messages                 23.97956
-## total_day_minutes                    128.19849
-## total_day_calls                       25.25645
-## total_day_charge                     120.64090
-## total_eve_minutes                     56.72212
-## total_eve_calls                       23.95725
-## total_eve_charge                      60.05696
-## total_night_minutes                   35.16897
-## total_night_calls                     27.07429
-## total_night_charge                    35.66622
-## total_intl_minutes                    37.49443
-## total_intl_calls                      47.31136
-## total_intl_charge                     37.96676
-## number_customer_service_calls        105.45453</code></pre>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="决策树及其组合方法.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variables that result in nodes with higher purity have a higher decrease in Gini coefficient.</span></span>
-<span id="cb39-2"><a href="决策树及其组合方法.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">varImpPlot</span>(random_model)</span></code></pre></div>
+## international_plan                    71.45281
+## voice_mail_plan                       16.07021
+## number_vmail_messages                 24.02874
+## total_day_minutes                    120.74606
+## total_day_calls                       25.11515
+## total_day_charge                     128.74458
+## total_eve_minutes                     56.09157
+## total_eve_calls                       23.02050
+## total_eve_charge                      57.74668
+## total_night_minutes                   38.44003
+## total_night_calls                     26.43272
+## total_night_charge                    37.95753
+## total_intl_minutes                    39.41497
+## total_intl_calls                      45.68021
+## total_intl_charge                     39.44432
+## number_customer_service_calls         98.06230</code></pre>
+<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="决策树及其组合方法.html#cb651-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variables that result in nodes with higher purity have a higher decrease in Gini coefficient.</span></span>
+<span id="cb651-2"><a href="决策树及其组合方法.html#cb651-2" aria-hidden="true" tabindex="-1"></a><span class="fu">varImpPlot</span>(random_model)</span></code></pre></div>
 <p><img src="07-decisiontree_files/figure-html/project-2.png" width="672" /></p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="决策树及其组合方法.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#total day charges have higher decrease in gini index so its more significant than other</span></span></code></pre></div>
+<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb652-1"><a href="决策树及其组合方法.html#cb652-1" aria-hidden="true" tabindex="-1"></a><span class="co">#total day charges have higher decrease in gini index so its more significant than other</span></span></code></pre></div>
 
 </div>
 </div>
-            </section>
+  </main>
 
-          </div>
-        </div>
+  <div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page">
+      <h2>On this page</h2>
+      <div id="book-on-this-page"></div>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          <li><a id="book-source" href="#">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="#">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
       </div>
-<a href="logistic回归.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="github使用.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
+    </nav>
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/07-decisiontree.Rmd",
-"text": "Edit"
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
-});
-});
-</script>
 
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5">
+  <div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>数据科学导论（Introductory of Data Science）</strong>" was written by 潘蓄林. It was last built on 2022-06-08.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+<script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
 </body>
 
 </html>

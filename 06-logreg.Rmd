@@ -1,0 +1,111 @@
+# Logistic回归 
+
+## 相关概念
+
+1. 因变量(Dependent variable,Y)：类别变量；
+2. 自变量(Independent variable,X)：连续型变量或离散型变量；
+3. 二分类分类模型:邮件分类（好邮件，垃圾邮件）；疾病诊断（是否得Covid-19)等。
+
+## Logistic模型
+
++ odds: $odds=\frac{p(x)}{1-p(x)}$
+
+
++ sigmoid函数：$y=\frac{1}{1+e^{-z}}$
+```{r sigmoid,echo=TRUE}
+library(ggplot2)
+x <- seq(-10,10,0.01)
+sigmoid <- function(x){
+  1/(1+exp(-x))
+}
+y <- sigmoid(x)
+df_sig <- data.frame(x=x,y=y)
+#plot(x,sigmoid(x),col="blue")
+ggplot(data=df_sig,aes(x=x,y=y))+
+  geom_line(color="blue")+
+  annotate("text",x=2,y=0.3,parse=TRUE,
+           label="frac(1,1+e^{-z})")+
+  labs(title=expression(paste("sigmoid funtion  ",sigma(z)==frac(1,1+e^{-z}))))+
+  geom_hline(aes(yintercept=0.5),color="red",linetype="dashed")
+
+```
+
+
++ logistic回归模型：是解决分类的机器学习算法，主要解决二分类的问题。因变量的估计值由条件概率和决策边界决定。$$p(y)=p(y=k|X=x)=\frac{1}{1+e^{-X\beta}}$$
+
+
+## 模型估计
+
+### 损失函数(Loss function)
+
+$$L(\hat{y},y)=-(y*log(\hat{y})+(1-y)*log(1-\hat{y}))$$
+### 代价函数(Cost funtion)
+
+$$J(\theta)=-\frac{1}{m}\sum\limits_{i=1}^mL(\hat{y}^{(i)}-y^{(i)})$$
+
+### 模型估计(estimation)
+
+梯度下降（Gradient Descent）的方法。
+
+$$\theta_j:=\theta_j-\alpha\frac{\partial}{\partial \theta_j}J(\theta)$$
+
+### 模拟数据模型
+
+```{r logreg,echo=TRUE}
+library(ggplot2)
+
+# faked data produce
+set.seed(520)
+x1 <- rnorm(100,0,1)
+x2 <- rnorm(100,0,1)
+z <- 3+2*x1+5*x2
+pr <- 1/(1+exp(-z))
+y <- rbinom(1000,1,pr)
+
+data_logreg <- data.frame(y=y,x1=x1,x2=x2)
+data_logreg$y_factor <- as.factor(data_logreg$y)
+head(data_logreg)
+
+# visualize data
+ggplot(data_logreg,aes(x=x1,y=y,color=y_factor))+
+  geom_point()+
+  stat_smooth(method="glm",color="blue",se=FALSE,method.args=list(family=binomial))
+
+# model estimate
+log_fit <- glm(y_factor~x1+x2,family = binomial(link="logit"),data=data_logreg)
+summary(log_fit)
+
+# Result analysis
+#install.packages("caret")
+library(caret)
+pdata <- predict(log_fit,newdata=data_logreg,type="response")
+head(pdata)
+# use caret to calculate the confusion matrix
+data_logreg$pre_glm <- ifelse(pdata>0.5,"1","0")
+data_logreg$pre_glm <- as.factor(data_logreg$pre_glm)
+head(data_logreg)
+confusionMatrix(factor(data_logreg$y),factor(data_logreg$pre_glm))
+
+# plot ROC
+#install("ROCR")
+library(ROCR)
+pred <- prediction(pdata,data_logreg$y_factor)
+perf <- performance(pred,measure="tpr",x.measure="fpr")
+plot(perf,col=rainbow(2),main="ROC curve admissions",xlab="Specificity",ylab="Sensitivity")
+abline(0,1) # add a 45 degree line
+```
+
+### Logistic回归实例模型
+
++ Produce a simple data
+
+```{r logsim,echo=TRUE}
+# Create a hand-out data
+df_logsim <- data.frame(x1=c(8,3,4,5,9),x2=c(6,5,9,8,9),y=factor(c(1,0,0,1,1)))
+head(df_logsim)
+# visual the data
+library(ggplot2)
+ggplot(data=df_logsim,aes(x=x1,y=x2,color=y,shape=y,size=3))+
+  geom_point()
+```
+

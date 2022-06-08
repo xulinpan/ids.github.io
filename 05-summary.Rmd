@@ -1,3 +1,125 @@
-# Final Words
+# 最小二乘线性回归法
 
-We have finished a nice book.
+## 相关概念
+
+1. 因变量(Dependent variable,Y)：依赖于其它变量的变化而变化，响应变量；
+2. 自变量(Independent variable,X)：可以直接控制的变量，协变量；
+3. 有监督学习的数据表示：$D=\{(x_1,y_1),\cdots,x_n,y_n)\},x\in R^p,y \in R$;
+4. 模型（model)：函数；
+5. 参数(Parameters)：参数是添加到模型中用于估计输出的成分;
+
+## 线性模型
+
+因变量的值由独立自变量之间的线性数学模型决定。$$y=\beta_0+\beta_1\times x_1+,\cdots,+\beta_p\times x_p$$,模型表示：
+
+\begin{bmatrix}
+    y_{1} \\
+    y_{2} \\
+    \cdots\\
+    y_{n} 
+\end{bmatrix}
+
+=\begin{bmatrix}
+    \beta_0 \\
+    \beta_0 \\
+    \cdots \\
+    \beta_0 
+\end{bmatrix}\+
+\begin{bmatrix}
+    x_{11}       & x_{12}  & \dots & x_{1p} \\
+    x_{21}       & x_{22}  & \dots & x_{2p} \\
+    \cdots       & \cdots  & \cdots & \cdots\\
+    x_{n1}       & x_{n2}  & \dots & x_{np}
+\end{bmatrix}
+\times
+\begin{bmatrix}
+    \beta_1 \\
+    \beta_2 \\
+    \cdots \\
+    \beta_p 
+\end{bmatrix}
+
+
+模型的矩阵表示：
+$$Y=X\beta$$
+
+### 模型的估计
+
++ 损失函数（平方和损失）：$$RSS=(y-X\beta)^T(Y-X\beta)$$
++ 数值解：$$\hat{\beta}=(X^TX)^{-1}X^Ty$$
+
+### 简单线性模型(Simple Linear Model,SLM) 
+
++ y响应变量为连续型变量；
++ x是自变量，只包含一个变量；
++ $y_i=\beta_0 + \beta_1*x_i+\epsilon_i$
+
+```{r slm, echo=TRUE}
+library(ggplot2)
+# Simulated data produced
+x <- runif(100,1,10)
+y <- 3+2*x+rnorm(100,0,1)
+
+data_slm <- data.frame(x=x,y=y)
+head(data_slm)
+
+# parameters estimated using ols
+fit_slm <- lm(y ~.,data=data_slm)
+summary(fit_slm)
+
+# visual the model
+ggplot(data_slm,aes(x,y))+geom_point()+
+  geom_abline(slope=fit_slm$coefficients[2],
+              intercept=fit_slm$coefficients[1],
+              color="red")+
+  labs(x="independent variable",y="respond variable",title="simple linear model")
+```
+
+### 多元线性回归(Multiple Linear Model,mlm)
+
++ y响应变量为连续型变量；
++ x是自变量，包含多个变量（至少是2个及以上）；
++ $y_i=\beta_0 + \beta_{11}*x_{i1}+\cdots+\beta_{ip}*x_{ip}+\epsilon_i$
+
+```{r mlm,echo=TRUE}
+# Simulated data produced
+x1 <- runif(100,1,10)
+x2 <- runif(100,1,10)
+y <- 2*x1+5*x2+rnorm(100,0,2)
+data_mlm <- data.frame(x1=x1,x2=x2,y=y)
+head(data_mlm)
+
+# Parameters estimated using ols
+fit_mlm <- lm(y~x1+x2,data=data_mlm)
+summary(fit_mlm)
+
+# install.packages("plot3D")
+library(plot3D)
+
+scatter3D(x=data_mlm$x1,y=data_mlm$x2,z=data_mlm$y,phi = 30, bty = "g")
+
+```
+
+
+### 回归实例
++ 使用MASS库中所带的波士顿房价数据，其中的因变量为房价的中位数，自变量为房龄、房间数等，想预测房价。
+
+```{r boslin,echo=TRUE}
+library(MASS)
+library(ISLR)
+#fix(Boston)
+# Simple linear regression model
+names(Boston)
+plot(Boston$medv,Boston$lstat)
+slm.fit <- lm(Boston$medv~Boston$lstat,data=Boston)
+summary(slm.fit)
+
+# multiple variance regression
+mlm.fit <- lm(Boston$medv~Boston$lstat+Boston$age,data=Boston)
+summary(mlm.fit)
+
+```
++ 结果解释：变量之间独立的情况下，系数就为影响程度，若存在多重共线性，则系数的解释比较复杂。
+
+### 练习
++ 例6.1
