@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 支持向量机和神经网络 | 数据科学导论（Introductory of Data Science）</title>
+  <meta name="description" content="2022年数据科学导论" />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 9 支持向量机和神经网络 | 数据科学导论（Introductory of Data Science）" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="2022年数据科学导论" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 9 支持向量机和神经网络 | 数据科学导论（Introductory of Data Science）" />
+  
+  <meta name="twitter:description" content="2022年数据科学导论" />
+  
+
+<meta name="author" content="潘蓄林" />
+
+
+<meta name="date" content="2022-06-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="决策树及其组合方法.html"/>
+<link rel="next" href="github使用.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">数据科学导论(Introductory of Data Science)</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 前言（Prerequisites）<span></span></a></li>
+<li class="chapter" data-level="2" data-path="r及python语言简介.html"><a href="r及python语言简介.html"><i class="fa fa-check"></i><b>2</b> R及Python语言简介<span></span></a>
+<ul>
+<li class="chapter" data-level="2.0.1" data-path="r及python语言简介.html"><a href="r及python语言简介.html#r简介"><i class="fa fa-check"></i><b>2.0.1</b> R简介<span></span></a></li>
+<li class="chapter" data-level="2.0.2" data-path="r及python语言简介.html"><a href="r及python语言简介.html#r语言安装及环境配置"><i class="fa fa-check"></i><b>2.0.2</b> R语言安装及环境配置<span></span></a></li>
+<li class="chapter" data-level="2.0.3" data-path="r及python语言简介.html"><a href="r及python语言简介.html#rstudio软件安装"><i class="fa fa-check"></i><b>2.0.3</b> Rstudio软件安装<span></span></a></li>
+<li class="chapter" data-level="2.0.4" data-path="r及python语言简介.html"><a href="r及python语言简介.html#r基础"><i class="fa fa-check"></i><b>2.0.4</b> R基础<span></span></a></li>
+<li class="chapter" data-level="2.0.5" data-path="r及python语言简介.html"><a href="r及python语言简介.html#python语言安装及环境配置"><i class="fa fa-check"></i><b>2.0.5</b> python语言安装及环境配置<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="数据描述.html"><a href="数据描述.html"><i class="fa fa-check"></i><b>3</b> 数据描述<span></span></a>
+<ul>
+<li class="chapter" data-level="3.0.1" data-path="数据描述.html"><a href="数据描述.html#数据的意义及获取"><i class="fa fa-check"></i><b>3.0.1</b> 数据的意义及获取<span></span></a></li>
+<li class="chapter" data-level="3.0.2" data-path="数据描述.html"><a href="数据描述.html#简单的数据汇总"><i class="fa fa-check"></i><b>3.0.2</b> 简单的数据汇总<span></span></a></li>
+<li class="chapter" data-level="3.0.3" data-path="数据描述.html"><a href="数据描述.html#数据的可视化"><i class="fa fa-check"></i><b>3.0.3</b> 数据的可视化<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="数据整理和清理.html"><a href="数据整理和清理.html"><i class="fa fa-check"></i><b>4</b> 数据整理和清理<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="数据整理和清理.html"><a href="数据整理和清理.html#数据的筛选"><i class="fa fa-check"></i><b>4.1</b> 数据的筛选<span></span></a></li>
+<li class="chapter" data-level="4.2" data-path="数据整理和清理.html"><a href="数据整理和清理.html#数据合并"><i class="fa fa-check"></i><b>4.2</b> 数据合并<span></span></a></li>
+<li class="chapter" data-level="4.3" data-path="数据整理和清理.html"><a href="数据整理和清理.html#数据的缺失"><i class="fa fa-check"></i><b>4.3</b> 数据的缺失<span></span></a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="数据整理和清理.html"><a href="数据整理和清理.html#缺失值的审视与标记"><i class="fa fa-check"></i><b>4.3.1</b> 缺失值的审视与标记<span></span></a></li>
+<li class="chapter" data-level="4.3.2" data-path="数据整理和清理.html"><a href="数据整理和清理.html#删除缺失值的方法及问题"><i class="fa fa-check"></i><b>4.3.2</b> 删除缺失值的方法及问题<span></span></a></li>
+<li class="chapter" data-level="4.3.3" data-path="数据整理和清理.html"><a href="数据整理和清理.html#利用可预测模型来填补缺失值"><i class="fa fa-check"></i><b>4.3.3</b> 利用可预测模型来填补缺失值<span></span></a></li>
+<li class="chapter" data-level="4.3.4" data-path="数据整理和清理.html"><a href="数据整理和清理.html#处理缺失值的r包"><i class="fa fa-check"></i><b>4.3.4</b> 处理缺失值的R包<span></span></a></li>
+<li class="chapter" data-level="4.3.5" data-path="数据整理和清理.html"><a href="数据整理和清理.html#实例"><i class="fa fa-check"></i><b>4.3.5</b> 实例<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="有监督学习概论.html"><a href="有监督学习概论.html"><i class="fa fa-check"></i><b>5</b> 有监督学习概论<span></span></a>
+<ul>
+<li class="chapter" data-level="5.0.1" data-path="有监督学习概论.html"><a href="有监督学习概论.html#机器学习"><i class="fa fa-check"></i><b>5.0.1</b> 机器学习<span></span></a></li>
+<li class="chapter" data-level="5.0.2" data-path="有监督学习概论.html"><a href="有监督学习概论.html#机器学习实例"><i class="fa fa-check"></i><b>5.0.2</b> 机器学习实例<span></span></a></li>
+<li class="chapter" data-level="5.1" data-path="有监督学习概论.html"><a href="有监督学习概论.html#模型及拟合"><i class="fa fa-check"></i><b>5.1</b> 模型及拟合<span></span></a></li>
+<li class="chapter" data-level="5.2" data-path="有监督学习概论.html"><a href="有监督学习概论.html#训练最小二乘线性回归模型的例子"><i class="fa fa-check"></i><b>5.2</b> 训练最小二乘线性回归模型的例子<span></span></a></li>
+<li class="chapter" data-level="5.3" data-path="有监督学习概论.html"><a href="有监督学习概论.html#模型评价"><i class="fa fa-check"></i><b>5.3</b> 模型评价<span></span></a></li>
+<li class="chapter" data-level="5.4" data-path="有监督学习概论.html"><a href="有监督学习概论.html#exercise"><i class="fa fa-check"></i><b>5.4</b> Exercise<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="最小二乘线性回归法.html"><a href="最小二乘线性回归法.html"><i class="fa fa-check"></i><b>6</b> 最小二乘线性回归法<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="最小二乘线性回归法.html"><a href="最小二乘线性回归法.html#相关概念"><i class="fa fa-check"></i><b>6.1</b> 相关概念<span></span></a></li>
+<li class="chapter" data-level="6.2" data-path="最小二乘线性回归法.html"><a href="最小二乘线性回归法.html#线性模型"><i class="fa fa-check"></i><b>6.2</b> 线性模型<span></span></a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="最小二乘线性回归法.html"><a href="最小二乘线性回归法.html#模型的估计"><i class="fa fa-check"></i><b>6.2.1</b> 模型的估计<span></span></a></li>
+<li class="chapter" data-level="6.2.2" data-path="最小二乘线性回归法.html"><a href="最小二乘线性回归法.html#简单线性模型simple-linear-modelslm"><i class="fa fa-check"></i><b>6.2.2</b> 简单线性模型(Simple Linear Model,SLM)<span></span></a></li>
+<li class="chapter" data-level="6.2.3" data-path="最小二乘线性回归法.html"><a href="最小二乘线性回归法.html#多元线性回归multiple-linear-modelmlm"><i class="fa fa-check"></i><b>6.2.3</b> 多元线性回归(Multiple Linear Model,mlm)<span></span></a></li>
+<li class="chapter" data-level="6.2.4" data-path="最小二乘线性回归法.html"><a href="最小二乘线性回归法.html#回归实例"><i class="fa fa-check"></i><b>6.2.4</b> 回归实例<span></span></a></li>
+<li class="chapter" data-level="6.2.5" data-path="最小二乘线性回归法.html"><a href="最小二乘线性回归法.html#练习"><i class="fa fa-check"></i><b>6.2.5</b> 练习<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="logistic回归.html"><a href="logistic回归.html"><i class="fa fa-check"></i><b>7</b> Logistic回归<span></span></a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="logistic回归.html"><a href="logistic回归.html#相关概念-1"><i class="fa fa-check"></i><b>7.1</b> 相关概念<span></span></a></li>
+<li class="chapter" data-level="7.2" data-path="logistic回归.html"><a href="logistic回归.html#logistic模型"><i class="fa fa-check"></i><b>7.2</b> Logistic模型<span></span></a></li>
+<li class="chapter" data-level="7.3" data-path="logistic回归.html"><a href="logistic回归.html#模型估计"><i class="fa fa-check"></i><b>7.3</b> 模型估计<span></span></a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="logistic回归.html"><a href="logistic回归.html#损失函数loss-function"><i class="fa fa-check"></i><b>7.3.1</b> 损失函数(Loss function)<span></span></a></li>
+<li class="chapter" data-level="7.3.2" data-path="logistic回归.html"><a href="logistic回归.html#代价函数cost-funtion"><i class="fa fa-check"></i><b>7.3.2</b> 代价函数(Cost funtion)<span></span></a></li>
+<li class="chapter" data-level="7.3.3" data-path="logistic回归.html"><a href="logistic回归.html#模型估计estimation"><i class="fa fa-check"></i><b>7.3.3</b> 模型估计(estimation)<span></span></a></li>
+<li class="chapter" data-level="7.3.4" data-path="logistic回归.html"><a href="logistic回归.html#模拟数据模型"><i class="fa fa-check"></i><b>7.3.4</b> 模拟数据模型<span></span></a></li>
+<li class="chapter" data-level="7.3.5" data-path="logistic回归.html"><a href="logistic回归.html#logistic回归实例模型"><i class="fa fa-check"></i><b>7.3.5</b> Logistic回归实例模型<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="决策树及其组合方法.html"><a href="决策树及其组合方法.html"><i class="fa fa-check"></i><b>8</b> 决策树及其组合方法<span></span></a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="决策树及其组合方法.html"><a href="决策树及其组合方法.html#决策树"><i class="fa fa-check"></i><b>8.1</b> 决策树<span></span></a></li>
+<li class="chapter" data-level="8.2" data-path="决策树及其组合方法.html"><a href="决策树及其组合方法.html#实例-1"><i class="fa fa-check"></i><b>8.2</b> 实例<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="支持向量机和神经网络.html"><a href="支持向量机和神经网络.html"><i class="fa fa-check"></i><b>9</b> 支持向量机和神经网络<span></span></a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="支持向量机和神经网络.html"><a href="支持向量机和神经网络.html#支持向量机support-vector-machinesvm"><i class="fa fa-check"></i><b>9.1</b> 支持向量机(support vector machine,SVM)<span></span></a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="支持向量机和神经网络.html"><a href="支持向量机和神经网络.html#支持向量机实例"><i class="fa fa-check"></i><b>9.1.1</b> 支持向量机实例<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="支持向量机和神经网络.html"><a href="支持向量机和神经网络.html#神经网络neural-networks-nn"><i class="fa fa-check"></i><b>9.2</b> 神经网络(Neural Networks, NN)<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="github使用.html"><a href="github使用.html"><i class="fa fa-check"></i><b>10</b> github使用<span></span></a></li>
+<li><a href="references.html#references">References<span></span></a></li>
+<li><a href="references-1.html#references-1">References<span></span></a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">数据科学导论（Introductory of Data Science）</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="支持向量机和神经网络" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Chapter 9</span> 支持向量机和神经网络<a href="支持向量机和神经网络.html#支持向量机和神经网络" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="支持向量机support-vector-machinesvm" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> 支持向量机(support vector machine,SVM)<a href="支持向量机和神经网络.html#支持向量机support-vector-machinesvm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>Support vector machines so called as SVM is a supervised learning algorithm which can be used for classification and regression problems as support vector classification (SVC) and support vector regression (SVR).The objective of the support vector machine algorithm is to find a hyperplane in an N-dimensional space(N — the number of features) that distinctly classifies the data points.</p></li>
+<li><p>A hyperplane in an n-dimensional Euclidean space is a flat, n-1 dimensional subset of that space that divides the space into two disconnected parts. Hyperplanes are decision boundaries that help classify the data points.</p></li>
+<li><p>Support vectors are data points that are closer to the hyperplane and influence the position and orientation of the hyperplane.</p></li>
+<li><p>Pros of SVM</p>
+<ul>
+<li>It is really effective in the higher dimension.</li>
+<li>Effective when the number of features are more than training examples.</li>
+<li>Best algorithm when classes are separable</li>
+<li>The hyperplane is affected by only the support vectors thus outliers have less impact.</li>
+<li>SVM is suited for extreme case binary classification.</li>
+</ul></li>
+<li><p>Cons of SVM</p>
+<ul>
+<li>For larger dataset, it requires a large amount of time to process.</li>
+<li>Does not perform well in case of overlapped classes.</li>
+<li>Selecting, appropriately hyperparameters of the SVM that will allow for sufficient generalization performance.</li>
+<li>Selecting the appropriate kernel function can be tricky.</li>
+</ul></li>
+</ul>
+<div id="支持向量机实例" class="section level3 hasAnchor" number="9.1.1">
+<h3><span class="header-section-number">9.1.1</span> 支持向量机实例<a href="支持向量机和神经网络.html#支持向量机实例" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="支持向量机和神经网络.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import the data set</span></span>
+<span id="cb1-2"><a href="支持向量机和神经网络.html#cb1-2" aria-hidden="true" tabindex="-1"></a>df_svm <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;./data/Social_Network_Ads.csv&quot;</span>)</span>
+<span id="cb1-3"><a href="支持向量机和神经网络.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_svm)</span></code></pre></div>
+<pre><code>##    User.ID Gender Age EstimatedSalary Purchased
+## 1 15624510   Male  19           19000         0
+## 2 15810944   Male  35           20000         0
+## 3 15668575 Female  26           43000         0
+## 4 15603246 Female  27           57000         0
+## 5 15804002   Male  19           76000         0
+## 6 15728773   Male  27           58000         0</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="支持向量机和神经网络.html#cb3-1" aria-hidden="true" tabindex="-1"></a>df_svm <span class="ot">&lt;-</span> df_svm[<span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb3-2"><a href="支持向量机和神经网络.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_svm)</span></code></pre></div>
+<pre><code>##   Age EstimatedSalary Purchased
+## 1  19           19000         0
+## 2  35           20000         0
+## 3  26           43000         0
+## 4  27           57000         0
+## 5  19           76000         0
+## 6  27           58000         0</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="支持向量机和神经网络.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Encoding the target feature as factor</span></span>
+<span id="cb5-2"><a href="支持向量机和神经网络.html#cb5-2" aria-hidden="true" tabindex="-1"></a>df_svm<span class="sc">$</span>Purchased <span class="ot">&lt;-</span> <span class="fu">factor</span>(df_svm<span class="sc">$</span>Purchased,<span class="at">levels=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb5-3"><a href="支持向量机和神经网络.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_svm)</span></code></pre></div>
+<pre><code>##   Age EstimatedSalary Purchased
+## 1  19           19000         0
+## 2  35           20000         0
+## 3  26           43000         0
+## 4  27           57000         0
+## 5  19           76000         0
+## 6  27           58000         0</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="支持向量机和神经网络.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(df_svm<span class="sc">$</span>Purchased)</span></code></pre></div>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="支持向量机和神经网络.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Splitting the dataset into the Training set and Test set</span></span>
+<span id="cb9-2"><a href="支持向量机和神经网络.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&#39;caTools&#39;)</span></span>
+<span id="cb9-3"><a href="支持向量机和神经网络.html#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caTools)</span>
+<span id="cb9-4"><a href="支持向量机和神经网络.html#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb9-5"><a href="支持向量机和神经网络.html#cb9-5" aria-hidden="true" tabindex="-1"></a>split <span class="ot">=</span> <span class="fu">sample.split</span>(df_svm<span class="sc">$</span>Purchased, <span class="at">SplitRatio =</span> <span class="fl">0.75</span>)</span>
+<span id="cb9-6"><a href="支持向量机和神经网络.html#cb9-6" aria-hidden="true" tabindex="-1"></a>training_set <span class="ot">=</span> <span class="fu">subset</span>(df_svm, split <span class="sc">==</span> <span class="cn">TRUE</span>)</span>
+<span id="cb9-7"><a href="支持向量机和神经网络.html#cb9-7" aria-hidden="true" tabindex="-1"></a>test_set <span class="ot">=</span> <span class="fu">subset</span>(df_svm, split <span class="sc">==</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-8"><a href="支持向量机和神经网络.html#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="支持向量机和神经网络.html#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Feature Scaling</span></span>
+<span id="cb9-10"><a href="支持向量机和神经网络.html#cb9-10" aria-hidden="true" tabindex="-1"></a>training_set[<span class="sc">-</span><span class="dv">3</span>] <span class="ot">=</span> <span class="fu">scale</span>(training_set[<span class="sc">-</span><span class="dv">3</span>])</span>
+<span id="cb9-11"><a href="支持向量机和神经网络.html#cb9-11" aria-hidden="true" tabindex="-1"></a>test_set[<span class="sc">-</span><span class="dv">3</span>] <span class="ot">=</span> <span class="fu">scale</span>(test_set[<span class="sc">-</span><span class="dv">3</span>])</span>
+<span id="cb9-12"><a href="支持向量机和神经网络.html#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="支持向量机和神经网络.html#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Fitting SVM to the Training set</span></span>
+<span id="cb9-14"><a href="支持向量机和神经网络.html#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&#39;e1071&#39;)</span></span>
+<span id="cb9-15"><a href="支持向量机和神经网络.html#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(e1071)</span>
+<span id="cb9-16"><a href="支持向量机和神经网络.html#cb9-16" aria-hidden="true" tabindex="-1"></a>classifier <span class="ot">=</span> <span class="fu">svm</span>(<span class="at">formula =</span> Purchased <span class="sc">~</span> .,</span>
+<span id="cb9-17"><a href="支持向量机和神经网络.html#cb9-17" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> training_set,</span>
+<span id="cb9-18"><a href="支持向量机和神经网络.html#cb9-18" aria-hidden="true" tabindex="-1"></a>                 <span class="at">type =</span> <span class="st">&#39;C-classification&#39;</span>,</span>
+<span id="cb9-19"><a href="支持向量机和神经网络.html#cb9-19" aria-hidden="true" tabindex="-1"></a>                 <span class="at">kernel =</span> <span class="st">&#39;linear&#39;</span>)</span>
+<span id="cb9-20"><a href="支持向量机和神经网络.html#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-21"><a href="支持向量机和神经网络.html#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicting the Test set results</span></span>
+<span id="cb9-22"><a href="支持向量机和神经网络.html#cb9-22" aria-hidden="true" tabindex="-1"></a>y_pred <span class="ot">=</span> <span class="fu">predict</span>(classifier, <span class="at">newdata =</span> test_set[<span class="sc">-</span><span class="dv">3</span>])</span>
+<span id="cb9-23"><a href="支持向量机和神经网络.html#cb9-23" aria-hidden="true" tabindex="-1"></a>y_pred</span></code></pre></div>
+<pre><code>##   2   4   5   9  12  18  19  20  22  29  32  34  35  38  45  46  48  52  66  69 
+##   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
+##  74  75  82  84  85  86  87  89 103 104 107 108 109 117 124 126 127 131 134 139 
+##   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0 
+## 148 154 156 159 162 163 170 175 176 193 199 200 208 213 224 226 228 229 230 234 
+##   0   0   0   0   0   0   0   0   0   0   0   0   1   1   1   0   1   0   1   1 
+## 236 237 239 241 255 264 265 266 273 274 281 286 292 299 302 305 307 310 316 324 
+##   1   0   1   1   1   0   1   1   1   1   1   0   1   1   1   0   1   0   0   0 
+## 326 332 339 341 343 347 353 363 364 367 368 369 372 373 380 383 389 392 395 400 
+##   0   1   0   1   0   1   1   0   1   1   1   0   1   0   1   1   0   0   0   0 
+## Levels: 0 1</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="支持向量机和神经网络.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Making the Confusion Matrix</span></span>
+<span id="cb11-2"><a href="支持向量机和神经网络.html#cb11-2" aria-hidden="true" tabindex="-1"></a>cm <span class="ot">=</span> <span class="fu">table</span>(test_set[, <span class="dv">3</span>], y_pred)</span>
+<span id="cb11-3"><a href="支持向量机和神经网络.html#cb11-3" aria-hidden="true" tabindex="-1"></a>cm</span></code></pre></div>
+<pre><code>##    y_pred
+##      0  1
+##   0 57  7
+##   1 13 23</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="支持向量机和神经网络.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizing the training set results</span></span>
+<span id="cb13-2"><a href="支持向量机和神经网络.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&#39;Rfast&#39;)</span></span>
+<span id="cb13-3"><a href="支持向量机和神经网络.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;Rfast&#39;</span>)</span></code></pre></div>
+<pre><code>## Loading required package: Rcpp</code></pre>
+<pre><code>## Loading required package: RcppZiggurat</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="支持向量机和神经网络.html#cb16-1" aria-hidden="true" tabindex="-1"></a>set  <span class="ot">=</span> training_set</span>
+<span id="cb16-2"><a href="支持向量机和神经网络.html#cb16-2" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">=</span> <span class="fu">seq</span>(<span class="fu">min</span>(set[, <span class="dv">1</span>]) <span class="sc">-</span><span class="dv">1</span>, <span class="fu">max</span>(set[, <span class="dv">1</span>]) <span class="sc">+</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb16-3"><a href="支持向量机和神经网络.html#cb16-3" aria-hidden="true" tabindex="-1"></a>X2 <span class="ot">=</span> <span class="fu">seq</span>(<span class="fu">min</span>(set[, <span class="dv">2</span>]) <span class="sc">-</span><span class="dv">1</span>, <span class="fu">max</span>(set[, <span class="dv">2</span>]) <span class="sc">+</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb16-4"><a href="支持向量机和神经网络.html#cb16-4" aria-hidden="true" tabindex="-1"></a>grid_set <span class="ot">=</span> <span class="fu">expand.grid</span>(X1, X2)</span>
+<span id="cb16-5"><a href="支持向量机和神经网络.html#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(grid_set) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&#39;Age&#39;</span>, <span class="st">&#39;EstimatedSalary&#39;</span>)</span>
+<span id="cb16-6"><a href="支持向量机和神经网络.html#cb16-6" aria-hidden="true" tabindex="-1"></a>prob_set <span class="ot">=</span> <span class="fu">predict</span>(classifier, <span class="at">type =</span> <span class="st">&#39;response&#39;</span>, <span class="at">newdata =</span> grid_set)</span>
+<span id="cb16-7"><a href="支持向量机和神经网络.html#cb16-7" aria-hidden="true" tabindex="-1"></a>y_grid <span class="ot">=</span> <span class="fu">ifelse</span>(prob_set<span class="sc">==</span><span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb16-8"><a href="支持向量机和神经网络.html#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(set[, <span class="sc">-</span><span class="dv">3</span>],</span>
+<span id="cb16-9"><a href="支持向量机和神经网络.html#cb16-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&#39;SVM (Training Set)&#39;</span>,</span>
+<span id="cb16-10"><a href="支持向量机和神经网络.html#cb16-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&#39;Age&#39;</span>,</span>
+<span id="cb16-11"><a href="支持向量机和神经网络.html#cb16-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&#39;Estimated Salary&#39;</span>,</span>
+<span id="cb16-12"><a href="支持向量机和神经网络.html#cb16-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">range</span>(X1),</span>
+<span id="cb16-13"><a href="支持向量机和神经网络.html#cb16-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">range</span>(X2)</span>
+<span id="cb16-14"><a href="支持向量机和神经网络.html#cb16-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-15"><a href="支持向量机和神经网络.html#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="fu">contour</span>(X1, X2, <span class="fu">matrix</span>(<span class="fu">as.numeric</span>(y_grid),<span class="fu">length</span>(X1), <span class="fu">length</span>(X2)), <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb16-16"><a href="支持向量机和神经网络.html#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(grid_set, <span class="at">pch =</span> <span class="st">&#39;.&#39;</span>, <span class="at">col =</span> <span class="fu">ifelse</span>(y_grid<span class="sc">==</span><span class="dv">1</span>, <span class="st">&#39;springgreen3&#39;</span>, <span class="st">&#39;tomato&#39;</span>) )</span>
+<span id="cb16-17"><a href="支持向量机和神经网络.html#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(set, <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">bg =</span> <span class="fu">ifelse</span>(set[, <span class="dv">3</span>]<span class="sc">==</span> <span class="dv">1</span>, <span class="st">&#39;green4&#39;</span>, <span class="st">&#39;red3&#39;</span>))</span></code></pre></div>
+<p><img src="08-nn_files/figure-html/svm-1.png" width="672" /></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="支持向量机和神经网络.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizing the test set results</span></span>
+<span id="cb17-2"><a href="支持向量机和神经网络.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&#39;Rfast&#39;)</span></span>
+<span id="cb17-3"><a href="支持向量机和神经网络.html#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;Rfast&#39;</span>)</span>
+<span id="cb17-4"><a href="支持向量机和神经网络.html#cb17-4" aria-hidden="true" tabindex="-1"></a>set  <span class="ot">=</span> test_set</span>
+<span id="cb17-5"><a href="支持向量机和神经网络.html#cb17-5" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">=</span> <span class="fu">seq</span>(<span class="fu">min</span>(set[, <span class="dv">1</span>]) <span class="sc">-</span><span class="dv">1</span>, <span class="fu">max</span>(set[, <span class="dv">1</span>]) <span class="sc">+</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb17-6"><a href="支持向量机和神经网络.html#cb17-6" aria-hidden="true" tabindex="-1"></a>X2 <span class="ot">=</span> <span class="fu">seq</span>(<span class="fu">min</span>(set[, <span class="dv">2</span>]) <span class="sc">-</span><span class="dv">1</span>, <span class="fu">max</span>(set[, <span class="dv">2</span>]) <span class="sc">+</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb17-7"><a href="支持向量机和神经网络.html#cb17-7" aria-hidden="true" tabindex="-1"></a>grid_set <span class="ot">=</span> <span class="fu">expand.grid</span>(X1, X2)</span>
+<span id="cb17-8"><a href="支持向量机和神经网络.html#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(grid_set) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&#39;Age&#39;</span>, <span class="st">&#39;EstimatedSalary&#39;</span>)</span>
+<span id="cb17-9"><a href="支持向量机和神经网络.html#cb17-9" aria-hidden="true" tabindex="-1"></a>prob_set <span class="ot">=</span> <span class="fu">predict</span>(classifier, <span class="at">type =</span> <span class="st">&#39;response&#39;</span>, <span class="at">newdata =</span> grid_set)</span>
+<span id="cb17-10"><a href="支持向量机和神经网络.html#cb17-10" aria-hidden="true" tabindex="-1"></a>y_grid <span class="ot">=</span> <span class="fu">ifelse</span>(prob_set <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb17-11"><a href="支持向量机和神经网络.html#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(set[, <span class="sc">-</span><span class="dv">3</span>],</span>
+<span id="cb17-12"><a href="支持向量机和神经网络.html#cb17-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&#39;SVM (Test Set)&#39;</span>,</span>
+<span id="cb17-13"><a href="支持向量机和神经网络.html#cb17-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&#39;Age&#39;</span>,</span>
+<span id="cb17-14"><a href="支持向量机和神经网络.html#cb17-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&#39;Estimated Salary&#39;</span>,</span>
+<span id="cb17-15"><a href="支持向量机和神经网络.html#cb17-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">range</span>(X1),</span>
+<span id="cb17-16"><a href="支持向量机和神经网络.html#cb17-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">range</span>(X2)</span>
+<span id="cb17-17"><a href="支持向量机和神经网络.html#cb17-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-18"><a href="支持向量机和神经网络.html#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-19"><a href="支持向量机和神经网络.html#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="fu">contour</span>(X1,X2, <span class="fu">matrix</span>(<span class="fu">as.numeric</span>(y_grid),<span class="fu">length</span>(X1), <span class="fu">length</span>(X2)), <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-20"><a href="支持向量机和神经网络.html#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(grid_set, <span class="at">pch =</span> <span class="st">&#39;.&#39;</span>, <span class="at">col =</span> <span class="fu">ifelse</span>(y_grid<span class="sc">==</span><span class="dv">1</span>, <span class="st">&#39;springgreen3&#39;</span>, <span class="st">&#39;tomato&#39;</span>) )</span>
+<span id="cb17-21"><a href="支持向量机和神经网络.html#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(set, <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">bg =</span> <span class="fu">ifelse</span>(set[, <span class="dv">3</span>]<span class="sc">==</span> <span class="dv">1</span>, <span class="st">&#39;green4&#39;</span>, <span class="st">&#39;red3&#39;</span>))</span></code></pre></div>
+<p><img src="08-nn_files/figure-html/svm-2.png" width="672" /></p>
+</div>
+</div>
+<div id="神经网络neural-networks-nn" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> 神经网络(Neural Networks, NN)<a href="支持向量机和神经网络.html#神经网络neural-networks-nn" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>A neural network is a series of algorithms that endeavors to recognize underlying relationships in a set of data through a process that mimics the way the human brain operates. Neural networks reflect the behavior of the human brain, allowing computer programs to recognize patterns and solve common problems in the fields of AI, machine learning, and deep learning.</p></li>
+<li><p>Structure of neuron network
+<img src="pics/neralnetwork.png" alt="snn" /></p></li>
+<li><p>Type of Neural Networks in Deep Learning</p>
+<ul>
+<li>Artificial Neural Networks (ANN): Feedback ANN; Feed-Forward ANN</li>
+<li>Convolution Neural Networks (CNN): VGG; ResNet; AlexNet; Inception v2</li>
+<li>Recurrent Neural Networks (RNN): One-to-one; One-to-Many; Many-to-One; Many-to-Many</li>
+</ul></li>
+<li><p>Types of Algorithms used in Deep Learning</p>
+<ul>
+<li>Convolutional Neural Networks (CNNs)</li>
+<li>Recurrent Neural Networks (RNNs)</li>
+<li>Long Short-Term Memory Networks (LSTMs)</li>
+<li>Generative Adversarial Networks (GANs)</li>
+<li>Self Organizing Maps (SOMs)</li>
+<li>Radial Basis Function Networks (RBFNs)</li>
+<li>Multilayer Perceptron (MLPs)</li>
+<li>Deep Belief Networks (DBNs)</li>
+<li>Restricted Boltzmann Machines( RBMs)</li>
+<li>Autoencoders</li>
+</ul></li>
+<li><p>Deep Learning Frameworks</p>
+<ul>
+<li>TensorFlow</li>
+<li>Keras</li>
+<li>PyTorch</li>
+<li>Theano</li>
+<li>Caffe</li>
+<li>Deeplearning4j</li>
+<li>MXNet</li>
+<li>Chainer</li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="决策树及其组合方法.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="github使用.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/08-nn.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

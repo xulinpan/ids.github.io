@@ -228,39 +228,35 @@ churn_model
 ## node), split, n, loss, yval, (yprob)
 ##       * denotes terminal node
 ## 
-##   1) root 3500 495 no (0.85857143 0.14142857)  
-##     2) total_day_minutes< 264.65 3293 369 no (0.88794412 0.11205588)  
-##       4) number_customer_service_calls< 3.5 3020 236 no (0.92185430 0.07814570)  
-##         8) international_plan=no 2740 131 no (0.95218978 0.04781022)  
-##          16) total_day_minutes< 245.15 2594  91 no (0.96491904 0.03508096)  
-##            32) total_day_minutes< 221.85 2318  61 no (0.97368421 0.02631579) *
-##            33) total_day_minutes>=221.85 276  30 no (0.89130435 0.10869565)  
-##              66) total_eve_minutes< 267.15 254  14 no (0.94488189 0.05511811) *
-##              67) total_eve_minutes>=267.15 22   6 yes (0.27272727 0.72727273) *
-##          17) total_day_minutes>=245.15 146  40 no (0.72602740 0.27397260)  
-##            34) total_eve_minutes< 205.6 81   3 no (0.96296296 0.03703704) *
-##            35) total_eve_minutes>=205.6 65  28 yes (0.43076923 0.56923077)  
-##              70) voice_mail_plan=yes 17   1 no (0.94117647 0.05882353) *
-##              71) voice_mail_plan=no 48  12 yes (0.25000000 0.75000000)  
-##               142) total_night_minutes< 169.8 14   4 no (0.71428571 0.28571429) *
-##               143) total_night_minutes>=169.8 34   2 yes (0.05882353 0.94117647) *
-##         9) international_plan=yes 280 105 no (0.62500000 0.37500000)  
-##          18) total_intl_calls>=2.5 227  52 no (0.77092511 0.22907489)  
-##            36) total_intl_minutes< 13.05 179   4 no (0.97765363 0.02234637) *
-##            37) total_intl_minutes>=13.05 48   0 yes (0.00000000 1.00000000) *
-##          19) total_intl_calls< 2.5 53   0 yes (0.00000000 1.00000000) *
-##       5) number_customer_service_calls>=3.5 273 133 no (0.51282051 0.48717949)  
-##        10) total_day_minutes>=160.25 163  37 no (0.77300613 0.22699387)  
-##          20) total_eve_minutes>=155.55 134  20 no (0.85074627 0.14925373) *
-##          21) total_eve_minutes< 155.55 29  12 yes (0.41379310 0.58620690)  
-##            42) total_day_minutes>=197.2 17   6 no (0.64705882 0.35294118) *
-##            43) total_day_minutes< 197.2 12   1 yes (0.08333333 0.91666667) *
-##        11) total_day_minutes< 160.25 110  14 yes (0.12727273 0.87272727) *
-##     3) total_day_minutes>=264.65 207  81 yes (0.39130435 0.60869565)  
-##       6) voice_mail_plan=yes 44   4 no (0.90909091 0.09090909) *
-##       7) voice_mail_plan=no 163  41 yes (0.25153374 0.74846626)  
-##        14) total_eve_minutes< 155.6 33   6 no (0.81818182 0.18181818) *
-##        15) total_eve_minutes>=155.6 130  14 yes (0.10769231 0.89230769) *
+##  1) root 3500 495 no (0.85857143 0.14142857)  
+##    2) total_day_minutes< 264.7 3277 359 no (0.89044858 0.10955142)  
+##      4) number_customer_service_calls< 3.5 3026 235 no (0.92233972 0.07766028)  
+##        8) international_plan=no 2740 137 no (0.95000000 0.05000000)  
+##         16) total_day_minutes< 221.8 2300  65 no (0.97173913 0.02826087) *
+##         17) total_day_minutes>=221.8 440  72 no (0.83636364 0.16363636)  
+##           34) total_eve_minutes< 259.8 388  36 no (0.90721649 0.09278351) *
+##           35) total_eve_minutes>=259.8 52  16 yes (0.30769231 0.69230769)  
+##             70) voice_mail_plan=yes 9   0 no (1.00000000 0.00000000) *
+##             71) voice_mail_plan=no 43   7 yes (0.16279070 0.83720930) *
+##        9) international_plan=yes 286  98 no (0.65734266 0.34265734)  
+##         18) total_intl_calls>=2.5 238  50 no (0.78991597 0.21008403)  
+##           36) total_intl_minutes< 13.05 196   8 no (0.95918367 0.04081633) *
+##           37) total_intl_minutes>=13.05 42   0 yes (0.00000000 1.00000000) *
+##         19) total_intl_calls< 2.5 48   0 yes (0.00000000 1.00000000) *
+##      5) number_customer_service_calls>=3.5 251 124 no (0.50597610 0.49402390)  
+##       10) total_day_minutes>=160.25 154  39 no (0.74675325 0.25324675)  
+##         20) total_eve_minutes>=141.45 136  27 no (0.80147059 0.19852941)  
+##           40) total_day_minutes>=185.7 92   9 no (0.90217391 0.09782609) *
+##           41) total_day_minutes< 185.7 44  18 no (0.59090909 0.40909091)  
+##             82) total_eve_minutes>=199.9 28   4 no (0.85714286 0.14285714) *
+##             83) total_eve_minutes< 199.9 16   2 yes (0.12500000 0.87500000) *
+##         21) total_eve_minutes< 141.45 18   6 yes (0.33333333 0.66666667) *
+##       11) total_day_minutes< 160.25 97  12 yes (0.12371134 0.87628866) *
+##    3) total_day_minutes>=264.7 223  87 yes (0.39013453 0.60986547)  
+##      6) voice_mail_plan=yes 55   6 no (0.89090909 0.10909091) *
+##      7) voice_mail_plan=no 168  38 yes (0.22619048 0.77380952)  
+##       14) total_eve_minutes< 150.35 22   2 no (0.90909091 0.09090909) *
+##       15) total_eve_minutes>=150.35 146  18 yes (0.12328767 0.87671233) *
 ```
 
 ```r
@@ -298,194 +294,194 @@ pred
 ```
 
 ```
-##    2    3    6    7   11   16   19   20   24   36   41   42   45   49   51   53 
-##   no   no   no   no  yes  yes   no   no   no   no   no  yes   no  yes   no   no 
-##   54   57   59   64   67   70   71   72   73   76   80   88   90   91   93   94 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  105  106  109  110  113  115  119  120  122  123  127  128  129  131  132  134 
-##   no   no   no   no   no   no   no   no   no   no  yes  yes   no   no   no   no 
-##  147  150  151  154  155  156  160  162  163  171  172  175  179  181  187  194 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  195  196  199  200  201  202  203  205  208  209  216  220  226  228  235  237 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  244  251  253  256  257  258  260  267  268  271  272  276  278  280  281  285 
-##   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  286  290  300  302  306  307  316  319  320  322  330  342  347  350  355  356 
-##   no  yes   no  yes   no  yes   no   no  yes   no   no   no   no  yes  yes   no 
-##  360  364  366  374  379  380  381  390  391  392  394  396  398  400  403  404 
-##   no   no  yes   no  yes   no   no   no   no   no   no   no  yes   no   no   no 
-##  405  412  416  421  422  426  428  429  433  434  436  441  442  443  449  452 
+##    2    9   11   13   19   35   38   41   47   50   54   56   64   65   71   73 
 ##   no   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  457  458  462  470  478  480  483  487  489  490  491  496  506  508  515  516 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  519  522  524  525  527  529  530  533  535  538  539  546  550  553  563  566 
-##   no  yes   no   no   no   no   no   no   no   no   no   no   no  yes   no   no 
-##  568  569  575  578  581  583  584  586  590  593  594  597  598  601  608  609 
-##   no  yes  yes   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  610  612  617  620  621  625  627  630  632  635  637  640  654  656  659  662 
-##   no   no   no  yes   no   no  yes  yes   no   no   no   no   no  yes   no   no 
-##  675  676  678  684  688  690  696  697  702  703  708  709  714  719  724  729 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  732  734  735  749  753  757  760  761  762  766  767  771  778  783  785  787 
-##   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no 
-##  798  801  805  806  807  808  813  817  820  821  822  834  835  838  841  842 
-##  yes   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  852  853  854  855  863  865  868  872  873  877  881  893  894  896  899  901 
-##   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no   no 
-##  903  904  917  920  921  927  931  938  940  941  942  945  946  948  949  957 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  964  966  970  974  980  981  987  991  992  994  995 1002 1003 1004 1006 1007 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 1022 1025 1033 1035 1036 1040 1044 1056 1058 1061 1062 1065 1067 1080 1082 1084 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 1089 1092 1093 1096 1097 1098 1099 1104 1109 1113 1114 1117 1119 1124 1128 1129 
+##   77   78   83   85   87   88   89   93   94   97  105  107  113  115  120  123 
+##  yes  yes   no   no  yes   no   no   no   no   no   no   no  yes   no   no   no 
+##  128  140  141  148  150  152  155  160  165  166  167  168  169  172  174  177 
 ##   no   no   no  yes   no   no   no   no   no   no   no   no   no   no   no   no 
-## 1130 1131 1132 1133 1136 1137 1142 1143 1145 1147 1148 1150 1151 1157 1159 1164 
-##   no   no   no   no   no   no   no  yes   no   no   no   no  yes   no   no   no 
-## 1166 1172 1173 1174 1176 1180 1183 1188 1197 1198 1202 1203 1207 1209 1211 1217 
-##   no   no   no   no   no   no  yes   no   no   no   no   no   no   no  yes   no 
-## 1218 1222 1230 1231 1232 1233 1240 1244 1245 1247 1250 1251 1252 1254 1257 1258 
-##   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no   no 
-## 1262 1264 1266 1273 1280 1283 1287 1288 1289 1290 1295 1296 1303 1304 1309 1310 
-##   no   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no 
-## 1311 1313 1314 1315 1320 1324 1327 1328 1332 1333 1334 1336 1337 1338 1341 1345 
-##   no   no   no   no   no   no   no   no   no   no   no   no  yes  yes   no  yes 
-## 1346 1348 1350 1351 1354 1360 1362 1364 1365 1367 1370 1372 1373 1377 1380 1383 
-##  yes   no   no  yes   no   no   no   no   no   no   no   no   no   no   no  yes 
-## 1384 1386 1387 1389 1392 1393 1395 1396 1398 1402 1404 1405 1410 1415 1417 1419 
-##   no   no   no   no   no  yes  yes   no   no   no   no   no   no   no   no   no 
-## 1422 1423 1425 1432 1434 1436 1442 1447 1449 1453 1464 1467 1473 1480 1481 1484 
-##   no   no   no   no   no  yes   no   no   no   no   no   no  yes   no   no   no 
-## 1493 1496 1500 1508 1509 1510 1513 1514 1517 1518 1524 1536 1538 1539 1541 1543 
-##   no   no   no   no   no   no   no   no   no   no   no   no  yes  yes   no   no 
-## 1546 1549 1551 1552 1553 1563 1565 1567 1570 1571 1572 1573 1586 1593 1594 1596 
-##   no  yes   no   no   no   no   no   no   no   no   no   no   no   no  yes   no 
-## 1597 1598 1608 1613 1614 1616 1617 1622 1623 1625 1626 1628 1631 1633 1640 1642 
-##   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no 
-## 1651 1653 1657 1659 1660 1664 1665 1669 1670 1673 1675 1679 1686 1692 1697 1698 
-##   no   no   no   no   no   no   no   no   no   no  yes   no   no  yes   no   no 
-## 1699 1700 1701 1707 1708 1715 1717 1718 1719 1729 1733 1737 1744 1745 1750 1755 
-##   no   no   no   no  yes   no   no   no   no  yes   no  yes   no   no   no  yes 
-## 1756 1760 1762 1763 1764 1766 1778 1780 1785 1788 1791 1795 1801 1802 1807 1813 
-##   no   no   no   no   no  yes   no   no  yes   no   no  yes   no   no   no  yes 
-## 1820 1822 1828 1830 1831 1832 1834 1835 1836 1840 1847 1851 1852 1854 1857 1858 
-##   no   no   no   no  yes  yes   no   no   no   no   no   no   no   no   no  yes 
-## 1860 1866 1868 1874 1875 1878 1882 1884 1885 1888 1893 1894 1896 1897 1898 1900 
-##   no  yes   no   no   no   no  yes   no   no  yes  yes  yes   no   no   no   no 
-## 1923 1927 1928 1930 1932 1936 1941 1947 1948 1956 1962 1963 1968 1970 1971 1974 
-##   no   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no 
-## 1978 1982 1985 1991 1992 1995 1997 2000 2007 2025 2029 2038 2043 2051 2052 2053 
-##  yes   no  yes   no   no   no   no   no   no   no   no   no   no   no  yes   no 
-## 2054 2056 2057 2058 2062 2066 2070 2071 2077 2081 2082 2085 2086 2087 2090 2097 
+##  179  183  187  192  193  197  198  202  209  210  212  223  224  231  234  235 
 ##   no   no   no   no   no   no  yes   no   no   no   no   no   no   no   no   no 
-## 2100 2103 2105 2107 2110 2121 2122 2124 2131 2140 2143 2144 2149 2150 2160 2161 
-##  yes  yes   no  yes   no   no   no   no   no   no   no   no   no   no   no  yes 
-## 2164 2166 2168 2172 2176 2178 2180 2183 2185 2188 2191 2193 2194 2195 2201 2202 
-##   no   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no 
-## 2205 2206 2208 2219 2225 2226 2228 2230 2239 2241 2242 2247 2249 2252 2254 2255 
-##   no   no   no  yes   no   no   no   no  yes   no   no   no   no   no   no   no 
-## 2256 2258 2262 2266 2269 2275 2276 2277 2279 2283 2288 2289 2291 2292 2293 2294 
-##   no   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no 
-## 2297 2298 2302 2303 2308 2311 2312 2315 2317 2318 2321 2330 2336 2339 2342 2346 
-##   no   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no 
-## 2350 2353 2354 2357 2361 2374 2380 2382 2388 2392 2398 2400 2402 2409 2410 2417 
-##   no   no   no  yes   no   no   no   no   no   no  yes   no  yes   no   no   no 
-## 2418 2425 2427 2428 2431 2443 2444 2447 2451 2452 2454 2457 2458 2461 2470 2471 
-##   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no 
-## 2473 2478 2479 2481 2482 2483 2484 2486 2489 2490 2493 2498 2500 2503 2505 2506 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 2511 2512 2517 2519 2520 2524 2525 2532 2534 2535 2536 2537 2547 2552 2559 2560 
-##   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no 
-## 2567 2568 2569 2577 2581 2584 2590 2593 2594 2596 2598 2600 2604 2608 2611 2613 
-##   no   no   no   no   no   no   no   no   no  yes   no  yes   no   no   no   no 
-## 2619 2620 2627 2635 2637 2638 2640 2644 2650 2651 2652 2653 2657 2660 2664 2665 
-##   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no  yes 
-## 2669 2670 2671 2673 2676 2678 2681 2682 2683 2697 2699 2700 2701 2703 2704 2707 
-##   no   no   no  yes   no   no   no   no   no  yes   no   no  yes   no   no   no 
-## 2711 2712 2713 2720 2724 2727 2733 2734 2739 2740 2751 2761 2762 2767 2770 2772 
-##  yes   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no 
-## 2775 2781 2782 2786 2788 2792 2793 2795 2807 2809 2810 2819 2821 2823 2826 2827 
-##  yes   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no 
-## 2830 2834 2842 2843 2850 2854 2855 2859 2861 2874 2876 2877 2879 2884 2889 2890 
-##   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no  yes 
-## 2892 2893 2894 2898 2899 2900 2901 2903 2911 2915 2922 2926 2929 2931 2933 2934 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 2936 2939 2940 2941 2953 2956 2958 2959 2969 2974 2978 2980 2981 2983 2985 2988 
-##   no   no   no   no   no   no   no  yes  yes   no   no  yes  yes   no   no  yes 
-## 2993 2995 2996 2999 3005 3006 3007 3016 3017 3024 3031 3032 3033 3034 3036 3037 
-##   no  yes   no   no   no   no   no   no   no  yes   no   no   no   no  yes   no 
-## 3038 3039 3042 3045 3046 3049 3055 3056 3059 3066 3067 3072 3077 3080 3082 3083 
-##   no   no   no   no  yes   no   no   no   no   no   no   no   no  yes   no   no 
-## 3086 3091 3092 3094 3097 3099 3101 3103 3106 3108 3111 3118 3126 3130 3131 3138 
-##   no   no   no  yes   no   no   no   no   no   no   no   no  yes   no   no   no 
-## 3139 3142 3143 3148 3149 3150 3157 3159 3164 3173 3174 3177 3178 3179 3182 3184 
-##   no   no   no   no  yes   no   no   no  yes   no   no   no   no   no   no   no 
-## 3188 3189 3193 3200 3205 3206 3210 3214 3215 3225 3226 3227 3228 3229 3230 3232 
-##   no   no   no   no   no  yes  yes   no   no  yes   no   no   no   no   no   no 
-## 3233 3240 3244 3249 3251 3263 3274 3275 3277 3279 3282 3284 3285 3287 3290 3296 
+##  238  242  244  249  252  254  255  257  258  259  260  261  267  268  270  276 
+##   no  yes   no   no   no   no   no   no   no  yes   no   no   no   no   no   no 
+##  279  280  290  292  297  298  301  309  310  315  316  317  324  325  327  328 
 ##   no   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 3298 3299 3307 3308 3309 3310 3312 3319 3320 3324 3328 3330 3338 3339 3340 3341 
+##  335  340  341  342  343  345  346  348  351  352  353  355  359  362  366  371 
+##   no   no   no   no   no   no   no   no   no   no   no  yes   no   no  yes   no 
+##  373  375  377  379  381  384  386  393  396  397  399  403  410  411  416  421 
+##  yes   no   no  yes   no   no   no   no   no   no   no   no   no   no  yes   no 
+##  437  440  450  451  457  458  459  461  465  467  468  475  477  478  482  485 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+##  488  489  492  494  495  496  497  498  500  502  506  509  516  522  523  525 
+##   no   no  yes   no   no   no   no   no   no   no   no   no   no  yes   no   no 
+##  528  530  532  533  534  536  537  539  545  547  549  554  555  557  560  563 
 ##   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no 
-## 3349 3352 3353 3354 3355 3364 3368 3371 3377 3381 3385 3403 3404 3405 3406 3413 
+##  570  571  573  575  581  588  593  595  600  603  606  610  616  618  624  628 
+##  yes   no   no  yes   no   no   no   no   no   no  yes   no   no   no   no   no 
+##  631  632  636  640  641  653  655  657  658  660  661  662  663  664  670  672 
+##   no   no  yes   no   no   no   no   no   no   no  yes   no   no   no   no   no 
+##  674  676  687  688  690  692  695  696  697  698  707  718  721  723  724  727 
+##   no   no   no   no   no   no  yes   no   no   no   no   no   no   no   no   no 
+##  735  736  740  744  745  752  753  758  763  764  767  773  777  779  780  781 
+##   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no  yes 
+##  787  788  790  797  805  807  810  811  819  825  828  829  836  842  843  848 
+##   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+##  850  851  860  864  866  868  870  872  877  878  884  888  892  895  900  902 
+##   no   no  yes   no   no   no   no  yes   no  yes   no   no   no  yes   no  yes 
+##  904  907  908  912  914  915  918  922  936  941  942  945  946  956  959  963 
+##   no   no   no  yes   no  yes   no   no   no   no   no  yes   no   no   no   no 
+##  970  973  982  984  985  991  995  998 1002 1003 1004 1014 1019 1022 1029 1032 
 ##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 3415 3418 3419 3423 3431 3434 3435 3440 3446 3449 3450 3455 3456 3458 3461 3463 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no  yes   no   no 
-## 3466 3476 3484 3506 3508 3514 3522 3530 3541 3546 3549 3550 3551 3565 3567 3568 
-##   no   no   no   no   no   no   no   no  yes   no  yes  yes   no   no   no   no 
-## 3569 3570 3573 3574 3582 3583 3585 3586 3588 3590 3598 3602 3617 3618 3620 3621 
-##   no   no   no   no   no   no   no  yes  yes   no   no   no  yes  yes   no   no 
-## 3628 3635 3636 3640 3641 3644 3645 3652 3653 3654 3662 3663 3664 3671 3672 3673 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 3675 3682 3684 3686 3689 3691 3692 3695 3697 3698 3702 3705 3709 3714 3715 3718 
-##   no  yes   no   no  yes   no   no   no   no   no   no   no   no   no   no  yes 
-## 3719 3720 3721 3724 3741 3743 3744 3749 3750 3752 3757 3759 3765 3768 3770 3774 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 3777 3781 3782 3783 3784 3787 3789 3793 3795 3796 3798 3805 3810 3812 3814 3817 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 3818 3820 3822 3825 3827 3837 3838 3842 3846 3847 3848 3849 3853 3854 3860 3863 
-##   no   no   no   no   no   no   no   no   no   no  yes   no  yes   no   no   no 
-## 3868 3869 3871 3874 3875 3877 3880 3886 3890 3900 3902 3904 3909 3911 3913 3914 
-##   no  yes   no   no   no   no   no   no   no   no  yes   no   no   no   no   no 
-## 3916 3921 3925 3927 3931 3933 3940 3941 3942 3944 3955 3956 3958 3959 3963 3967 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no  yes 
-## 3971 3976 3979 3981 3985 3989 3993 3995 3998 3999 4002 4003 4005 4011 4015 4016 
-##   no   no  yes   no   no   no   no   no   no   no   no  yes   no   no   no   no 
-## 4017 4021 4028 4031 4034 4040 4047 4050 4051 4054 4057 4062 4064 4068 4071 4072 
-##   no   no   no  yes   no   no   no   no   no  yes   no   no   no   no   no   no 
-## 4073 4077 4082 4083 4092 4093 4098 4102 4103 4107 4108 4112 4113 4114 4116 4119 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 4120 4125 4126 4127 4131 4139 4146 4147 4154 4158 4160 4161 4162 4166 4169 4173 
-##   no   no   no   no  yes   no   no   no   no   no   no   no   no  yes   no   no 
-## 4175 4177 4181 4183 4184 4186 4187 4188 4192 4193 4194 4195 4201 4204 4216 4217 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 4219 4220 4227 4234 4235 4237 4242 4243 4248 4251 4254 4257 4263 4270 4271 4279 
-##  yes   no   no   no   no  yes   no   no   no   no  yes   no   no   no   no   no 
-## 4286 4288 4300 4301 4302 4305 4306 4309 4320 4323 4325 4327 4331 4339 4344 4347 
-##  yes   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no 
-## 4362 4363 4364 4365 4367 4375 4383 4385 4389 4390 4391 4392 4396 4399 4407 4409 
+## 1034 1036 1037 1041 1046 1047 1048 1050 1052 1055 1061 1064 1066 1069 1070 1071 
 ##   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no   no 
-## 4411 4421 4427 4428 4432 4440 4442 4445 4450 4451 4458 4460 4461 4462 4467 4469 
+## 1075 1077 1078 1085 1088 1096 1097 1103 1105 1119 1124 1126 1127 1132 1133 1134 
+##   no   no  yes   no   no  yes   no  yes   no   no   no   no   no   no   no  yes 
+## 1135 1137 1140 1144 1146 1147 1154 1156 1159 1162 1163 1167 1168 1171 1173 1179 
+##   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no   no 
+## 1184 1188 1191 1197 1204 1205 1209 1210 1213 1215 1217 1218 1235 1237 1241 1246 
+##   no   no   no   no   no  yes   no   no   no   no   no   no   no   no  yes   no 
+## 1249 1254 1255 1256 1258 1259 1260 1266 1269 1273 1274 1285 1288 1300 1301 1305 
+##   no   no   no   no   no   no   no   no   no   no  yes   no   no  yes   no   no 
+## 1308 1312 1317 1323 1325 1331 1340 1345 1346 1347 1348 1352 1356 1358 1360 1373 
+##   no   no   no  yes   no   no  yes  yes  yes  yes   no   no   no   no   no   no 
+## 1374 1379 1383 1385 1386 1392 1393 1397 1401 1408 1412 1414 1415 1418 1421 1422 
+##  yes   no   no   no   no   no  yes   no   no  yes   no   no   no   no  yes   no 
+## 1425 1426 1427 1431 1434 1437 1444 1448 1457 1458 1459 1464 1465 1467 1478 1479 
 ##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 4474 4476 4477 4481 4485 4491 4494 4496 4497 4508 4509 4515 4517 4521 4524 4526 
-##   no   no  yes   no   no   no   no   no   no  yes   no   no   no   no   no   no 
-## 4529 4530 4531 4532 4535 4548 4551 4562 4565 4568 4570 4572 4579 4582 4586 4588 
+## 1480 1482 1490 1496 1497 1501 1505 1509 1512 1514 1520 1524 1525 1526 1529 1531 
 ##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 4593 4598 4599 4600 4609 4610 4616 4617 4618 4620 4621 4623 4626 4627 4636 4640 
-##  yes  yes   no  yes   no   no   no   no   no   no   no   no   no   no   no   no 
-## 4643 4644 4650 4653 4654 4655 4657 4660 4664 4670 4677 4678 4683 4690 4692 4702 
-##   no  yes   no   no   no   no   no   no   no   no  yes   no   no   no   no   no 
-## 4703 4708 4717 4718 4719 4722 4723 4725 4726 4731 4732 4736 4737 4738 4740 4742 
-##   no   no   no   no   no  yes   no   no   no   no   no  yes   no  yes   no   no 
-## 4743 4744 4748 4749 4754 4757 4763 4766 4770 4777 4780 4782 4788 4791 4796 4798 
+## 1533 1534 1536 1537 1538 1539 1540 1546 1548 1549 1551 1556 1558 1560 1562 1568 
+##   no  yes   no   no  yes  yes   no   no   no  yes   no   no   no   no   no   no 
+## 1577 1582 1583 1584 1585 1587 1588 1589 1592 1593 1599 1603 1607 1618 1621 1625 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 1629 1632 1633 1640 1641 1646 1648 1652 1654 1655 1657 1664 1665 1667 1668 1670 
+##   no   no   no   no   no   no   no  yes  yes   no   no   no   no   no   no   no 
+## 1671 1681 1688 1689 1691 1695 1701 1704 1706 1707 1714 1715 1727 1731 1733 1738 
+##   no   no   no   no   no  yes   no   no   no   no  yes   no   no   no   no   no 
+## 1739 1741 1745 1746 1747 1748 1749 1754 1755 1757 1758 1759 1760 1767 1771 1773 
+##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
+## 1774 1776 1784 1787 1790 1793 1795 1797 1799 1804 1816 1817 1824 1827 1829 1832 
+##   no   no   no   no   no   no  yes   no   no   no   no   no   no   no   no  yes 
+## 1833 1834 1836 1839 1840 1843 1844 1845 1846 1851 1853 1855 1857 1865 1866 1867 
+##   no   no  yes   no   no  yes   no  yes  yes   no   no   no   no   no  yes   no 
+## 1870 1872 1879 1888 1889 1890 1891 1892 1894 1898 1902 1904 1916 1917 1918 1919 
+##  yes   no  yes  yes   no   no   no   no   no   no   no  yes   no   no   no   no 
+## 1922 1923 1928 1929 1930 1934 1938 1939 1941 1943 1944 1953 1954 1955 1957 1961 
+##   no  yes   no   no   no   no   no   no   no   no   no   no   no  yes   no   no 
+## 1964 1969 1974 1975 1977 1980 1981 1983 1988 1991 1993 1996 2005 2006 2009 2010 
+##   no   no   no  yes   no   no  yes   no   no   no   no   no   no   no   no   no 
+## 2014 2017 2018 2019 2031 2032 2038 2039 2043 2050 2051 2054 2060 2064 2066 2070 
+##   no   no   no   no   no  yes   no  yes   no   no   no   no  yes   no   no   no 
+## 2071 2076 2082 2083 2087 2089 2090 2094 2103 2104 2105 2106 2107 2108 2113 2115 
+##   no   no   no   no   no   no   no   no   no  yes   no   no  yes  yes  yes   no 
+## 2120 2123 2127 2132 2136 2142 2144 2146 2148 2154 2155 2157 2162 2164 2165 2169 
+##   no   no   no   no   no   no   no   no  yes   no   no   no   no  yes  yes   no 
+## 2172 2174 2179 2180 2183 2185 2191 2193 2195 2196 2198 2215 2216 2217 2219 2220 
+##   no  yes   no   no   no   no   no   no   no   no   no   no  yes   no  yes   no 
+## 2222 2223 2226 2239 2246 2248 2250 2254 2255 2260 2263 2271 2275 2281 2282 2287 
+##   no   no   no  yes   no   no   no   no   no   no   no   no   no   no   no   no 
+## 2300 2301 2306 2310 2312 2314 2318 2325 2326 2327 2331 2335 2340 2344 2345 2346 
+##   no   no   no   no   no   no   no  yes  yes   no   no   no   no  yes   no   no 
+## 2350 2358 2361 2363 2367 2369 2372 2376 2378 2379 2380 2383 2386 2388 2391 2398 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no  yes   no  yes 
+## 2403 2407 2408 2421 2422 2424 2426 2427 2430 2431 2435 2436 2438 2442 2445 2446 
+##  yes   no  yes  yes  yes   no   no   no   no   no   no   no  yes   no   no   no 
+## 2449 2451 2455 2462 2463 2467 2468 2470 2472 2477 2482 2484 2487 2488 2490 2493 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 2510 2513 2518 2519 2526 2527 2529 2531 2532 2537 2541 2542 2549 2554 2561 2567 
+##   no   no   no   no   no  yes   no  yes   no  yes   no   no   no   no   no   no 
+## 2572 2573 2577 2578 2579 2580 2589 2591 2592 2597 2598 2604 2616 2625 2628 2632 
+##   no  yes   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
+## 2634 2635 2636 2638 2641 2644 2645 2653 2654 2662 2667 2668 2669 2670 2672 2673 
+##   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no  yes 
+## 2680 2684 2685 2688 2696 2705 2714 2715 2717 2724 2727 2728 2732 2733 2737 2741 
+##   no   no   no  yes   no   no   no   no   no   no   no   no   no   no   no   no 
+## 2745 2748 2752 2753 2754 2755 2766 2767 2768 2769 2771 2773 2774 2783 2790 2801 
+##   no  yes   no   no   no   no   no   no   no   no   no  yes   no   no   no  yes 
+## 2803 2813 2817 2818 2823 2831 2835 2837 2844 2853 2854 2857 2865 2867 2868 2876 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 2878 2880 2883 2886 2892 2894 2897 2902 2919 2922 2924 2927 2929 2932 2933 2940 
+##   no   no  yes   no   no   no   no  yes   no   no   no  yes   no   no   no   no 
+## 2945 2950 2952 2953 2954 2956 2957 2969 2970 2976 2978 2979 2982 2991 2999 3003 
+##   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no  yes 
+## 3008 3010 3011 3012 3015 3022 3024 3027 3031 3033 3042 3046 3050 3051 3056 3058 
+##   no   no   no   no   no   no  yes   no   no   no   no  yes   no  yes   no   no 
+## 3060 3061 3062 3063 3066 3069 3070 3075 3076 3077 3080 3082 3085 3086 3088 3097 
+##   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no 
+## 3098 3101 3105 3106 3108 3109 3112 3122 3124 3129 3137 3139 3140 3142 3144 3145 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no  yes 
+## 3148 3154 3155 3157 3160 3161 3166 3168 3169 3171 3172 3174 3176 3178 3181 3182 
+##  yes   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
+## 3191 3198 3199 3205 3208 3214 3216 3217 3219 3222 3223 3224 3236 3242 3245 3247 
+##  yes   no   no   no   no   no   no   no   no   no   no   no   no  yes   no  yes 
+## 3248 3253 3254 3255 3261 3269 3270 3284 3288 3291 3292 3295 3300 3301 3304 3305 
+##  yes   no   no   no   no  yes   no   no  yes   no  yes   no   no   no   no   no 
+## 3306 3310 3311 3312 3314 3317 3321 3322 3323 3325 3330 3335 3338 3340 3341 3343 
+##   no   no   no   no   no   no  yes   no  yes   no   no   no   no   no   no   no 
+## 3344 3347 3352 3354 3356 3360 3361 3362 3363 3364 3365 3366 3370 3371 3374 3375 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no  yes   no 
+## 3377 3380 3388 3392 3394 3395 3405 3406 3409 3411 3415 3418 3419 3420 3423 3424 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 3431 3432 3437 3439 3447 3448 3453 3455 3457 3461 3465 3473 3474 3476 3478 3482 
+##   no   no   no   no   no   no  yes   no   no   no   no   no   no   no   no   no 
+## 3486 3491 3493 3494 3500 3502 3503 3508 3514 3516 3517 3519 3529 3534 3537 3545 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 3548 3554 3559 3572 3573 3583 3600 3603 3604 3605 3608 3609 3612 3615 3619 3621 
+##   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no 
+## 3622 3623 3624 3629 3634 3635 3640 3645 3648 3653 3655 3656 3659 3661 3662 3663 
+##   no   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no 
+## 3664 3668 3671 3672 3680 3681 3685 3687 3695 3699 3703 3706 3712 3713 3715 3716 
+##   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no   no 
+## 3721 3722 3725 3727 3729 3733 3734 3735 3736 3741 3747 3754 3756 3760 3761 3763 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 3764 3765 3768 3769 3770 3771 3774 3777 3778 3781 3784 3786 3789 3790 3794 3796 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 3798 3800 3801 3803 3805 3814 3815 3817 3836 3839 3845 3852 3855 3856 3861 3862 
+##   no   no   no   no   no   no   no   no   no   no   no  yes  yes   no   no   no 
+## 3865 3872 3875 3876 3877 3879 3881 3883 3885 3886 3888 3890 3892 3893 3894 3896 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 3899 3905 3911 3913 3916 3917 3919 3927 3932 3933 3937 3938 3942 3951 3953 3956 
+##   no   no   no   no   no  yes   no   no  yes   no   no   no   no   no   no   no 
+## 3959 3960 3966 3970 3973 3975 3980 3984 3985 3989 3990 3991 3992 3997 3999 4001 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 4002 4012 4013 4021 4024 4027 4030 4034 4035 4037 4039 4041 4042 4053 4056 4063 
+##   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no  yes 
+## 4064 4067 4070 4072 4075 4077 4082 4083 4084 4089 4090 4092 4103 4108 4112 4115 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 4116 4119 4125 4133 4135 4142 4144 4145 4146 4147 4150 4151 4153 4154 4155 4163 
+##   no   no   no  yes   no   no   no   no   no   no   no   no   no   no   no  yes 
+## 4166 4178 4183 4185 4186 4189 4190 4192 4201 4202 4210 4213 4216 4217 4219 4222 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no  yes   no 
+## 4223 4234 4241 4242 4247 4252 4253 4256 4257 4260 4261 4266 4270 4272 4274 4279 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 4283 4284 4287 4289 4290 4292 4294 4297 4300 4301 4302 4307 4311 4318 4321 4328 
+##   no  yes   no   no   no   no   no  yes   no   no   no   no   no   no   no   no 
+## 4329 4335 4337 4339 4340 4346 4351 4354 4364 4368 4370 4373 4374 4377 4382 4386 
+##  yes   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no 
+## 4389 4391 4392 4395 4398 4399 4401 4404 4405 4407 4416 4425 4428 4433 4436 4438 
+##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no  yes 
+## 4439 4441 4445 4447 4454 4455 4456 4457 4458 4460 4462 4466 4467 4479 4485 4489 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no  yes 
+## 4494 4498 4500 4502 4511 4522 4523 4524 4527 4530 4537 4538 4542 4545 4551 4561 
+##   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no 
+## 4562 4566 4567 4571 4576 4581 4583 4584 4597 4598 4601 4603 4607 4608 4616 4619 
 ##   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no 
-## 4799 4803 4805 4807 4808 4811 4817 4818 4825 4830 4838 4852 4854 4856 4860 4862 
-##  yes   no   no   no   no   no   no   no   no   no  yes   no   no   no   no  yes 
-## 4863 4866 4869 4870 4877 4878 4879 4882 4887 4888 4890 4893 4895 4896 4897 4900 
-##  yes  yes   no   no   no   no   no   no   no   no   no   no   no  yes   no   no 
-## 4902 4905 4906 4911 4913 4915 4919 4920 4924 4925 4927 4932 4937 4939 4943 4959 
-##   no   no   no   no   no  yes  yes   no   no  yes   no   no   no   no   no   no 
-## 4961 4962 4963 4965 4970 4972 4975 4976 4977 4980 4981 4995 
-##   no   no   no   no   no   no   no   no   no   no   no   no 
+## 4620 4621 4623 4625 4626 4629 4630 4632 4636 4638 4641 4647 4654 4655 4656 4657 
+##   no   no   no   no   no  yes   no  yes   no   no   no   no   no   no   no   no 
+## 4660 4666 4673 4681 4683 4689 4690 4691 4692 4696 4699 4700 4703 4708 4711 4714 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no  yes   no 
+## 4721 4722 4726 4730 4731 4736 4739 4740 4741 4742 4743 4745 4747 4752 4755 4757 
+##   no  yes   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
+## 4758 4763 4767 4770 4772 4774 4776 4778 4779 4787 4790 4795 4803 4804 4805 4809 
+##   no   no   no   no   no  yes   no   no  yes   no   no   no   no  yes   no   no 
+## 4813 4815 4817 4820 4821 4826 4829 4833 4836 4837 4839 4840 4845 4849 4860 4861 
+##   no   no   no   no   no  yes   no  yes   no   no   no   no   no   no   no   no 
+## 4862 4863 4865 4867 4872 4876 4878 4879 4881 4882 4884 4893 4897 4898 4899 4901 
+##  yes  yes   no   no   no   no   no   no   no   no   no   no   no  yes  yes   no 
+## 4902 4904 4911 4918 4919 4920 4921 4924 4932 4933 4941 4945 4949 4963 4970 4971 
+##   no   no   no  yes  yes   no   no   no   no   no   no   no  yes   no   no   no 
+## 4973 4976 4979 4981 4982 4985 4986 4987 4988 4992 4998 5000 
+##   no   no   no   no   no   no   no   no   no  yes   no   no 
 ## Levels: no yes
 ```
 
@@ -500,8 +496,8 @@ table(testData$churn ,pred)#create confusion matrix to see how mnay cus are corr
 ```
 ##      pred
 ##         no  yes
-##   no  1267   21
-##   yes   65  147
+##   no  1265   23
+##   yes   60  152
 ```
 
 ```r
@@ -547,11 +543,11 @@ random_model
 ##                      Number of trees: 500
 ## No. of variables tried at each split: 4
 ## 
-##         OOB estimate of  error rate: 4.2%
+##         OOB estimate of  error rate: 4.34%
 ## Confusion matrix:
 ##       no yes class.error
-## no  2978  27 0.008985025
-## yes  120 375 0.242424242
+## no  2979  26 0.008652246
+## yes  126 369 0.254545455
 ```
 
 ```r
@@ -561,194 +557,194 @@ ran_pred
 ```
 
 ```
-##    2    3    6    7   11   16   19   20   24   36   41   42   45   49   51   53 
-##   no   no   no   no  yes  yes   no   no   no   no   no  yes   no  yes   no   no 
-##   54   57   59   64   67   70   71   72   73   76   80   88   90   91   93   94 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  105  106  109  110  113  115  119  120  122  123  127  128  129  131  132  134 
-##   no   no   no   no  yes   no   no   no   no   no  yes   no   no   no   no   no 
-##  147  150  151  154  155  156  160  162  163  171  172  175  179  181  187  194 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  195  196  199  200  201  202  203  205  208  209  216  220  226  228  235  237 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  244  251  253  256  257  258  260  267  268  271  272  276  278  280  281  285 
-##   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  286  290  300  302  306  307  316  319  320  322  330  342  347  350  355  356 
-##   no  yes   no  yes   no  yes   no   no  yes   no   no   no   no  yes  yes   no 
-##  360  364  366  374  379  380  381  390  391  392  394  396  398  400  403  404 
-##   no   no  yes   no  yes   no   no   no   no   no   no   no   no   no   no   no 
-##  405  412  416  421  422  426  428  429  433  434  436  441  442  443  449  452 
+##    2    9   11   13   19   35   38   41   47   50   54   56   64   65   71   73 
 ##   no   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  457  458  462  470  478  480  483  487  489  490  491  496  506  508  515  516 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  519  522  524  525  527  529  530  533  535  538  539  546  550  553  563  566 
-##   no  yes   no   no   no   no   no   no   no   no   no   no   no  yes   no   no 
-##  568  569  575  578  581  583  584  586  590  593  594  597  598  601  608  609 
-##   no  yes  yes   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  610  612  617  620  621  625  627  630  632  635  637  640  654  656  659  662 
-##   no   no   no  yes   no   no  yes  yes   no   no   no   no   no  yes   no   no 
-##  675  676  678  684  688  690  696  697  702  703  708  709  714  719  724  729 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  732  734  735  749  753  757  760  761  762  766  767  771  778  783  785  787 
-##   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no 
-##  798  801  805  806  807  808  813  817  820  821  822  834  835  838  841  842 
-##  yes   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  852  853  854  855  863  865  868  872  873  877  881  893  894  896  899  901 
-##   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no   no 
-##  903  904  917  920  921  927  931  938  940  941  942  945  946  948  949  957 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-##  964  966  970  974  980  981  987  991  992  994  995 1002 1003 1004 1006 1007 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 1022 1025 1033 1035 1036 1040 1044 1056 1058 1061 1062 1065 1067 1080 1082 1084 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 1089 1092 1093 1096 1097 1098 1099 1104 1109 1113 1114 1117 1119 1124 1128 1129 
+##   77   78   83   85   87   88   89   93   94   97  105  107  113  115  120  123 
+##  yes  yes   no   no  yes   no   no   no   no   no   no   no  yes   no   no   no 
+##  128  140  141  148  150  152  155  160  165  166  167  168  169  172  174  177 
 ##   no   no   no  yes   no   no   no   no   no   no   no   no   no   no   no   no 
-## 1130 1131 1132 1133 1136 1137 1142 1143 1145 1147 1148 1150 1151 1157 1159 1164 
-##   no   no   no   no   no   no   no  yes   no   no   no   no  yes   no   no   no 
-## 1166 1172 1173 1174 1176 1180 1183 1188 1197 1198 1202 1203 1207 1209 1211 1217 
+##  179  183  187  192  193  197  198  202  209  210  212  223  224  231  234  235 
 ##   no   no   no   no   no   no  yes   no   no   no   no   no   no   no   no   no 
-## 1218 1222 1230 1231 1232 1233 1240 1244 1245 1247 1250 1251 1252 1254 1257 1258 
-##   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no   no 
-## 1262 1264 1266 1273 1280 1283 1287 1288 1289 1290 1295 1296 1303 1304 1309 1310 
-##   no   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no 
-## 1311 1313 1314 1315 1320 1324 1327 1328 1332 1333 1334 1336 1337 1338 1341 1345 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no  yes   no  yes 
-## 1346 1348 1350 1351 1354 1360 1362 1364 1365 1367 1370 1372 1373 1377 1380 1383 
-##  yes   no   no  yes   no   no   no   no  yes   no   no   no   no   no   no   no 
-## 1384 1386 1387 1389 1392 1393 1395 1396 1398 1402 1404 1405 1410 1415 1417 1419 
-##   no   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no 
-## 1422 1423 1425 1432 1434 1436 1442 1447 1449 1453 1464 1467 1473 1480 1481 1484 
-##   no   no   no   no   no  yes   no   no   no   no   no   no  yes   no   no   no 
-## 1493 1496 1500 1508 1509 1510 1513 1514 1517 1518 1524 1536 1538 1539 1541 1543 
-##   no   no   no   no   no   no   no   no   no   no   no   no  yes  yes   no   no 
-## 1546 1549 1551 1552 1553 1563 1565 1567 1570 1571 1572 1573 1586 1593 1594 1596 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no  yes   no 
-## 1597 1598 1608 1613 1614 1616 1617 1622 1623 1625 1626 1628 1631 1633 1640 1642 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 1651 1653 1657 1659 1660 1664 1665 1669 1670 1673 1675 1679 1686 1692 1697 1698 
-##   no   no   no   no   no   no   no   no   no   no  yes   no   no  yes   no   no 
-## 1699 1700 1701 1707 1708 1715 1717 1718 1719 1729 1733 1737 1744 1745 1750 1755 
-##   no   no   no   no  yes   no   no   no   no   no   no  yes   no   no   no  yes 
-## 1756 1760 1762 1763 1764 1766 1778 1780 1785 1788 1791 1795 1801 1802 1807 1813 
-##   no   no   no   no   no  yes   no   no  yes   no   no  yes   no   no   no  yes 
-## 1820 1822 1828 1830 1831 1832 1834 1835 1836 1840 1847 1851 1852 1854 1857 1858 
-##   no   no   no   no  yes   no   no   no   no   no   no   no  yes   no   no  yes 
-## 1860 1866 1868 1874 1875 1878 1882 1884 1885 1888 1893 1894 1896 1897 1898 1900 
-##   no  yes   no   no   no   no  yes   no   no  yes  yes  yes   no   no   no   no 
-## 1923 1927 1928 1930 1932 1936 1941 1947 1948 1956 1962 1963 1968 1970 1971 1974 
-##   no   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no 
-## 1978 1982 1985 1991 1992 1995 1997 2000 2007 2025 2029 2038 2043 2051 2052 2053 
-##  yes   no  yes   no   no   no   no   no   no   no  yes   no   no   no   no   no 
-## 2054 2056 2057 2058 2062 2066 2070 2071 2077 2081 2082 2085 2086 2087 2090 2097 
-##   no   no   no   no   no   no  yes   no  yes   no   no   no   no   no   no   no 
-## 2100 2103 2105 2107 2110 2121 2122 2124 2131 2140 2143 2144 2149 2150 2160 2161 
-##  yes   no   no  yes   no   no   no   no   no   no   no   no   no   no   no  yes 
-## 2164 2166 2168 2172 2176 2178 2180 2183 2185 2188 2191 2193 2194 2195 2201 2202 
-##   no   no   no   no   no   no   no   no   no  yes   no   no  yes   no   no   no 
-## 2205 2206 2208 2219 2225 2226 2228 2230 2239 2241 2242 2247 2249 2252 2254 2255 
-##   no   no   no  yes   no   no   no   no  yes   no   no   no   no   no   no   no 
-## 2256 2258 2262 2266 2269 2275 2276 2277 2279 2283 2288 2289 2291 2292 2293 2294 
-##   no   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no 
-## 2297 2298 2302 2303 2308 2311 2312 2315 2317 2318 2321 2330 2336 2339 2342 2346 
-##   no   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no 
-## 2350 2353 2354 2357 2361 2374 2380 2382 2388 2392 2398 2400 2402 2409 2410 2417 
-##   no   no   no  yes   no   no   no   no   no   no  yes   no  yes   no   no   no 
-## 2418 2425 2427 2428 2431 2443 2444 2447 2451 2452 2454 2457 2458 2461 2470 2471 
-##   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no 
-## 2473 2478 2479 2481 2482 2483 2484 2486 2489 2490 2493 2498 2500 2503 2505 2506 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 2511 2512 2517 2519 2520 2524 2525 2532 2534 2535 2536 2537 2547 2552 2559 2560 
-##   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no 
-## 2567 2568 2569 2577 2581 2584 2590 2593 2594 2596 2598 2600 2604 2608 2611 2613 
-##   no   no   no   no   no   no   no   no   no  yes   no  yes   no   no   no   no 
-## 2619 2620 2627 2635 2637 2638 2640 2644 2650 2651 2652 2653 2657 2660 2664 2665 
-##   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no  yes 
-## 2669 2670 2671 2673 2676 2678 2681 2682 2683 2697 2699 2700 2701 2703 2704 2707 
-##   no   no   no   no   no  yes   no   no   no  yes   no   no  yes   no   no   no 
-## 2711 2712 2713 2720 2724 2727 2733 2734 2739 2740 2751 2761 2762 2767 2770 2772 
-##  yes   no   no   no   no   no  yes   no   no   no   no  yes   no   no   no   no 
-## 2775 2781 2782 2786 2788 2792 2793 2795 2807 2809 2810 2819 2821 2823 2826 2827 
-##  yes   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no 
-## 2830 2834 2842 2843 2850 2854 2855 2859 2861 2874 2876 2877 2879 2884 2889 2890 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no  yes 
-## 2892 2893 2894 2898 2899 2900 2901 2903 2911 2915 2922 2926 2929 2931 2933 2934 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 2936 2939 2940 2941 2953 2956 2958 2959 2969 2974 2978 2980 2981 2983 2985 2988 
-##   no   no   no   no   no   no   no  yes   no   no   no  yes   no   no   no  yes 
-## 2993 2995 2996 2999 3005 3006 3007 3016 3017 3024 3031 3032 3033 3034 3036 3037 
-##   no  yes   no   no   no   no   no   no   no  yes   no   no   no   no  yes   no 
-## 3038 3039 3042 3045 3046 3049 3055 3056 3059 3066 3067 3072 3077 3080 3082 3083 
-##   no   no   no   no  yes   no   no   no   no   no   no   no   no  yes   no   no 
-## 3086 3091 3092 3094 3097 3099 3101 3103 3106 3108 3111 3118 3126 3130 3131 3138 
-##   no   no   no  yes   no   no   no   no   no   no   no   no  yes   no   no   no 
-## 3139 3142 3143 3148 3149 3150 3157 3159 3164 3173 3174 3177 3178 3179 3182 3184 
-##   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no   no 
-## 3188 3189 3193 3200 3205 3206 3210 3214 3215 3225 3226 3227 3228 3229 3230 3232 
-##   no   no   no   no   no  yes  yes   no   no  yes   no   no   no   no   no   no 
-## 3233 3240 3244 3249 3251 3263 3274 3275 3277 3279 3282 3284 3285 3287 3290 3296 
+##  238  242  244  249  252  254  255  257  258  259  260  261  267  268  270  276 
+##   no  yes   no   no   no   no   no   no   no  yes   no   no   no   no   no   no 
+##  279  280  290  292  297  298  301  309  310  315  316  317  324  325  327  328 
 ##   no   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 3298 3299 3307 3308 3309 3310 3312 3319 3320 3324 3328 3330 3338 3339 3340 3341 
+##  335  340  341  342  343  345  346  348  351  352  353  355  359  362  366  371 
+##   no   no   no   no   no   no   no   no   no   no   no  yes   no   no  yes   no 
+##  373  375  377  379  381  384  386  393  396  397  399  403  410  411  416  421 
+##  yes   no   no  yes   no   no   no   no   no   no   no   no   no   no  yes   no 
+##  437  440  450  451  457  458  459  461  465  467  468  475  477  478  482  485 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+##  488  489  492  494  495  496  497  498  500  502  506  509  516  522  523  525 
+##   no   no  yes   no   no   no   no   no   no   no   no   no   no  yes   no   no 
+##  528  530  532  533  534  536  537  539  545  547  549  554  555  557  560  563 
 ##   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no 
-## 3349 3352 3353 3354 3355 3364 3368 3371 3377 3381 3385 3403 3404 3405 3406 3413 
-##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
-## 3415 3418 3419 3423 3431 3434 3435 3440 3446 3449 3450 3455 3456 3458 3461 3463 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no  yes   no   no 
-## 3466 3476 3484 3506 3508 3514 3522 3530 3541 3546 3549 3550 3551 3565 3567 3568 
-##   no   no   no   no   no   no   no   no  yes   no  yes  yes   no   no   no   no 
-## 3569 3570 3573 3574 3582 3583 3585 3586 3588 3590 3598 3602 3617 3618 3620 3621 
-##   no   no   no   no   no   no   no  yes  yes   no   no   no  yes  yes   no   no 
-## 3628 3635 3636 3640 3641 3644 3645 3652 3653 3654 3662 3663 3664 3671 3672 3673 
+##  570  571  573  575  581  588  593  595  600  603  606  610  616  618  624  628 
+##  yes   no   no  yes   no   no   no   no   no   no  yes   no   no   no   no   no 
+##  631  632  636  640  641  653  655  657  658  660  661  662  663  664  670  672 
+##   no   no  yes   no   no   no   no   no   no   no  yes   no   no   no   no   no 
+##  674  676  687  688  690  692  695  696  697  698  707  718  721  723  724  727 
 ##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 3675 3682 3684 3686 3689 3691 3692 3695 3697 3698 3702 3705 3709 3714 3715 3718 
-##   no  yes   no   no  yes   no   no   no   no   no   no   no   no   no   no  yes 
-## 3719 3720 3721 3724 3741 3743 3744 3749 3750 3752 3757 3759 3765 3768 3770 3774 
+##  735  736  740  744  745  752  753  758  763  764  767  773  777  779  780  781 
+##   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no  yes 
+##  787  788  790  797  805  807  810  811  819  825  828  829  836  842  843  848 
+##   no  yes   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+##  850  851  860  864  866  868  870  872  877  878  884  888  892  895  900  902 
+##   no   no  yes   no   no   no   no  yes   no  yes   no   no   no  yes   no  yes 
+##  904  907  908  912  914  915  918  922  936  941  942  945  946  956  959  963 
+##   no   no   no  yes   no  yes   no   no   no   no   no  yes   no   no   no   no 
+##  970  973  982  984  985  991  995  998 1002 1003 1004 1014 1019 1022 1029 1032 
 ##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 3777 3781 3782 3783 3784 3787 3789 3793 3795 3796 3798 3805 3810 3812 3814 3817 
+## 1034 1036 1037 1041 1046 1047 1048 1050 1052 1055 1061 1064 1066 1069 1070 1071 
 ##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 3818 3820 3822 3825 3827 3837 3838 3842 3846 3847 3848 3849 3853 3854 3860 3863 
-##   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no 
-## 3868 3869 3871 3874 3875 3877 3880 3886 3890 3900 3902 3904 3909 3911 3913 3914 
-##   no   no   no  yes   no   no   no   no   no   no  yes   no   no   no   no   no 
-## 3916 3921 3925 3927 3931 3933 3940 3941 3942 3944 3955 3956 3958 3959 3963 3967 
+## 1075 1077 1078 1085 1088 1096 1097 1103 1105 1119 1124 1126 1127 1132 1133 1134 
+##   no   no  yes   no   no  yes   no  yes   no   no   no   no   no   no   no  yes 
+## 1135 1137 1140 1144 1146 1147 1154 1156 1159 1162 1163 1167 1168 1171 1173 1179 
+##   no  yes   no   no   no   no   no  yes   no   no   no   no   no   no   no   no 
+## 1184 1188 1191 1197 1204 1205 1209 1210 1213 1215 1217 1218 1235 1237 1241 1246 
+##   no   no   no   no   no  yes   no   no   no   no   no   no   no   no  yes   no 
+## 1249 1254 1255 1256 1258 1259 1260 1266 1269 1273 1274 1285 1288 1300 1301 1305 
+##   no   no   no   no   no   no   no   no   no   no  yes  yes   no  yes   no   no 
+## 1308 1312 1317 1323 1325 1331 1340 1345 1346 1347 1348 1352 1356 1358 1360 1373 
+##   no   no   no  yes   no   no  yes  yes  yes  yes   no   no   no   no   no   no 
+## 1374 1379 1383 1385 1386 1392 1393 1397 1401 1408 1412 1414 1415 1418 1421 1422 
+##  yes   no   no   no   no   no  yes   no   no  yes   no   no   no   no  yes   no 
+## 1425 1426 1427 1431 1434 1437 1444 1448 1457 1458 1459 1464 1465 1467 1478 1479 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 1480 1482 1490 1496 1497 1501 1505 1509 1512 1514 1520 1524 1525 1526 1529 1531 
 ##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no  yes 
-## 3971 3976 3979 3981 3985 3989 3993 3995 3998 3999 4002 4003 4005 4011 4015 4016 
-##   no   no  yes   no   no   no   no   no   no   no   no  yes   no   no   no   no 
-## 4017 4021 4028 4031 4034 4040 4047 4050 4051 4054 4057 4062 4064 4068 4071 4072 
-##   no   no   no  yes   no   no   no   no   no  yes   no   no   no   no   no   no 
-## 4073 4077 4082 4083 4092 4093 4098 4102 4103 4107 4108 4112 4113 4114 4116 4119 
+## 1533 1534 1536 1537 1538 1539 1540 1546 1548 1549 1551 1556 1558 1560 1562 1568 
+##   no  yes   no   no  yes  yes   no   no   no   no   no   no   no   no   no   no 
+## 1577 1582 1583 1584 1585 1587 1588 1589 1592 1593 1599 1603 1607 1618 1621 1625 
 ##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 4120 4125 4126 4127 4131 4139 4146 4147 4154 4158 4160 4161 4162 4166 4169 4173 
-##   no   no   no   no  yes   no   no   no  yes   no   no   no   no  yes   no   no 
-## 4175 4177 4181 4183 4184 4186 4187 4188 4192 4193 4194 4195 4201 4204 4216 4217 
-##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 4219 4220 4227 4234 4235 4237 4242 4243 4248 4251 4254 4257 4263 4270 4271 4279 
+## 1629 1632 1633 1640 1641 1646 1648 1652 1654 1655 1657 1664 1665 1667 1668 1670 
+##   no   no   no   no   no   no   no  yes  yes   no   no   no   no   no   no   no 
+## 1671 1681 1688 1689 1691 1695 1701 1704 1706 1707 1714 1715 1727 1731 1733 1738 
 ##   no   no   no   no   no  yes   no   no   no   no  yes   no   no   no   no   no 
-## 4286 4288 4300 4301 4302 4305 4306 4309 4320 4323 4325 4327 4331 4339 4344 4347 
-##  yes   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no 
-## 4362 4363 4364 4365 4367 4375 4383 4385 4389 4390 4391 4392 4396 4399 4407 4409 
-##   no   no   no   no  yes   no   no   no   no   no   no   no   no   no  yes   no 
-## 4411 4421 4427 4428 4432 4440 4442 4445 4450 4451 4458 4460 4461 4462 4467 4469 
+## 1739 1741 1745 1746 1747 1748 1749 1754 1755 1757 1758 1759 1760 1767 1771 1773 
+##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
+## 1774 1776 1784 1787 1790 1793 1795 1797 1799 1804 1816 1817 1824 1827 1829 1832 
+##   no   no   no   no   no   no  yes   no   no   no   no   no   no   no   no   no 
+## 1833 1834 1836 1839 1840 1843 1844 1845 1846 1851 1853 1855 1857 1865 1866 1867 
+##   no   no   no   no   no  yes   no   no  yes   no   no   no   no   no  yes   no 
+## 1870 1872 1879 1888 1889 1890 1891 1892 1894 1898 1902 1904 1916 1917 1918 1919 
+##  yes   no  yes  yes   no   no   no   no  yes   no   no  yes   no   no   no   no 
+## 1922 1923 1928 1929 1930 1934 1938 1939 1941 1943 1944 1953 1954 1955 1957 1961 
+##   no   no   no   no   no  yes   no   no   no   no   no   no   no  yes   no   no 
+## 1964 1969 1974 1975 1977 1980 1981 1983 1988 1991 1993 1996 2005 2006 2009 2010 
+##   no   no   no  yes   no   no   no   no   no   no   no   no   no   no   no   no 
+## 2014 2017 2018 2019 2031 2032 2038 2039 2043 2050 2051 2054 2060 2064 2066 2070 
+##   no   no   no   no   no  yes   no  yes   no   no   no   no  yes   no   no  yes 
+## 2071 2076 2082 2083 2087 2089 2090 2094 2103 2104 2105 2106 2107 2108 2113 2115 
+##   no   no   no   no   no   no   no   no   no  yes   no   no  yes  yes  yes   no 
+## 2120 2123 2127 2132 2136 2142 2144 2146 2148 2154 2155 2157 2162 2164 2165 2169 
+##  yes   no   no   no   no   no   no   no  yes   no   no   no   no  yes  yes   no 
+## 2172 2174 2179 2180 2183 2185 2191 2193 2195 2196 2198 2215 2216 2217 2219 2220 
+##   no  yes   no   no   no   no   no   no   no   no   no   no  yes   no  yes   no 
+## 2222 2223 2226 2239 2246 2248 2250 2254 2255 2260 2263 2271 2275 2281 2282 2287 
+##   no   no   no  yes   no   no   no   no   no   no   no   no   no   no   no   no 
+## 2300 2301 2306 2310 2312 2314 2318 2325 2326 2327 2331 2335 2340 2344 2345 2346 
+##   no   no   no   no   no   no   no  yes  yes   no   no   no   no  yes   no   no 
+## 2350 2358 2361 2363 2367 2369 2372 2376 2378 2379 2380 2383 2386 2388 2391 2398 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no  yes 
+## 2403 2407 2408 2421 2422 2424 2426 2427 2430 2431 2435 2436 2438 2442 2445 2446 
+##  yes   no  yes  yes   no   no   no   no   no   no   no   no   no   no   no   no 
+## 2449 2451 2455 2462 2463 2467 2468 2470 2472 2477 2482 2484 2487 2488 2490 2493 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no  yes   no 
+## 2510 2513 2518 2519 2526 2527 2529 2531 2532 2537 2541 2542 2549 2554 2561 2567 
+##   no   no   no   no   no  yes   no   no   no  yes   no   no   no   no   no   no 
+## 2572 2573 2577 2578 2579 2580 2589 2591 2592 2597 2598 2604 2616 2625 2628 2632 
+##   no  yes   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
+## 2634 2635 2636 2638 2641 2644 2645 2653 2654 2662 2667 2668 2669 2670 2672 2673 
+##   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no  yes 
+## 2680 2684 2685 2688 2696 2705 2714 2715 2717 2724 2727 2728 2732 2733 2737 2741 
+##   no   no   no  yes   no   no   no   no   no   no   no   no   no  yes   no   no 
+## 2745 2748 2752 2753 2754 2755 2766 2767 2768 2769 2771 2773 2774 2783 2790 2801 
+##   no  yes   no   no   no   no   no   no   no   no   no  yes   no   no   no  yes 
+## 2803 2813 2817 2818 2823 2831 2835 2837 2844 2853 2854 2857 2865 2867 2868 2876 
 ##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 4474 4476 4477 4481 4485 4491 4494 4496 4497 4508 4509 4515 4517 4521 4524 4526 
-##   no   no  yes   no   no   no   no   no   no  yes   no   no   no   no   no   no 
-## 4529 4530 4531 4532 4535 4548 4551 4562 4565 4568 4570 4572 4579 4582 4586 4588 
+## 2878 2880 2883 2886 2892 2894 2897 2902 2919 2922 2924 2927 2929 2932 2933 2940 
+##   no   no  yes   no   no   no   no  yes   no   no   no  yes   no   no   no   no 
+## 2945 2950 2952 2953 2954 2956 2957 2969 2970 2976 2978 2979 2982 2991 2999 3003 
+##   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no  yes 
+## 3008 3010 3011 3012 3015 3022 3024 3027 3031 3033 3042 3046 3050 3051 3056 3058 
+##   no   no   no   no   no   no  yes   no   no   no   no  yes   no  yes   no   no 
+## 3060 3061 3062 3063 3066 3069 3070 3075 3076 3077 3080 3082 3085 3086 3088 3097 
+##   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no 
+## 3098 3101 3105 3106 3108 3109 3112 3122 3124 3129 3137 3139 3140 3142 3144 3145 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no  yes 
+## 3148 3154 3155 3157 3160 3161 3166 3168 3169 3171 3172 3174 3176 3178 3181 3182 
+##   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no 
+## 3191 3198 3199 3205 3208 3214 3216 3217 3219 3222 3223 3224 3236 3242 3245 3247 
+##  yes   no   no   no   no   no   no   no   no   no   no   no   no  yes   no  yes 
+## 3248 3253 3254 3255 3261 3269 3270 3284 3288 3291 3292 3295 3300 3301 3304 3305 
+##  yes   no   no   no   no  yes   no   no   no   no  yes   no   no   no   no  yes 
+## 3306 3310 3311 3312 3314 3317 3321 3322 3323 3325 3330 3335 3338 3340 3341 3343 
+##   no   no   no   no   no   no  yes   no  yes   no   no   no   no   no   no   no 
+## 3344 3347 3352 3354 3356 3360 3361 3362 3363 3364 3365 3366 3370 3371 3374 3375 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no  yes   no 
+## 3377 3380 3388 3392 3394 3395 3405 3406 3409 3411 3415 3418 3419 3420 3423 3424 
 ##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
-## 4593 4598 4599 4600 4609 4610 4616 4617 4618 4620 4621 4623 4626 4627 4636 4640 
-##  yes  yes   no  yes   no   no   no   no   no   no   no   no   no   no   no   no 
-## 4643 4644 4650 4653 4654 4655 4657 4660 4664 4670 4677 4678 4683 4690 4692 4702 
-##   no  yes   no   no   no   no   no   no   no   no  yes   no   no   no   no   no 
-## 4703 4708 4717 4718 4719 4722 4723 4725 4726 4731 4732 4736 4737 4738 4740 4742 
-##   no   no   no   no   no  yes   no   no   no   no   no  yes   no  yes   no   no 
-## 4743 4744 4748 4749 4754 4757 4763 4766 4770 4777 4780 4782 4788 4791 4796 4798 
+## 3431 3432 3437 3439 3447 3448 3453 3455 3457 3461 3465 3473 3474 3476 3478 3482 
+##   no   no   no   no   no   no  yes   no   no   no   no   no   no   no   no   no 
+## 3486 3491 3493 3494 3500 3502 3503 3508 3514 3516 3517 3519 3529 3534 3537 3545 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 3548 3554 3559 3572 3573 3583 3600 3603 3604 3605 3608 3609 3612 3615 3619 3621 
+##   no   no   no   no   no   no   no   no   no  yes   no  yes   no   no   no   no 
+## 3622 3623 3624 3629 3634 3635 3640 3645 3648 3653 3655 3656 3659 3661 3662 3663 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 3664 3668 3671 3672 3680 3681 3685 3687 3695 3699 3703 3706 3712 3713 3715 3716 
+##   no   no   no   no   no   no   no  yes   no   no   no   no   no   no   no   no 
+## 3721 3722 3725 3727 3729 3733 3734 3735 3736 3741 3747 3754 3756 3760 3761 3763 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 3764 3765 3768 3769 3770 3771 3774 3777 3778 3781 3784 3786 3789 3790 3794 3796 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 3798 3800 3801 3803 3805 3814 3815 3817 3836 3839 3845 3852 3855 3856 3861 3862 
+##   no   no   no   no   no   no   no   no   no   no   no  yes  yes   no   no   no 
+## 3865 3872 3875 3876 3877 3879 3881 3883 3885 3886 3888 3890 3892 3893 3894 3896 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 3899 3905 3911 3913 3916 3917 3919 3927 3932 3933 3937 3938 3942 3951 3953 3956 
+##   no   no   no   no   no  yes   no   no  yes   no   no   no   no   no   no  yes 
+## 3959 3960 3966 3970 3973 3975 3980 3984 3985 3989 3990 3991 3992 3997 3999 4001 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 4002 4012 4013 4021 4024 4027 4030 4034 4035 4037 4039 4041 4042 4053 4056 4063 
+##   no   no   no   no  yes   no   no   no   no   no   no   no  yes   no   no  yes 
+## 4064 4067 4070 4072 4075 4077 4082 4083 4084 4089 4090 4092 4103 4108 4112 4115 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 4116 4119 4125 4133 4135 4142 4144 4145 4146 4147 4150 4151 4153 4154 4155 4163 
+##   no   no   no   no   no  yes   no   no   no   no   no   no   no  yes   no  yes 
+## 4166 4178 4183 4185 4186 4189 4190 4192 4201 4202 4210 4213 4216 4217 4219 4222 
+##  yes   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 4223 4234 4241 4242 4247 4252 4253 4256 4257 4260 4261 4266 4270 4272 4274 4279 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no   no 
+## 4283 4284 4287 4289 4290 4292 4294 4297 4300 4301 4302 4307 4311 4318 4321 4328 
+##   no  yes   no   no   no   no   no  yes   no   no   no   no   no   no   no   no 
+## 4329 4335 4337 4339 4340 4346 4351 4354 4364 4368 4370 4373 4374 4377 4382 4386 
+##  yes   no   no   no   no  yes   no   no   no   no   no   no   no   no   no   no 
+## 4389 4391 4392 4395 4398 4399 4401 4404 4405 4407 4416 4425 4428 4433 4436 4438 
+##   no   no   no   no   no   no   no   no  yes  yes   no   no   no   no   no  yes 
+## 4439 4441 4445 4447 4454 4455 4456 4457 4458 4460 4462 4466 4467 4479 4485 4489 
+##   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no  yes 
+## 4494 4498 4500 4502 4511 4522 4523 4524 4527 4530 4537 4538 4542 4545 4551 4561 
+##   no   no   no   no   no   no   no   no   no   no   no  yes   no   no   no   no 
+## 4562 4566 4567 4571 4576 4581 4583 4584 4597 4598 4601 4603 4607 4608 4616 4619 
 ##   no   no   no   no   no   no   no   no   no  yes   no   no   no   no   no   no 
-## 4799 4803 4805 4807 4808 4811 4817 4818 4825 4830 4838 4852 4854 4856 4860 4862 
-##  yes   no   no   no   no   no   no   no   no   no  yes   no   no   no   no  yes 
-## 4863 4866 4869 4870 4877 4878 4879 4882 4887 4888 4890 4893 4895 4896 4897 4900 
-##  yes   no   no   no   no   no   no   no   no   no   no   no   no  yes   no   no 
-## 4902 4905 4906 4911 4913 4915 4919 4920 4924 4925 4927 4932 4937 4939 4943 4959 
-##   no   no   no   no   no  yes  yes  yes   no  yes   no   no   no   no   no   no 
-## 4961 4962 4963 4965 4970 4972 4975 4976 4977 4980 4981 4995 
-##   no   no   no   no   no   no   no   no   no   no   no   no 
+## 4620 4621 4623 4625 4626 4629 4630 4632 4636 4638 4641 4647 4654 4655 4656 4657 
+##   no   no   no   no   no  yes   no   no   no   no  yes   no   no   no   no   no 
+## 4660 4666 4673 4681 4683 4689 4690 4691 4692 4696 4699 4700 4703 4708 4711 4714 
+##   no   no   no   no   no   no   no   no   no   no   no   no   no   no  yes   no 
+## 4721 4722 4726 4730 4731 4736 4739 4740 4741 4742 4743 4745 4747 4752 4755 4757 
+##   no  yes   no   no   no  yes   no   no  yes   no   no   no   no   no   no   no 
+## 4758 4763 4767 4770 4772 4774 4776 4778 4779 4787 4790 4795 4803 4804 4805 4809 
+##   no   no   no   no   no  yes   no   no  yes   no   no   no   no  yes   no   no 
+## 4813 4815 4817 4820 4821 4826 4829 4833 4836 4837 4839 4840 4845 4849 4860 4861 
+##   no   no   no   no   no  yes   no  yes   no   no   no   no   no   no   no   no 
+## 4862 4863 4865 4867 4872 4876 4878 4879 4881 4882 4884 4893 4897 4898 4899 4901 
+##  yes  yes   no   no   no   no   no   no   no   no   no   no   no   no  yes   no 
+## 4902 4904 4911 4918 4919 4920 4921 4924 4932 4933 4941 4945 4949 4963 4970 4971 
+##   no   no   no  yes  yes   no   no   no   no   no   no   no  yes   no   no   no 
+## 4973 4976 4979 4981 4982 4985 4986 4987 4988 4992 4998 5000 
+##   no   no   no   no   no   no   no   no   no  yes   no   no 
 ## Levels: no yes
 ```
 
@@ -761,8 +757,8 @@ table(testData$churn ,ran_pred) # confusion matrix
 ```
 ##      ran_pred
 ##         no  yes
-##   no  1281    7
-##   yes   60  152
+##   no  1278   10
+##   yes   46  166
 ```
 
 ```r
@@ -780,40 +776,40 @@ importance(random_model)
 ```
 
 ```
-##                                       no         yes MeanDecreaseAccuracy
-## international_plan            71.0245852  88.5909606           92.1024166
-## voice_mail_plan               19.4252161  23.3559214           24.0520611
-## number_vmail_messages         17.1853910  21.6990129           21.5570005
-## total_day_minutes             30.6348120  35.7502311           40.2920546
-## total_day_calls               -1.1882307   0.6417423           -0.7944357
-## total_day_charge              31.4130417  34.8614675           41.3702781
-## total_eve_minutes             21.3969480  24.4428743           25.5711900
-## total_eve_calls               -2.7481483  -3.5381785           -4.2150019
-## total_eve_charge              21.6778229  23.6392559           25.3989519
-## total_night_minutes           19.0751605   4.5281187           20.2127669
-## total_night_calls             -0.2315282  -0.9491223           -0.5885848
-## total_night_charge            18.9749955   6.7916153           20.1591438
-## total_intl_minutes            23.0964208  19.7009145           27.8699894
-## total_intl_calls              35.6108036  48.6332947           49.8661556
-## total_intl_charge             22.2922415  19.3197649           27.3786241
-## number_customer_service_calls 74.5565765 106.3763370          104.5643190
+##                                       no        yes MeanDecreaseAccuracy
+## international_plan            71.9390672 78.5118830           87.1812848
+## voice_mail_plan               21.1620471 24.0302199           24.8578864
+## number_vmail_messages         15.8878044 21.3298153           20.3469411
+## total_day_minutes             32.2875791 32.2407984           41.3799338
+## total_day_calls               -1.3973147 -4.0167222           -3.0408053
+## total_day_charge              32.4735513 32.7482818           41.2107028
+## total_eve_minutes             23.9684849 23.6084321           28.1522627
+## total_eve_calls                0.7679422 -0.4376756            0.5181431
+## total_eve_charge              24.0847982 25.0431195           28.7734843
+## total_night_minutes           19.3953772  7.5077996           20.8404415
+## total_night_calls             -1.0771860 -1.4274444           -1.5108879
+## total_night_charge            19.4483858  8.3151465           20.9849154
+## total_intl_minutes            24.1705008 16.2238061           27.3140135
+## total_intl_calls              35.3535304 43.3584148           46.4208667
+## total_intl_charge             24.5737400 18.7334341           28.0382434
+## number_customer_service_calls 70.4192652 99.7054629           99.4379502
 ##                               MeanDecreaseGini
-## international_plan                    73.44349
-## voice_mail_plan                       19.44855
-## number_vmail_messages                 22.76746
-## total_day_minutes                    120.10909
-## total_day_calls                       24.98078
-## total_day_charge                     121.97827
-## total_eve_minutes                     59.84238
-## total_eve_calls                       23.19389
-## total_eve_charge                      60.20540
-## total_night_minutes                   34.08249
-## total_night_calls                     23.99879
-## total_night_charge                    35.25618
-## total_intl_minutes                    39.48899
-## total_intl_calls                      48.92762
-## total_intl_charge                     39.60016
-## number_customer_service_calls        101.61579
+## international_plan                    63.46379
+## voice_mail_plan                       21.42020
+## number_vmail_messages                 26.00416
+## total_day_minutes                    124.52948
+## total_day_calls                       22.93931
+## total_day_charge                     126.56828
+## total_eve_minutes                     58.70415
+## total_eve_calls                       24.40578
+## total_eve_charge                      60.60495
+## total_night_minutes                   38.20237
+## total_night_calls                     25.42663
+## total_night_charge                    36.39348
+## total_intl_minutes                    36.79688
+## total_intl_calls                      47.19613
+## total_intl_charge                     37.84441
+## number_customer_service_calls         99.12227
 ```
 
 ```r
